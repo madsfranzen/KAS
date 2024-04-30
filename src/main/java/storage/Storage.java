@@ -3,5 +3,5 @@ package storage;
 import java.util.ArrayList;
 
 public class Storage {
-    private static ArrayList<String> names;
+    private static ArrayList<String> booboo;
 }
