@@ -9,6 +9,7 @@ public class Tilmelding {
     private boolean foredragsholder;
     private final ArrayList<Udflugt> udflugter = new ArrayList<Udflugt>();
     private Booking booking;
+    private Ledsager ledsager;
 
     public Tilmelding(LocalDate startDato, LocalDate slutDato, boolean foredragsholder) {
         this.startDato = startDato;
