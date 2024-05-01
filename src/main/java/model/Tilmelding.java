@@ -44,7 +44,10 @@ public class Tilmelding {
     }
 
     public double beregnPris() {
-        double pris = konference.getPris() * getDage();
+        double pris = 0 ;
+        if (!foredragsholder){
+            pris = konference.getPris() * getDage();
+        }
         if (booking != null) {
             pris += booking.beregnPris();
         }

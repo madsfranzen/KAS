@@ -40,8 +40,20 @@ public class KASTest {
         booking.tilføjTilvalg(wifi);
         System.out.println(peterTilmelding);
 
+
+        Deltager lone = Controller.opretDeltager("Lonlon", "kode", "Lone Jensen", "Vej5", "Ulstrup", "London", "139580229");
+        Tilmelding loneTilmelding = Controller.opretTilmelding(LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), true, lone, havOgHimmel);
+        Ledsager jan = Controller.opretLedsager("Jan Madsen", loneTilmelding);
+        loneTilmelding.tilføjUdflugt(egeskov);
+        loneTilmelding.tilføjUdflugt(byrundtur);
+        Booking loneBooking = Controller.opretBooking(LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20),loneTilmelding,denHvideSvane);
+        loneBooking.tilføjTilvalg(wifi);
+        System.out.println(loneTilmelding);
+
+
         havOgHimmel.hent_DL_PåUdflugt();
+        System.out.println(havOgHimmel.visDeltagere());
+        Controller.visHotellerDL();
+        }
 
     }
-
-}
