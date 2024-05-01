@@ -35,6 +35,9 @@ public class Tilmelding {
         this.booking = booking;
     }
 
+    public Deltager getDeltager () {
+        return this.deltager;
+      
     public Deltager getDeltager() {
         return deltager;
     }
