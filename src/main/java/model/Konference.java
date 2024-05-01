@@ -20,4 +20,15 @@ public class Konference {
         this.startDato = startDato;
         this.slutDato = slutDato;
     }
+
+
+    public ArrayList<Deltager> visDeltagere() {
+        ArrayList<Deltager> alleDeltagere = new ArrayList<>();
+
+        for (Tilmelding tilmelding : tilmeldinger) {
+            alleDeltagere.add(tilmelding.getDeltager);
+        }
+
+        return alleDeltagere;
+    }
 }
