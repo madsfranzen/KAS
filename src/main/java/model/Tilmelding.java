@@ -17,11 +17,10 @@ public class Tilmelding {
     /**
      * OBS: ledsager og valgteUdflugter er nullable
      */
-    public Tilmelding(LocalDate startDato, LocalDate slutDato, boolean foredragsholder, Ledsager ledsager, Deltager deltager, Konference konference) {
+    public Tilmelding(LocalDate startDato, LocalDate slutDato, boolean foredragsholder, Deltager deltager, Konference konference) {
         this.startDato = startDato;
         this.slutDato = slutDato;
         this.foredragsholder = foredragsholder;
-        this.ledsager = ledsager;
         this.deltager = deltager;
         this.konference = konference;
     }
@@ -52,6 +51,9 @@ public class Tilmelding {
             pris += booking.beregnPris();
         }
 
+        for (Udflugt udflugt : udflugter){
+            pris += udflugt.getPris();
+        }
         return pris;
     }
 
@@ -64,5 +66,9 @@ public class Tilmelding {
 
     private int getDage() {
         return Period.between(startDato, slutDato).getDays() + 1;
+    }
+
+    public void setLedsager(Ledsager ledsager) {
+        this.ledsager = ledsager;
     }
 }

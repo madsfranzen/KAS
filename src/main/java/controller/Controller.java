@@ -17,25 +17,21 @@ public abstract class Controller {
     /**
      * OBS: booking og ledsager er nullable
      */
-    public static Tilmelding opretTilmelding(LocalDate startDato, LocalDate slutDato, boolean foredragsholder, Ledsager ledsager, Deltager deltager, Konference konference, ArrayList<Udflugt> valgteUdflugter) {
-        Tilmelding tilmelding = new Tilmelding(startDato, slutDato, foredragsholder, ledsager, deltager, konference);
-        // HENT UDFLUGTER NÅR UI er klar
-        if (ledsager != null) {
-            for (Udflugt udflugt : valgteUdflugter) {
-                tilmelding.tilføjUdflugt(udflugt);
-            }
-        }
+    public static Tilmelding opretTilmelding(LocalDate startDato, LocalDate slutDato, boolean foredragsholder, Deltager deltager, Konference konference) {
+        Tilmelding tilmelding = new Tilmelding(startDato, slutDato, foredragsholder, deltager, konference);
         konference.tilføjTilmelding(tilmelding);
         deltager.tilføjTilmelding(tilmelding);
         return tilmelding;
-
-
     }
 
     public static Udflugt opretUdflugt(String navn, double pris, LocalDate dato, boolean inklusivFrokost, Konference konference) {
         Udflugt udflugt = new Udflugt(navn, pris, dato, inklusivFrokost);
         konference.tilføjUdflugt(udflugt);
         return udflugt;
+    }
+
+    public static void tilføjUdflugtTilTilmelding(Udflugt udflugt, Tilmelding tilmelding){
+        tilmelding.tilføjUdflugt(udflugt);
     }
 
     public static Hotel opretHotel(String navn, double prisEnkelt, double prisDobbelt) {
@@ -61,5 +57,11 @@ public abstract class Controller {
         tilmelding.setBooking(booking);
         hotel.tilføjBooking(booking);
         return booking;
+    }
+
+    public static Ledsager opretLedsager(String navn, Tilmelding tilmelding){
+        Ledsager ledsager = new Ledsager(navn);
+        tilmelding.setLedsager(ledsager);
+        return ledsager;
     }
 }
