@@ -31,4 +31,15 @@ public class Konference {
     public void tilføjTilmelding(Tilmelding tilmelding){
         this.tilmeldinger.add(tilmelding);
     }
+
+
+    public ArrayList<Deltager> visDeltagere() {
+        ArrayList<Deltager> alleDeltagere = new ArrayList<>();
+
+        for (Tilmelding tilmelding : tilmeldinger) {
+            alleDeltagere.add(tilmelding.getDeltager);
+        }
+
+        return alleDeltagere;
+    }
 }
