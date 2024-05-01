@@ -14,6 +14,9 @@ public abstract class Controller {
         return deltager;
     }
 
+    /**
+     * OBS: booking og ledsager er nullable
+     */
     public static Tilmelding opretTilmelding(LocalDate startDato, LocalDate slutDato, boolean foredragsholder, Booking booking, Ledsager ledsager, Deltager deltager, Konference konference, ArrayList<Udflugt> valgteUdflugter) {
         Tilmelding tilmelding = new Tilmelding(startDato, slutDato, foredragsholder, booking, ledsager, deltager, konference);
         // HENT UDFLUGTER NÅR UI er klar
@@ -25,7 +28,7 @@ public abstract class Controller {
         konference.tilføjTilmelding(tilmelding);
         deltager.tilføjTilmelding(tilmelding);
         return tilmelding;
-        
+
 
     }
 }

@@ -13,6 +13,9 @@ public class Tilmelding {
     private Deltager deltager;
     private Konference konference;
 
+    /**
+     * OBS: booking og ledsager er nullable
+     */
     public Tilmelding(LocalDate startDato, LocalDate slutDato, boolean foredragsholder, Booking booking, Ledsager ledsager, Deltager deltager, Konference konference) {
         this.startDato = startDato;
         this.slutDato = slutDato;
