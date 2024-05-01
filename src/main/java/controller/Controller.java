@@ -30,10 +30,11 @@ public abstract class Controller {
         return tilmelding;
 
 
+    }
+
     public static Udflugt opretUdflugt(String navn, double pris, LocalDate dato, boolean inklusivFrokost, Konference konference){
         Udflugt udflugt = new Udflugt(navn, pris, dato, inklusivFrokost);
         konference.tilføjUdflugt(udflugt);
-        Storage.storeUdflugt(udflugt);
         return udflugt;
     }
 
