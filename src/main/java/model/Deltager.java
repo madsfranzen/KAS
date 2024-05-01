@@ -8,7 +8,7 @@ public class Deltager extends Bruger {
     private String by;
     private String land;
     private String tlf;
-    private Firma firma;
+    private String firma;
     private final ArrayList<Tilmelding> tilmeldinger = new ArrayList<Tilmelding>();
 
     public Deltager(String brugernavn, String kodeord, String navn, String adresse, String by, String land, String tlf) {
@@ -18,5 +18,9 @@ public class Deltager extends Bruger {
         this.by = by;
         this.land = land;
         this.tlf = tlf;
+    }
+
+    public void tilføjTilmelding(Tilmelding tilmelding) {
+        this.tilmeldinger.add(tilmelding);
     }
 }
