@@ -32,17 +32,6 @@ public class Konference {
         this.tilmeldinger.add(tilmelding);
     }
 
-    public ArrayList<Deltager> visDeltagere() {
-        ArrayList<Deltager> alleDeltagere = new ArrayList<>();
-
-        for (Tilmelding tilmelding : tilmeldinger) {
-            alleDeltagere.add(tilmelding.getDeltager());
-        }
-        sorterDeltagere(alleDeltagere);
-        return alleDeltagere;
-    }
-
-
     //VishotellerDL = Vis hoteller deltager og ledsager - Metoden retunere alle Hotellerne fra en konference samt deltager og ledsager til deltageren.
     public void visHotellerDL() {
         for (Hotel hotel : hoteller) {
@@ -52,6 +41,16 @@ public class Konference {
                 booking.getTilmelding().getLedsager().getNavn();
             }
         }
+    }
+
+    public ArrayList<Deltager> visDeltagere() {
+        ArrayList<Deltager> alleDeltagere = new ArrayList<>();
+
+        for (Tilmelding tilmelding : tilmeldinger) {
+            alleDeltagere.add(tilmelding.getDeltager());
+        }
+        sorterDeltagere(alleDeltagere);
+        return alleDeltagere;
     }
 
 
