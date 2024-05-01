@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 
 public class Booking {
@@ -24,14 +25,19 @@ public class Booking {
         double pris = 0;
         // Pris for enkelt/dobbeltværelse
         if (tilmelding.getLedsager() != null) {
-            pris += hotel.getPrisDobbelt();
+            pris = hotel.getPrisDobbelt();
         } else {
-            pris += hotel.getPrisEnkelt();
+            pris = hotel.getPrisEnkelt();
         }
         // Pris for valgte HotelTilvalg
         for (HotelTilvalg HotelTilvalg : tilvalg) {
-            pris += HotelTilvalg.getPris();
+            pris = HotelTilvalg.getPris();
         }
+        pris = pris * getDage();
         return pris;
+    }
+
+    private int getDage() {
+        return Period.between(startDato, slutDato).getDays() + 1;
     }
 }
