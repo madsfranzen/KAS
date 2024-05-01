@@ -19,4 +19,8 @@ public class Hotel {
     public void tilføjHotelTilvalg(HotelTilvalg hotelTilvalg){
        this.hotelTilvalg.add(hotelTilvalg);
     }
+
+    public void tilføjBooking(Booking booking){
+        this.bookinger.add(booking);
+    }
 }
