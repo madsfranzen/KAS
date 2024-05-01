@@ -28,8 +28,9 @@ public abstract class Controller {
         konference.tilføjTilmelding(tilmelding);
         deltager.tilføjTilmelding(tilmelding);
         return tilmelding;
-    }
 
+
+    }
 
     public static Udflugt opretUdflugt(String navn, double pris, LocalDate dato, boolean inklusivFrokost, Konference konference) {
         Udflugt udflugt = new Udflugt(navn, pris, dato, inklusivFrokost);
@@ -53,5 +54,12 @@ public abstract class Controller {
         Konference konference = new Konference(navn, beskrivelse, lokation, startDato, slutDato, pris);
         Storage.storeKonference(konference);
         return konference;
+    }
+
+    public static Booking opretBooking(LocalDate startDato, LocalDate slutDato, Tilmelding tilmelding, Hotel hotel) {
+        Booking booking = new Booking(startDato, slutDato, tilmelding, hotel);
+        tilmelding.setBooking(booking);
+        hotel.tilføjBooking(booking);
+        return booking;
     }
 }

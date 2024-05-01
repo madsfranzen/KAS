@@ -29,4 +29,8 @@ public class Tilmelding {
     public void tilføjUdflugt(Udflugt udflugt) {
         this.udflugter.add(udflugt);
     }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
+    }
 }
