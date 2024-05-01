@@ -17,7 +17,7 @@ public class Tilmelding {
         this.foredragsholder = foredragsholder;
     }
 
-    public tilføjUdflugt(Udflugt udflugt){
-        this.udflugter(udflugt);
+    public void tilføjUdflugt(Udflugt udflugt){
+        this.udflugter.add(udflugt);
     }
 }
