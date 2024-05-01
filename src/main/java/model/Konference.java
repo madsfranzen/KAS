@@ -42,6 +42,19 @@ public class Konference {
         return alleDeltagere;
     }
 
+
+    //VishotellerDL = Vis hoteller deltager og ledsager - Metoden retunere alle Hotellerne fra en konference samt deltager og ledsager til deltageren.
+    public void visHotellerDL() {
+        for (Hotel hotel : hoteller) {
+            hotel.getNavn();
+            for (Booking booking : hotel.getBookinger()) {
+                booking.getTilmelding().getDeltager().getNavn();
+                booking.getTilmelding().getLedsager().getNavn();
+            }
+        }
+    }
+
+
     public static void sorterDeltagere(ArrayList<Deltager> arr) {
         for (int i = arr.size() - 1; i > 0; i--) {
             for (int j = 0; j < i; j++) {
@@ -54,12 +67,14 @@ public class Konference {
         }
 
     }
+
+
     public double getPris() {
         return this.pris;
     }
 
     @Override
     public String toString() {
-        return String.format("%s",navn);
+        return String.format("%s", navn);
     }
 }

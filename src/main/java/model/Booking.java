@@ -39,8 +39,12 @@ public class Booking {
         return pris;
     }
 
-    public void tilføjTilvalg(HotelTilvalg tilvalg){
+    public void tilføjTilvalg(HotelTilvalg tilvalg) {
         this.tilvalg.add(tilvalg);
+    }
+
+    public Tilmelding getTilmelding() {
+        return tilmelding;
     }
 
     private int getDage() {
