@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Kas_version_svg_Pepsi.svg/1024px-Kas_version_svg_Pepsi.svg.png?20180425191741" alt="KAS Logo">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Kas_version_svg_Pepsi.svg/1024px-Kas_version_svg_Pepsi.svg.png?20180425191741" alt="KAS Logo" width="200">
 </div>
 
 # Velkommen til Konference-Administrations-System (KAS) 🎉
