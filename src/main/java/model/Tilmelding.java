@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 
 public class Tilmelding {
@@ -14,7 +15,7 @@ public class Tilmelding {
     private Konference konference;
 
     /**
-     * OBS: booking og ledsager er nullable
+     * OBS: booking, ledsager og valgteUdflugter er nullable
      */
     public Tilmelding(LocalDate startDato, LocalDate slutDato, boolean foredragsholder, Booking booking, Ledsager ledsager, Deltager deltager, Konference konference) {
         this.startDato = startDato;
@@ -36,5 +37,35 @@ public class Tilmelding {
 
     public Deltager getDeltager () {
         return this.deltager;
+      
+    public Deltager getDeltager() {
+        return deltager;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s : %s fra %s -> %s (%.2f kr)", konference, deltager, startDato, slutDato, beregnPris());
+    }
+
+    public double beregnPris() {
+        double pris;
+        if (booking == null) {
+            pris = konference.getPris();
+        } else {
+            pris = konference.getPris() + booking.beregnPris();
+        }
+
+        pris = pris * getDage();
+        return pris;
+    }
+
+    /**
+     * Nullable return value
+     */
+    public Ledsager getLedsager() {
+        return ledsager;
+    }
+    private int getDage() {
+        return Period.between(startDato, slutDato).getDays() + 1;
     }
 }
