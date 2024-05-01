@@ -31,4 +31,12 @@ public class Hotel {
     public double getPrisDobbelt() {
         return prisDobbelt;
     }
+
+    public ArrayList<Booking> getBookinger() {
+        return bookinger;
+    }
+
+    public String getNavn() {
+        return navn;
+    }
 }

@@ -38,6 +38,10 @@ public class Booking {
         return pris;
     }
 
+    public Tilmelding getTilmelding() {
+        return tilmelding;
+    }
+
     private int getDage() {
         return Period.between(startDato, slutDato).getDays();
     }

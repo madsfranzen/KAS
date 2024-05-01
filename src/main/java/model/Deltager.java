@@ -32,4 +32,8 @@ public class Deltager extends Bruger {
     public int CompareTo (Deltager other) {
         return this.navn.compareTo(other.navn);
     }
+
+    public String getNavn() {
+        return navn;
+    }
 }
