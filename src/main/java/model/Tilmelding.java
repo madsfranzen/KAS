@@ -40,6 +40,16 @@ public class Tilmelding {
 
     @Override
     public String toString() {
-        return String.format("%s : %s fra %s -> %s", konference,deltager,startDato,slutDato);
+        return String.format("%s : %s fra %s -> %s", konference, deltager, startDato, slutDato);
+    }
+
+    public double beregnPris() {
+        return konference.getPris() + booking.beregnPris();
+    }
+    /**
+     * Nullable return value
+     */
+    public Ledsager getLedsager() {
+        return ledsager;
     }
 }
