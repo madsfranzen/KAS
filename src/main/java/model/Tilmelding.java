@@ -10,14 +10,20 @@ public class Tilmelding {
     private final ArrayList<Udflugt> udflugter = new ArrayList<Udflugt>();
     private Booking booking;
     private Ledsager ledsager;
+    private Deltager deltager;
+    private Konference konference;
 
-    public Tilmelding(LocalDate startDato, LocalDate slutDato, boolean foredragsholder) {
+    public Tilmelding(LocalDate startDato, LocalDate slutDato, boolean foredragsholder, Booking booking, Ledsager ledsager, Deltager deltager, Konference konference) {
         this.startDato = startDato;
         this.slutDato = slutDato;
         this.foredragsholder = foredragsholder;
+        this.booking = booking;
+        this.ledsager = ledsager;
+        this.deltager = deltager;
+        this.konference = konference;
     }
 
-    public void tilføjUdflugt(Udflugt udflugt){
+    public void tilføjUdflugt(Udflugt udflugt) {
         this.udflugter.add(udflugt);
     }
 }
