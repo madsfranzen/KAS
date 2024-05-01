@@ -10,4 +10,11 @@ public class Ledsager {
     public String getNavn() {
         return navn;
     }
+
+    @Override
+    public String toString() {
+        return "Ledsager{" +
+                "navn='" + navn + '\'' +
+                '}';
+    }
 }

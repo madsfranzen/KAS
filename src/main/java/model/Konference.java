@@ -69,13 +69,14 @@ public class Konference {
 
     public void hent_DL_PåUdflugt() {
         for (Udflugt udflugt : udflugter) {
-            System.out.println(udflugt.toString());
+            System.out.print(udflugt.toString());
             for (Tilmelding tilmelding : tilmeldinger) {
                 if (tilmelding.getUdflugter().contains(udflugt)) {
                     System.out.print(tilmelding.getLedsager());
                     System.out.print("(" + tilmelding.getDeltager().toString() + ")");
                 }
             }
+            System.out.println();
         }
     }
 
