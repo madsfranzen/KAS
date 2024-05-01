@@ -36,14 +36,14 @@ public class Storage {
         konferencer.add(konference);
     }
 
-    public static void storeDeltagere(Deltager deltager) {
+    public static void storeDeltager(Deltager deltager) {
         deltagere.add(deltager);
     }
 
     public static void storeAdmins(Bruger bruger) {
         admins.add(bruger);
     }
-    public static void storeHoteller(Hotel hotel) {
+    public static void storeHotel(Hotel hotel) {
         hoteller.add(hotel);
     }
     public static void storeFirmaer(Firma firma) {
@@ -67,7 +67,7 @@ public class Storage {
         }
     }
 
-    public static void deleteHoteller (Hotel hotel) {
+    public static void deleteHotel(Hotel hotel) {
         if (hoteller.contains(hotel)) {
             hoteller.remove(hotel);
         }
