@@ -33,12 +33,10 @@ public class Tilmelding {
         this.booking = booking;
     }
 
-    public Deltager getDeltager () {
-        return this.deltager;
-      
     public Deltager getDeltager() {
-        return deltager;
+        return this.deltager;
     }
+
 
     @Override
     public String toString() {
@@ -70,5 +68,9 @@ public class Tilmelding {
 
     public void setLedsager(Ledsager ledsager) {
         this.ledsager = ledsager;
+    }
+
+    public ArrayList<Udflugt> getUdflugter() {
+        return udflugter;
     }
 }
