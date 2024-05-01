@@ -16,4 +16,8 @@ public class Udflugt {
         this.dato = dato;
         InklusivFrokost = inklusivFrokost;
     }
+
+    public double getPris() {
+        return pris;
+    }
 }
