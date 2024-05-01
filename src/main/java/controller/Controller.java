@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public abstract class Controller {
 
-    private static Deltager opretDeltager(String brugernavn, String kodeord, String navn, String adresse, String by, String land, String tlf) {
+    public static Deltager opretDeltager(String brugernavn, String kodeord, String navn, String adresse, String by, String land, String tlf) {
         Deltager deltager = new Deltager(brugernavn, kodeord, navn, adresse, by, land, tlf);
         Storage.storeDeltager(deltager);
         return deltager;

@@ -14,7 +14,7 @@ public class Tilmelding {
     private Konference konference;
 
     /**
-     * OBS: booking og ledsager er nullable
+     * OBS: booking, ledsager og valgteUdflugter er nullable
      */
     public Tilmelding(LocalDate startDato, LocalDate slutDato, boolean foredragsholder, Booking booking, Ledsager ledsager, Deltager deltager, Konference konference) {
         this.startDato = startDato;
@@ -36,5 +36,10 @@ public class Tilmelding {
 
     public Deltager getDeltager () {
         return deltager;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s : %s fra %s -> %s", konference,deltager,startDato,slutDato);
     }
 }
