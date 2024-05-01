@@ -32,27 +32,34 @@ public abstract class Controller {
 
     }
 
-    public static Udflugt opretUdflugt(String navn, double pris, LocalDate dato, boolean inklusivFrokost, Konference konference){
+    public static Udflugt opretUdflugt(String navn, double pris, LocalDate dato, boolean inklusivFrokost, Konference konference) {
         Udflugt udflugt = new Udflugt(navn, pris, dato, inklusivFrokost);
         konference.tilføjUdflugt(udflugt);
         return udflugt;
     }
 
-    public static Hotel opretHotel(String navn, double prisEnkelt, double prisDobbelt){
-       Hotel hotel = new Hotel(navn,prisEnkelt,prisDobbelt);
-       Storage.storeHotel(hotel);
-       return hotel;
+    public static Hotel opretHotel(String navn, double prisEnkelt, double prisDobbelt) {
+        Hotel hotel = new Hotel(navn, prisEnkelt, prisDobbelt);
+        Storage.storeHotel(hotel);
+        return hotel;
     }
 
-    public static HotelTilvalg opretHotelTilvalg(HotelTilvalgType hotelTilvalgType, double pris, Hotel hotel){
-        HotelTilvalg hotelTilvalg = new HotelTilvalg(hotelTilvalgType,pris);
+    public static HotelTilvalg opretHotelTilvalg(HotelTilvalgType hotelTilvalgType, double pris, Hotel hotel) {
+        HotelTilvalg hotelTilvalg = new HotelTilvalg(hotelTilvalgType, pris);
         hotel.tilføjHotelTilvalg(hotelTilvalg);
         return hotelTilvalg;
     }
 
-    public static Konference opretKonference(String navn, String beskrivelse, String lokation, LocalDate startDato, LocalDate slutDato, double pris){
-        Konference konference  = new Konference(navn,beskrivelse,lokation,startDato,slutDato,pris);
+    public static Konference opretKonference(String navn, String beskrivelse, String lokation, LocalDate startDato, LocalDate slutDato, double pris) {
+        Konference konference = new Konference(navn, beskrivelse, lokation, startDato, slutDato, pris);
         Storage.storeKonference(konference);
         return konference;
+    }
+
+    public static Booking opretBooking(LocalDate startDato, LocalDate slutDato, Tilmelding tilmelding, Hotel hotel) {
+        Booking booking = new Booking(startDato, slutDato, tilmelding, hotel);
+        tilmelding.setBooking(booking);
+        hotel.tilføjBooking(booking);
+        return booking;
     }
 }
