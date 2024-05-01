@@ -32,10 +32,15 @@ public class Booking {
         }
         // Pris for valgte HotelTilvalg
         for (HotelTilvalg HotelTilvalg : tilvalg) {
-            pris = HotelTilvalg.getPris();
+            pris += HotelTilvalg.getPris();
+
         }
         pris = pris * getDage();
         return pris;
+    }
+
+    public void tilføjTilvalg(HotelTilvalg tilvalg){
+        this.tilvalg.add(tilvalg);
     }
 
     private int getDage() {

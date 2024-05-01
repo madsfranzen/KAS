@@ -40,7 +40,7 @@ public abstract class Controller {
         return hotel;
     }
 
-    public static HotelTilvalg opretHotelTilvalg(HotelTilvalgType hotelTilvalgType, double pris, Hotel hotel) {
+    public static HotelTilvalg opretHotelTilvalg(String hotelTilvalgType, double pris, Hotel hotel) {
         HotelTilvalg hotelTilvalg = new HotelTilvalg(hotelTilvalgType, pris);
         hotel.tilføjHotelTilvalg(hotelTilvalg);
         return hotelTilvalg;
@@ -57,6 +57,10 @@ public abstract class Controller {
         tilmelding.setBooking(booking);
         hotel.tilføjBooking(booking);
         return booking;
+    }
+
+    public static void tilføjTilvalgTilBooking(Booking booking, HotelTilvalg tilvalg){
+        booking.tilføjTilvalg(tilvalg);
     }
 
     public static Ledsager opretLedsager(String navn, Tilmelding tilmelding){
