@@ -17,8 +17,8 @@ public abstract class Controller {
     /**
      * OBS: booking og ledsager er nullable
      */
-    public static Tilmelding opretTilmelding(LocalDate startDato, LocalDate slutDato, boolean foredragsholder, Booking booking, Ledsager ledsager, Deltager deltager, Konference konference, ArrayList<Udflugt> valgteUdflugter) {
-        Tilmelding tilmelding = new Tilmelding(startDato, slutDato, foredragsholder, booking, ledsager, deltager, konference);
+    public static Tilmelding opretTilmelding(LocalDate startDato, LocalDate slutDato, boolean foredragsholder, Ledsager ledsager, Deltager deltager, Konference konference, ArrayList<Udflugt> valgteUdflugter) {
+        Tilmelding tilmelding = new Tilmelding(startDato, slutDato, foredragsholder, ledsager, deltager, konference);
         // HENT UDFLUGTER NÅR UI er klar
         if (ledsager != null) {
             for (Udflugt udflugt : valgteUdflugter) {

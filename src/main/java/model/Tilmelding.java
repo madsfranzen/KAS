@@ -15,13 +15,12 @@ public class Tilmelding {
     private Konference konference;
 
     /**
-     * OBS: booking, ledsager og valgteUdflugter er nullable
+     * OBS: ledsager og valgteUdflugter er nullable
      */
-    public Tilmelding(LocalDate startDato, LocalDate slutDato, boolean foredragsholder, Booking booking, Ledsager ledsager, Deltager deltager, Konference konference) {
+    public Tilmelding(LocalDate startDato, LocalDate slutDato, boolean foredragsholder, Ledsager ledsager, Deltager deltager, Konference konference) {
         this.startDato = startDato;
         this.slutDato = slutDato;
         this.foredragsholder = foredragsholder;
-        this.booking = booking;
         this.ledsager = ledsager;
         this.deltager = deltager;
         this.konference = konference;
@@ -48,14 +47,11 @@ public class Tilmelding {
     }
 
     public double beregnPris() {
-        double pris;
-        if (booking == null) {
-            pris = konference.getPris();
-        } else {
-            pris = konference.getPris() + booking.beregnPris();
+        double pris = konference.getPris() * getDage();
+        if (booking != null) {
+            pris += booking.beregnPris();
         }
 
-        pris = pris * getDage();
         return pris;
     }
 
@@ -65,6 +61,7 @@ public class Tilmelding {
     public Ledsager getLedsager() {
         return ledsager;
     }
+
     private int getDage() {
         return Period.between(startDato, slutDato).getDays() + 1;
     }
