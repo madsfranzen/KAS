@@ -43,9 +43,8 @@ public class Konference {
     }
 
 
-
     //VishotellerDL = Vis hoteller deltager og ledsager - Metoden retunere alle Hotellerne fra en konference samt deltager og ledsager til deltageren.
-    public void visHotellerDL () {
+    public void visHotellerDL() {
         for (Hotel hotel : hoteller) {
             hotel.getNavn();
             for (Booking booking : hotel.getBookinger()) {
@@ -66,6 +65,7 @@ public class Konference {
                 }
             }
         }
+
     }
 
 
@@ -75,6 +75,6 @@ public class Konference {
 
     @Override
     public String toString() {
-        return String.format("%s",navn);
+        return String.format("%s", navn);
     }
 }

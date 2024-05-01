@@ -33,9 +33,8 @@ public class Tilmelding {
         this.booking = booking;
     }
 
-      
     public Deltager getDeltager() {
-        return deltager;
+        return this.deltager;
     }
 
     @Override
@@ -49,7 +48,7 @@ public class Tilmelding {
             pris += booking.beregnPris();
         }
 
-        for (Udflugt udflugt : udflugter){
+        for (Udflugt udflugt : udflugter) {
             pris += udflugt.getPris();
         }
         return pris;
