@@ -33,4 +33,8 @@ public class Tilmelding {
     public void setBooking(Booking booking) {
         this.booking = booking;
     }
+
+    public Deltager getDeltager () {
+        return deltager;
+    }
 }

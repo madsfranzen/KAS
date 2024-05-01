@@ -37,7 +37,7 @@ public class Konference {
         ArrayList<Deltager> alleDeltagere = new ArrayList<>();
 
         for (Tilmelding tilmelding : tilmeldinger) {
-            alleDeltagere.add(tilmelding.getDeltager);
+            alleDeltagere.add(tilmelding.getDeltager());
         }
 
         return alleDeltagere;
