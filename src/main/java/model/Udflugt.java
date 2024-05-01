@@ -20,4 +20,14 @@ public class Udflugt {
     public double getPris() {
         return pris;
     }
+
+    @Override
+    public String toString() {
+        return "Udflugt{" +
+                "navn='" + navn + '\'' +
+                ", pris=" + pris +
+                ", dato=" + dato +
+                ", InklusivFrokost=" + InklusivFrokost +
+                '}';
+    }
 }

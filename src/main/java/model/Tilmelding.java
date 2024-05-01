@@ -37,6 +37,7 @@ public class Tilmelding {
         return this.deltager;
     }
 
+
     @Override
     public String toString() {
         return String.format("%s : %s fra %s -> %s (%.2f kr)", konference, deltager, startDato, slutDato, beregnPris());
@@ -67,5 +68,9 @@ public class Tilmelding {
 
     public void setLedsager(Ledsager ledsager) {
         this.ledsager = ledsager;
+    }
+
+    public ArrayList<Udflugt> getUdflugter() {
+        return udflugter;
     }
 }
