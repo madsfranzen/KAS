@@ -12,23 +12,23 @@ public class Storage {
     private static final ArrayList<Firma> firmaer = new ArrayList<>();
 
 
-    public ArrayList<Konference> getKonferecer() {
+    public static ArrayList<Konference> getKonferecer() {
         return new ArrayList<>(konferencer);
     }
 
-    public ArrayList<Deltager> getDeltagere() {
+    public static ArrayList<Deltager> getDeltagere() {
         return new ArrayList<>(deltagere);
     }
 
-    public ArrayList<Bruger> getAdmins() {
+    public static ArrayList<Bruger> getAdmins() {
         return new ArrayList<>(admins);
     }
 
-    public ArrayList<Hotel> getHoteller() {
+    public static ArrayList<Hotel> getHoteller() {
         return new ArrayList<>(hoteller);
     }
 
-    public ArrayList<Firma> getFirmaer() {
+    public static ArrayList<Firma> getFirmaer() {
         return new ArrayList<>(firmaer);
     }
 
