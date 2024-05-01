@@ -15,4 +15,23 @@ public class Booking {
         this.slutDato = slutDato;
         this.tilmelding = tilmelding;
     }
+
+    /**
+     * Beregner den samlede pris for en hotelbooking.
+     * Pris for værelse samt valgte HotelTilvalg. (Wifi, Bad, osv)
+     */
+    public double beregnPris() {
+        double pris = 0;
+        // Pris for enkelt/dobbeltværelse
+        if (tilmelding.getLedsager() != null) {
+            pris += hotel.getPrisDobbelt();
+        } else {
+            pris += hotel.getPrisEnkelt();
+        }
+        // Pris for valgte HotelTilvalg
+        for (HotelTilvalg HotelTilvalg : tilvalg) {
+            pris += HotelTilvalg.getPris();
+        }
+        return pris;
+    }
 }

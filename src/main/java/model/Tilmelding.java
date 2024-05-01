@@ -37,4 +37,15 @@ public class Tilmelding {
     public Deltager getDeltager () {
         return deltager;
     }
+
+    public double beregnPris() {
+        return konference.getPris() + booking.beregnPris();
+    }
+
+    /**
+     * Nullable return value
+     */
+    public Ledsager getLedsager() {
+        return ledsager;
+    }
 }

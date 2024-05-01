@@ -10,4 +10,8 @@ public class HotelTilvalg {
         this.type = type;
         this.pris = pris;
     }
+
+    public double getPris() {
+        return pris;
+    }
 }

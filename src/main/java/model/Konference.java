@@ -11,7 +11,7 @@ public class Konference {
     private LocalDate startDato;
     private LocalDate slutDato;
     private double pris;
-    private final ArrayList<Hotel> hoteller= new ArrayList<>();
+    private final ArrayList<Hotel> hoteller = new ArrayList<>();
     private final ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
     private final ArrayList<Udflugt> udflugter = new ArrayList<>();
 
@@ -24,14 +24,13 @@ public class Konference {
         this.pris = pris;
     }
 
-    public void tilføjUdflugt(Udflugt udflugt){
+    public void tilføjUdflugt(Udflugt udflugt) {
         this.udflugter.add(udflugt);
     }
 
-    public void tilføjTilmelding(Tilmelding tilmelding){
+    public void tilføjTilmelding(Tilmelding tilmelding) {
         this.tilmeldinger.add(tilmelding);
     }
-
 
     public ArrayList<Deltager> visDeltagere() {
         ArrayList<Deltager> alleDeltagere = new ArrayList<>();
@@ -41,5 +40,9 @@ public class Konference {
         }
 
         return alleDeltagere;
+    }
+
+    public double getPris() {
+        return this.pris;
     }
 }
