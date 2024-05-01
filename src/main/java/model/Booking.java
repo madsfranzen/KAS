@@ -15,6 +15,7 @@ public class Booking {
         this.startDato = startDato;
         this.slutDato = slutDato;
         this.tilmelding = tilmelding;
+        this.hotel = hotel;
     }
 
     /**
@@ -38,6 +39,6 @@ public class Booking {
     }
 
     private int getDage() {
-        return Period.between(startDato, slutDato).getDays() + 1;
+        return Period.between(startDato, slutDato).getDays();
     }
 }

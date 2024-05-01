@@ -20,6 +20,11 @@ public class Deltager extends Bruger {
         this.tlf = tlf;
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s",navn);
+    }
+
     public void tilføjTilmelding(Tilmelding tilmelding) {
         this.tilmeldinger.add(tilmelding);
     }

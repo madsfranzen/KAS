@@ -45,4 +45,9 @@ public class Konference {
     public double getPris() {
         return this.pris;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s",navn);
+    }
 }
