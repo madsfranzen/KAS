@@ -35,6 +35,6 @@ public class Tilmelding {
     }
 
     public Deltager getDeltager () {
-        return deltager;
+        return this.deltager;
     }
 }

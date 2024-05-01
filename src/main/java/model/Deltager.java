@@ -23,4 +23,8 @@ public class Deltager extends Bruger {
     public void tilføjTilmelding(Tilmelding tilmelding) {
         this.tilmeldinger.add(tilmelding);
     }
+
+    public int CompareTo (Deltager other) {
+        return this.navn.compareTo(other.navn);
+    }
 }

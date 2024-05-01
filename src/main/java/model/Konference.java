@@ -39,7 +39,19 @@ public class Konference {
         for (Tilmelding tilmelding : tilmeldinger) {
             alleDeltagere.add(tilmelding.getDeltager());
         }
-
+        sorterDeltagere(alleDeltagere);
         return alleDeltagere;
+    }
+
+    public static void sorterDeltagere(ArrayList<Deltager> arr) {
+        for (int i = arr.size() - 1; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (arr.get(j).CompareTo(arr.get(j+1)) < 0) {
+                    Deltager temp = arr.get(j);
+                    arr.set(j, arr.get(j+1));
+                    arr.set(j+1, temp);
+                }
+            }
+        }
     }
 }
