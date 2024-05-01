@@ -16,11 +16,19 @@ public class Hotel {
         this.prisDobbelt = prisDobbelt;
     }
 
-    public void tilføjHotelTilvalg(HotelTilvalg hotelTilvalg){
-       this.hotelTilvalg.add(hotelTilvalg);
+    public void tilføjHotelTilvalg(HotelTilvalg hotelTilvalg) {
+        this.hotelTilvalg.add(hotelTilvalg);
     }
 
-    public void tilføjBooking(Booking booking){
+    public void tilføjBooking(Booking booking) {
         this.bookinger.add(booking);
+    }
+
+    public double getPrisEnkelt() {
+        return prisEnkelt;
+    }
+
+    public double getPrisDobbelt() {
+        return prisDobbelt;
     }
 }
