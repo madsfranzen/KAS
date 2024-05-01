@@ -6,4 +6,8 @@ public class Ledsager {
     public Ledsager(String navn) {
         this.navn = navn;
     }
+
+    public String getNavn() {
+        return navn;
+    }
 }

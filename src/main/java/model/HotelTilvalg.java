@@ -2,11 +2,11 @@ package model;
 
 public class HotelTilvalg {
 
-    private HotelTilvalgType type;
+    private String type;
 
     private double pris;
 
-    public HotelTilvalg(HotelTilvalgType type, double pris) {
+    public HotelTilvalg(String type, double pris) {
         this.type = type;
         this.pris = pris;
     }
