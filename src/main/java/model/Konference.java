@@ -43,22 +43,12 @@ public class Konference {
     }
 
 
-    //VishotellerDL = Vis hoteller deltager og ledsager - Metoden retunere alle Hotellerne fra en konference samt deltager og ledsager til deltageren.
-    public void visHotellerDL() {
-        for (Hotel hotel : hoteller) {
-            hotel.getNavn();
-            for (Booking booking : hotel.getBookinger()) {
-                booking.getTilmelding().getDeltager().getNavn();
-                booking.getTilmelding().getLedsager().getNavn();
-            }
-        }
-    }
 
 
     public static void sorterDeltagere(ArrayList<Deltager> arr) {
         for (int i = arr.size() - 1; i > 0; i--) {
             for (int j = 0; j < i; j++) {
-                if (arr.get(j).CompareTo(arr.get(j + 1)) < 0) {
+                if (arr.get(j).CompareTo(arr.get(j + 1)) > 0) {
                     Deltager temp = arr.get(j);
                     arr.set(j, arr.get(j + 1));
                     arr.set(j + 1, temp);

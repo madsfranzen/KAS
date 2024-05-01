@@ -69,5 +69,21 @@ public abstract class Controller {
         return ledsager;
     }
 
+    public static void visHotellerDL() {
+        for (Hotel hotel : Storage.getHoteller()) {
+            System.out.println(hotel.getNavn());
+            for (Booking booking : hotel.getBookinger()) {
+                Tilmelding tilmelding = booking.getTilmelding();
+                String deltagerNavn = tilmelding.getDeltager().getNavn();
+                if (tilmelding.getLedsager() == null){
+                    System.out.printf("%s\n", deltagerNavn);
+                } else {
+                    String ledsagerNavn = tilmelding.getLedsager().getNavn();
+                    System.out.printf("%s (%s)\n", deltagerNavn, ledsagerNavn);
+                }
+            }
+        }
+    }
+
 
 }
