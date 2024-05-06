@@ -10,9 +10,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.Hotel;
+import model.Konference;
 import storage.Storage;
 
 public class TilmeldingsVindue extends Application {
+
+    Konference konference;
+
     DatePicker dpCheckIn = new DatePicker();
     DatePicker dpCheckUd = new DatePicker();
     DatePicker dpDeltagerFra = new DatePicker();
@@ -135,12 +139,23 @@ public class TilmeldingsVindue extends Application {
 
     //================ Helpers ====================
     private void updateGui(){
+        konference = Storage.getKonferecer().getFirst();
         lvwHoteller.getItems().setAll(Storage.getHoteller());
+        lvwUdflugter.getItems().setAll(konference.getUdflugter());
+
+
     }
 
     //=================== Actions ================
 
     private void hotelValg(){
+        Hotel hotel = (Hotel) lvwHoteller.getSelectionModel().getSelectedItem();
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format(hotel.getNavn() + "\n"));
+        sb.append(String.format("Pris Enkelt: %.2f \n", hotel.getPrisEnkelt()));
+        sb.append(String.format("Pris Dobbelt: %.2f \n", hotel.getPrisDobbelt()));
+        txaHotelInfo.setText(sb.toString());
+        lvwHotelTilvalg.getItems().setAll(hotel.getHotelTilvalg());
 
     }
 }

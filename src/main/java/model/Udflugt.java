@@ -23,11 +23,10 @@ public class Udflugt {
 
     @Override
     public String toString() {
-        return "Udflugt{" +
-                "navn='" + navn + '\'' +
-                ", pris=" + pris +
-                ", dato=" + dato +
-                ", InklusivFrokost=" + InklusivFrokost +
-                '}';
+        if (InklusivFrokost) {
+            return String.format("%s, %s (%.2f kr) - Inklusiv Frokost", navn, dato, pris);
+        } else {
+            return String.format("%s, %s (%.2f kr)", navn, dato, pris);
+        }
     }
 }

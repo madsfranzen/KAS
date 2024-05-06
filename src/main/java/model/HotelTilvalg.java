@@ -11,6 +11,11 @@ public class HotelTilvalg {
         this.pris = pris;
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s (%.2f kr)", type, pris);
+    }
+
     public double getPris() {
         return pris;
     }

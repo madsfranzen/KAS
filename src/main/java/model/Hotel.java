@@ -40,6 +40,10 @@ public class Hotel {
         return navn;
     }
 
+    public ArrayList<HotelTilvalg> getHotelTilvalg(){
+        return new ArrayList<>(hotelTilvalg);
+    }
+
     @Override
     public String toString() {
         return String.format("%s",navn);
