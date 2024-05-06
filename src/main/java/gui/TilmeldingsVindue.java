@@ -1,21 +1,26 @@
 package gui;
 
+import controller.Controller;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import model.Hotel;
-import model.Konference;
+import javafx.util.Callback;
+import model.*;
 import storage.Storage;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class TilmeldingsVindue extends Application {
 
     private Konference konference;
+    private Deltager deltager = Storage.getDeltagere().getFirst();
 
     private DatePicker dpCheckIn = new DatePicker();
     private DatePicker dpCheckUd = new DatePicker();
@@ -37,6 +42,9 @@ public class TilmeldingsVindue extends Application {
     private ListView lvwUdflugter = new ListView();
 
     private TextField txfSamletPris = new TextField();
+
+
+    private Label lblError = new Label("Error");
 
     @Override
     public void start(Stage stage) {
@@ -141,8 +149,16 @@ public class TilmeldingsVindue extends Application {
         txfSamletPris.setMaxWidth(100);
         Button btnOpretTilmelding = new Button("Opret Tilmelding");
         pane.add(btnOpretTilmelding, 4, 9);
+        btnOpretTilmelding.setOnAction(e -> opretTilmelding());
+
+        lblError.setTextFill(Color.RED);
+        pane.add(lblError, 0, 9);
 
         updateGui();
+        tilpasFarverForForestilling(dpCheckIn);
+        tilpasFarverForForestilling(dpCheckUd);
+        tilpasFarverForForestilling(dpDeltagerFra);
+        tilpasFarverForForestilling(dpDeltagerTil);
 
     }
 
@@ -152,11 +168,95 @@ public class TilmeldingsVindue extends Application {
         konference = Storage.getKonferecer().getFirst();
         lvwHoteller.getItems().setAll(Storage.getHoteller());
         lvwUdflugter.getItems().setAll(konference.getUdflugter());
-
-
     }
 
     //=================== Actions ================
+
+
+    private void opretTilmelding() {
+        boolean inputIsValid = true;
+        LocalDate startDato = dpDeltagerFra.getValue();
+        if (startDato == null) {
+            inputIsValid = false;
+            lblError.setText("Startdato invalid");
+        } else if (startDato.isBefore(konference.getStartDato()) || startDato.isAfter(konference.getSlutDato())) {
+            lblError.setText("Startdato invalid");
+            inputIsValid = false;
+        }
+
+        LocalDate slutDato = dpDeltagerTil.getValue();
+        if (slutDato == null) {
+            inputIsValid = false;
+            lblError.setText("Slutdato invalid");
+        } else if (slutDato.isBefore(konference.getStartDato()) || slutDato.isAfter(konference.getSlutDato()) || startDato.isAfter(slutDato)) {
+            lblError.setText("Slutdato invalid");
+            inputIsValid = false;
+        }
+
+
+        boolean foredragsholder = cbxForedragsholder.isSelected();
+
+        String ledsagerNavn = txfLedsagerNavn.getText();
+        if (ledsagerNavn.equalsIgnoreCase("") && cbxLedsager.isSelected()) {
+            inputIsValid = false;
+            lblError.setText("Ledsagernavn invalid");
+        }
+
+        LocalDate bookingStartDato = dpCheckIn.getValue();
+        LocalDate bookingSlutDato = dpCheckUd.getValue();
+        Hotel hotel = (Hotel) lvwHoteller.getSelectionModel().getSelectedItem();
+
+        if (cbxHotelØnskes.isSelected()) {
+            if (bookingStartDato == null) {
+                inputIsValid = false;
+                lblError.setText("Booking dato invalid");
+            } else if (bookingStartDato.isBefore(konference.getStartDato()) || bookingStartDato.isAfter(konference.getSlutDato())) {
+                lblError.setText("Booking dato invalid");
+                inputIsValid = false;
+            }
+
+            if (bookingSlutDato == null) {
+                inputIsValid = false;
+                lblError.setText("Booking dato invalid");
+            } else if (bookingSlutDato.isBefore(konference.getStartDato()) || bookingSlutDato.isAfter(konference.getSlutDato()) || bookingStartDato.isAfter(bookingSlutDato)) {
+                lblError.setText("Booking dato invalid");
+                inputIsValid = false;
+            }
+
+            if (hotel == null){
+                lblError.setText("Vælg hotel");
+                inputIsValid = false;
+            }
+
+        }
+
+
+        if (inputIsValid) {
+            Tilmelding tilmelding = Controller.opretTilmelding(startDato, slutDato, foredragsholder, deltager, konference);
+
+            for (Object udflugt : lvwUdflugter.getSelectionModel().getSelectedItems()) {
+                tilmelding.tilføjUdflugt((Udflugt) udflugt);
+            }
+
+            if (cbxLedsager.isSelected()) {
+                Ledsager ledsager = Controller.opretLedsager(ledsagerNavn, tilmelding);
+                System.out.println(ledsager);
+            }
+            Booking booking = null;
+            if (cbxHotelØnskes.isSelected()){
+                booking = Controller.opretBooking(bookingStartDato, bookingSlutDato, tilmelding, hotel);
+                for (Object tilvalg : lvwHotelTilvalg.getSelectionModel().getSelectedItems()){
+                    booking.tilføjTilvalg((HotelTilvalg)tilvalg);
+                }
+            }
+
+            System.out.println(tilmelding);
+            System.out.println(tilmelding.getUdflugter());
+            System.out.println(booking);
+            lblError.setText("");
+        }
+
+    }
 
     private void hotelValg() {
         Hotel hotel = (Hotel) lvwHoteller.getSelectionModel().getSelectedItem();
@@ -180,14 +280,37 @@ public class TilmeldingsVindue extends Application {
         txaHotelInfo.setDisable(toggle);
     }
 
-    private void ledsagerØnskes(){
+    private void ledsagerØnskes() {
         boolean toggle = true;
-        if (cbxLedsager.isSelected()){
+        if (cbxLedsager.isSelected()) {
             toggle = false;
         }
         txfLedsagerNavn.setDisable(toggle);
         lvwUdflugter.setDisable(toggle);
     }
+
+
+//==============================================================================================
+
+    private void tilpasFarverForForestilling(DatePicker dp) {
+        dp.setDayCellFactory(new Callback<DatePicker, DateCell>() {
+                                 @Override
+                                 public DateCell call(DatePicker param) {
+                                     return new DateCell() {
+                                         @Override
+                                         public void updateItem(LocalDate item, boolean empty) {
+                                             super.updateItem(item, empty);
+                                             if (item != null) {
+                                                 LocalDate startDato = konference.getStartDato();
+                                                 LocalDate slutDato = konference.getSlutDato();
+                                                 if ((startDato != null && item.isEqual(startDato)) || (slutDato != null && item.isEqual(slutDato)) || (item.isAfter(startDato) && item.isBefore(slutDato))) {
+                                                     setBackground(new Background(new BackgroundFill(Color.GREEN, new CornerRadii(0), Insets.EMPTY)));
+                                                 }
+                                             }
+                                         }
+                                     };
+                                 }
+                             }
+        );
+    }
 }
-
-
