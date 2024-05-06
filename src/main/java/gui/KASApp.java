@@ -10,10 +10,10 @@ public class KASApp {
     public static void main(String[] args) {
 
         initStorage();
-        Application.launch(TilmeldingsVindue.class);
+        Application.launch(AdminVindue.class);
     }
 
-    private static void initStorage(){
+    private static void initStorage() {
         Konference havOgHimmel = Controller.opretKonference("Hav og Himmel", "Det handler om Hav, samt Himmel", "Odense Universitet", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), 1500);
         Udflugt byrundtur = Controller.opretUdflugt("Byrundtur, Odense", 125, LocalDate.of(2024, 5, 18), true, havOgHimmel);
         Udflugt egeskov = Controller.opretUdflugt("Egeskov", 75, LocalDate.of(2024, 5, 19), false, havOgHimmel);
@@ -49,7 +49,7 @@ public class KASApp {
         Ledsager jan = Controller.opretLedsager("Jan Madsen", loneTilmelding);
         loneTilmelding.tilføjUdflugt(egeskov);
         loneTilmelding.tilføjUdflugt(byrundtur);
-        Booking loneBooking = Controller.opretBooking(LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20),loneTilmelding,denHvideSvane);
+        Booking loneBooking = Controller.opretBooking(LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), loneTilmelding, denHvideSvane);
         loneBooking.tilføjTilvalg(wifi);
     }
 }

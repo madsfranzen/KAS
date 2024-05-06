@@ -33,7 +33,6 @@ public class Booking {
         // Pris for valgte HotelTilvalg
         for (HotelTilvalg HotelTilvalg : tilvalg) {
             pris += HotelTilvalg.getPris();
-
         }
         pris = pris * getDage();
         return pris;
