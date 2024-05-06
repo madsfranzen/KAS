@@ -39,4 +39,9 @@ public class Hotel {
     public String getNavn() {
         return navn;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s",navn);
+    }
 }
