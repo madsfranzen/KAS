@@ -32,6 +32,10 @@ public class Konference {
         this.tilmeldinger.add(tilmelding);
     }
 
+    public ArrayList<Udflugt> getUdflugter(){
+        return new ArrayList<>(udflugter);
+    }
+
     public ArrayList<Deltager> visDeltagere() {
         ArrayList<Deltager> alleDeltagere = new ArrayList<>();
 
