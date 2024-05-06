@@ -82,6 +82,8 @@ public class LoginVindue extends Application {
 
     public void loginAction() {
 
+
+
     }
 
     public void opretBrugerAction() {

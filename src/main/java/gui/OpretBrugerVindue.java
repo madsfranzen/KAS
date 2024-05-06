@@ -1,14 +1,12 @@
 package gui;
 
+import controller.Controller;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -25,6 +23,7 @@ import org.xml.sax.HandlerBase;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.lang.foreign.AddressLayout;
 
 public class OpretBrugerVindue extends Application {
 
@@ -157,11 +156,83 @@ public class OpretBrugerVindue extends Application {
     }
 
 
-    public void loginAction() {
+    public void uploadBilledeAction() {
 
     }
 
     public void opretBrugerAction() {
+        String brugernavn = txfBrugernavn.getText();
+        String kodeord = psfKodeord.getText();
+        String navn = txfNavn.getText();
+        String adresse = txfAdresse.getText();
+        String tlf = txfTlf.getText();
+        String by = txfBy.getText();
+        String firma = txfFirma.getText();
+        String land = txfLand.getText();
 
+        if(brugernavn.isEmpty() || kodeord.isEmpty() || navn.isEmpty() || navn.isEmpty() || adresse.isEmpty() ||tlf.isEmpty() || by.isEmpty() || land.isEmpty() || erRigtigTelefonNummer(tlf) || erRigtigNavn(navn)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Fejl");
+            alert.setHeaderText(null);
+            if (brugernavn.isEmpty()) {
+                alert.setContentText("Du kan ikke oprette en bruger uden brugernavn");
+            }
+            else if (kodeord.isEmpty()) {
+                alert.setContentText("Du kan ikke oprette en bruger uden kodeord");
+            }
+            else if (navn.isEmpty()) {
+                alert.setContentText(" Du kan ikke oprette en bruger uden navn");
+            }
+            else if (!erRigtigNavn(navn)) {
+                alert.setContentText(" Du kan ikke oprette en bruger med tal i dit navn");
+            }
+            else if (adresse.isEmpty()) {
+                alert.setContentText(" Du kan ikke oprette en bruger uden adresse");
+            }
+            else if (tlf.isEmpty()) {
+                alert.setContentText(" Du kan ikke oprette en bruger uden telefonnummer");
+            }
+            else if (erRigtigTelefonNummer(tlf)) {
+                alert.setContentText(" Du kan ikke have tal i dit telefonnummer");
+            }
+            else if (by.isEmpty()) {
+                alert.setContentText(" Du kan ikke oprette en bruger uden en by");
+            }
+            else if (land.isEmpty()) {
+                alert.setContentText(" Du kan ikke oprette en bruger uden et land");
+            }
+        }
+
+        if (firma.isEmpty()) {
+            Controller.opretDeltager(brugernavn, kodeord, navn, adresse, by, land, tlf);
+        }
+
+    // Kommenteret ud da vi mangler constructor til at oprette deltager med firma
+//
+//        if (!firma.isEmpty()) {
+//            Controller.opretDeltager(brugernavn, kodeord, navn, adresse, by, land, tlf, firma);
+//        }
+    }
+
+    private boolean erRigtigTelefonNummer(String nummer) {
+        if (nummer.length() != 8) {
+            return false;
+        }
+        for (int i = 0; i < nummer.length(); i++) {
+            if (!Character.isDigit(nummer.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean erRigtigNavn(String navn) {
+        for (int i = 0; i < navn.length(); i++) {
+            char c = navn.charAt(i);
+            if (!Character.isLetter(c) && c != ' ') {
+                return false;
+            }
+        }
+        return true;
     }
 }
