@@ -42,9 +42,6 @@ public class Konference {
         return alleDeltagere;
     }
 
-
-
-
     public static void sorterDeltagere(ArrayList<Deltager> arr) {
         for (int i = arr.size() - 1; i > 0; i--) {
             for (int j = 0; j < i; j++) {
