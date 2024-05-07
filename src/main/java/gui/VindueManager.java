@@ -12,7 +12,7 @@ public class VindueManager extends Application {
     static OpretHotelVindue opretHotelVindue = new OpretHotelVindue();
 
     public void start(Stage stage) {
-        opretHotelVindue.show();
+        loginVindue.show();
     }
 
 }
