@@ -12,8 +12,9 @@ public class Konference {
     private LocalDate slutDato;
     private double pris;
     private final ArrayList<Hotel> hoteller = new ArrayList<>();
-    private final ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
     private final ArrayList<Udflugt> udflugter = new ArrayList<>();
+    private final ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
+
 
     public Konference(String navn, String beskrivelse, String lokation, LocalDate startDato, LocalDate slutDato, double pris) {
         this.navn = navn;
@@ -32,13 +33,13 @@ public class Konference {
         this.tilmeldinger.add(tilmelding);
     }
 
-    public void fjernTilmelding(Tilmelding tildmelding){
-       if (this.tilmeldinger.contains(tildmelding)){
-          this.tilmeldinger.remove(tildmelding);
-       }
+    public void fjernTilmelding(Tilmelding tildmelding) {
+        if (this.tilmeldinger.contains(tildmelding)) {
+            this.tilmeldinger.remove(tildmelding);
+        }
     }
 
-    public ArrayList<Tilmelding> getTilmeldinger(){
+    public ArrayList<Tilmelding> getTilmeldinger() {
         return new ArrayList<>(tilmeldinger);
     }
 
@@ -55,7 +56,10 @@ public class Konference {
         sorterDeltagere(alleDeltagere);
         return alleDeltagere;
     }
-    
+
+    public ArrayList<Hotel> getHoteller() {
+        return new ArrayList<>(hoteller);
+    }
 
     public static void sorterDeltagere(ArrayList<Deltager> arr) {
         for (int i = arr.size() - 1; i > 0; i--) {
@@ -80,6 +84,19 @@ public class Konference {
             }
             System.out.println();
         }
+    }
+
+    public void opdaterInfo(String navn, String beskrivelse, String lokation, LocalDate startDato, LocalDate slutDato, double pris, ArrayList<Hotel> hoteller, ArrayList<Udflugt> udflugter) {
+        this.navn = navn;
+        this.beskrivelse = beskrivelse;
+        this.lokation = lokation;
+        this.startDato = startDato;
+        this.slutDato = slutDato;
+        this.pris = pris;
+        this.hoteller.clear();
+        this.hoteller.addAll(hoteller);
+        this.udflugter.clear();
+        this.udflugter.addAll(udflugter);
     }
 
     public double getPris() {

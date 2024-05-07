@@ -165,6 +165,7 @@ public class AdminVindue extends Stage {
         lvwKonferencer.getSelectionModel().selectedItemProperty().addListener(Konferencelistener);
 
         btnOpretKonference.setOnAction(event -> VindueManager.opretKonferenceVindue.show());
+        btnOpdaterKonference.setOnAction(event -> opdaterKonference());
 
         //============================= HOTEL PANE ==========================//
 
@@ -203,7 +204,6 @@ public class AdminVindue extends Stage {
         btnOpretHotel.setOnAction(event -> VindueManager.visOpretHotelVindue());
         btnOpdaterHotel.setOnAction(event -> opdaterHotel());
         btnOpretBruger.setOnAction(event -> VindueManager.opretBrugerVindue.show());
-        btnOpretKonference.setOnAction(event -> VindueManager.opretKonferenceVindue.show());
         updateGUI();
     }
 
@@ -337,6 +337,13 @@ public class AdminVindue extends Stage {
         Hotel hotel = (Hotel) lvwHoteller.getSelectionModel().getSelectedItem();
         OpretHotelVindue opretHotelVindue = new OpretHotelVindue(hotel);
         opretHotelVindue.showAndWait();
+        updateGUI();
+    }
+
+    public void opdaterKonference() {
+        Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
+        OpretKonferenceVindue opretKonferenceVindue = new OpretKonferenceVindue(konference);
+        opretKonferenceVindue.showAndWait();
         updateGUI();
     }
 }
