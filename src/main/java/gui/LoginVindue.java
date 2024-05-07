@@ -47,10 +47,7 @@ public class LoginVindue extends Stage {
         GridPane gridPane = new GridPane();
         pane.setCenter(gridPane);
 
-        gridPane.setMinWidth(700);
-        gridPane.setMinHeight(600);
 
-        gridPane.setHgap(25);
         gridPane.setVgap(25);
         gridPane.setPadding(new Insets(100));
 
