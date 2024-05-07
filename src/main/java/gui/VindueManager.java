@@ -17,7 +17,7 @@ public class VindueManager extends Application {
     }
 
     public static void visOpretBrugerVindue() {
-        loginVindue.hide();
+//        loginVindue.hide();
         opretBrugerVindue.show();
     }
 

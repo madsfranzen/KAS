@@ -1,8 +1,8 @@
 package model;
 
 public class Bruger {
-    private final String brugernavn;
-    private final String kodeord;
+    private String brugernavn;
+    private String kodeord;
 
     public Bruger(String brugernavn, String kodeord) {
         this.brugernavn = brugernavn;
@@ -15,5 +15,13 @@ public class Bruger {
 
     public String getKodeord() {
         return kodeord;
+    }
+
+    public void setBrugernavn(String brugernavn) {
+        this.brugernavn = brugernavn;
+    }
+
+    public void setKodeord(String kodeord) {
+        this.kodeord = kodeord;
     }
 }

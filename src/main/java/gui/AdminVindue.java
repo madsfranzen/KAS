@@ -6,10 +6,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -17,6 +14,7 @@ import javafx.stage.Stage;
 import model.Deltager;
 import model.Hotel;
 import model.Konference;
+import model.Tilmelding;
 import storage.Storage;
 
 public class AdminVindue extends Stage {
@@ -110,6 +108,11 @@ public class AdminVindue extends Stage {
         hboxBruger1.getChildren().addAll(btnOpretBruger, btnOpdaterBruger, btnSletbruger);
         hboxBruger2.getChildren().addAll(btnTilmeldBruger, btnAfmeldBruger);
 
+        btnOpretBruger.setOnAction(e -> opretBruger());
+        btnOpdaterBruger.setOnAction(e -> opdaterBruger());
+        btnTilmeldBruger.setOnAction(e -> opretTilmelding());
+        btnAfmeldBruger.setOnAction(e -> afmeld());
+
         hboxBruger1.setSpacing(50);
         hboxBruger1.setAlignment(Pos.CENTER);
         hboxBruger2.setSpacing(50);
@@ -200,12 +203,16 @@ public class AdminVindue extends Stage {
         updateGUI();
     }
 
+
+    //========================== Updates ====================================
     public void selectedDeltagerChanged() {
         Deltager deltager = (Deltager) lvwBrugere.getSelectionModel().getSelectedItem();
-        // Opdater listview af Tilmeldinger
-        lvwTilmeldinger.getItems().setAll(deltager.getTilmeldinger());
-        // Opdater Bruger Info
-        txaBrugerInfo.setText(deltager.infoToString());
+        if (deltager != null) {
+            // Opdater listview af Tilmeldinger
+            lvwTilmeldinger.getItems().setAll(deltager.getTilmeldinger());
+            // Opdater Bruger Info
+            txaBrugerInfo.setText(deltager.infoToString());
+        }
     }
 
     public void selectedHotelChanged() {
@@ -239,5 +246,71 @@ public class AdminVindue extends Stage {
         lvwBrugere.getItems().setAll(Controller.getDeltagere());
         lvwKonferencer.getItems().setAll(Controller.getKonferencer());
         lvwHoteller.getItems().setAll(Controller.getHoteller());
+    }
+
+
+    //========================= Actions ===============================
+
+
+    public void opretBruger() {
+        OpretBrugerVindue opretBrugerVindue = new OpretBrugerVindue();
+        opretBrugerVindue.showAndWait();
+        updateGUI();
+    }
+
+    public void opdaterBruger() {
+        Deltager deltager = (Deltager) lvwBrugere.getSelectionModel().getSelectedItem();
+        OpretBrugerVindue opretBrugerVindue = new OpretBrugerVindue(deltager);
+        opretBrugerVindue.showAndWait();
+        updateGUI();
+    }
+
+    public void opretTilmelding() {
+        Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
+        Deltager deltager = (Deltager) lvwBrugere.getSelectionModel().getSelectedItem();
+        if (konference != null && deltager != null) {
+            TilmeldingsVindue tilmeldingsVindue = new TilmeldingsVindue(konference, deltager);
+            tilmeldingsVindue.showAndWait();
+            lvwTilmeldinger.getItems().setAll(deltager.getTilmeldinger());
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setContentText("Vælg venlist en deltager, og en konference");
+            alert.showAndWait();
+        }
+    }
+
+    public void afmeld() {
+        Tilmelding tilmelding = (Tilmelding) lvwTilmeldinger.getSelectionModel().getSelectedItem();
+        Deltager deltager = (Deltager) lvwBrugere.getSelectionModel().getSelectedItem();
+        if (tilmelding != null) {
+            Konference konference = (Konference) tilmelding.getKonference();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("Er du sikker?");
+            alert.setContentText("Vil du slette din tilmelding?");
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    Controller.sletTilmelding(konference, deltager, tilmelding);
+                    lvwTilmeldinger.getItems().setAll(deltager.getTilmeldinger());
+                } else {
+                    // Do nothing
+                }
+            });
+        }
+    }
+
+    public void opdaterTilmelding() {
+        Deltager deltager = (Deltager) lvwBrugere.getSelectionModel().getSelectedItem();
+        Tilmelding tilmelding = (Tilmelding) lvwTilmeldinger.getSelectionModel().getSelectedItem();
+        if (tilmelding != null) {
+            Konference konference = (Konference) tilmelding.getKonference();
+            TilmeldingsVindue tilmeldingsVindue = new TilmeldingsVindue(konference, deltager, tilmelding);
+            tilmeldingsVindue.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setContentText("Vælg venlist en tilmelding");
+            alert.showAndWait();
+        }
     }
 }
