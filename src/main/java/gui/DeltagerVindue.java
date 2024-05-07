@@ -1,5 +1,6 @@
 package gui;
 
+import controller.Controller;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
@@ -15,11 +16,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Deltager;
 import model.Konference;
+import model.Tilmelding;
 import storage.Storage;
 
 import java.io.File;
 
-public class DeltagerVindue extends Application {
+public class DeltagerVindue extends Stage {
 
     Deltager deltager = Storage.getDeltagere().getFirst();
 
@@ -40,16 +42,13 @@ public class DeltagerVindue extends Application {
     ListView lvwTilmeldinger = new ListView<>();
     Button btnOpdaterTilmelding = new Button("Opdater Tilmelding");
 
-    public void start(Stage stage) {
-        stage.setTitle("DeltagerVindue");
+    public DeltagerVindue() {
         BorderPane pane = new BorderPane();
         this.initContent(pane);
 
         Scene scene = new Scene(pane);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
-        stage.centerOnScreen();
+        this.setScene(scene);
+        this.setResizable(false);
     }
 
     private void initContent(BorderPane pane) {
@@ -95,6 +94,9 @@ public class DeltagerVindue extends Application {
         btnBox.setAlignment(Pos.CENTER);
         gridPaneL.add(btnBox, 0, 4, 2, 1);
 
+        btnTilmeld.setOnAction(e -> opretTilmelding());
+        btnAfmeld.setOnAction(e -> afmeld());
+
         ChangeListener<Konference> Konferencelistener = (ov, o, n) -> this.selectedKonferenceChanged();
         lvwKonferencer.getSelectionModel().selectedItemProperty().addListener(Konferencelistener);
 
@@ -114,6 +116,8 @@ public class DeltagerVindue extends Application {
         gridPaneR.add(vBox1, 1, 0, 1, 2);
         vBox1.setAlignment(Pos.CENTER);
         vBox1.setSpacing(25);
+
+        btnLogUd.setOnAction(e -> logUd());
 
         GridPane infoPane = new GridPane();
         infoPane.setHgap(10);
@@ -139,6 +143,12 @@ public class DeltagerVindue extends Application {
         infoPane.add(txfBy, 3, 1);
         infoPane.add(txfFirma, 1, 2);
         infoPane.add(txfLand, 3, 2);
+        txfNavn.setEditable(false);
+        txfAdresse.setEditable(false);
+        txfTlf.setEditable(false);
+        txfBy.setEditable(false);
+        txfFirma.setEditable(false);
+        txfLand.setEditable(false);
 
         gridPaneR.add(lvwTilmeldinger, 0, 4, 2, 1);
         lvwTilmeldinger.setMaxHeight(200);
@@ -163,13 +173,52 @@ public class DeltagerVindue extends Application {
     public void selectedKonferenceChanged() {
         Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
         // Opdater Konference Info
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format(konference.getNavn() + "\n"));
-        sb.append(String.format("Pris Enkelt: %.2f \n", konference.getPris()));
-        sb.append(String.format(konference.getBeskrivelse() + "\n"));
-        sb.append(String.format(konference.getLokation() + "\n"));
-        sb.append(String.format("Start Dato: " + konference.getStartDato() + "\n"));
-        sb.append(String.format("Slut Dato: " + konference.getSlutDato() + "\n"));
-        txaKonferenceInfo.setText(sb.toString());
+        if (konference != null) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(String.format(konference.getNavn() + "\n"));
+            sb.append(String.format("Pris Enkelt: %.2f \n", konference.getPris()));
+            sb.append(String.format(konference.getBeskrivelse() + "\n"));
+            sb.append(String.format(konference.getLokation() + "\n"));
+            sb.append(String.format("Start Dato: " + konference.getStartDato() + "\n"));
+            sb.append(String.format("Slut Dato: " + konference.getSlutDato() + "\n"));
+            txaKonferenceInfo.setText(sb.toString());
+
+        }
+    }
+
+
+    //========================== Actions =========================
+
+    public void logUd() {
+        LoginVindue loginVindue = new LoginVindue();
+        this.hide();
+        loginVindue.show();
+    }
+
+    public void opretTilmelding() {
+        Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
+        if (konference != null) {
+            TilmeldingsVindue tilmeldingsVindue = new TilmeldingsVindue(konference, deltager);
+            tilmeldingsVindue.showAndWait();
+            initGUI();
+        }
+    }
+
+    public void afmeld() {
+        Tilmelding tilmelding = (Tilmelding) lvwTilmeldinger.getSelectionModel().getSelectedItem();
+        if (tilmelding != null) {
+            Konference konference = (Konference) tilmelding.getKonference();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("Er du sikker?");
+            alert.setContentText("Vil du slette din tilmelding?");
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    Controller.sletTilmelding(konference, deltager, tilmelding);
+                    initGUI();
+                } else {
+
+                }
+            });
+        }
     }
 }

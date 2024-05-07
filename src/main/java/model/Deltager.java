@@ -41,6 +41,11 @@ public class Deltager extends Bruger {
         this.tilmeldinger.add(tilmelding);
     }
 
+    public void fjernTilmelding(Tilmelding tildmelding){
+        if (this.tilmeldinger.contains(tildmelding)){
+            this.tilmeldinger.remove(tildmelding);
+        }
+    }
     public int CompareTo(Deltager other) {
         return this.navn.compareTo(other.navn);
     }

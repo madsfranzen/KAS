@@ -23,8 +23,7 @@ import org.xml.sax.HandlerBase;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.lang.foreign.AddressLayout;
-
+//import java.lang.foreign.AddressLayout;
 public class OpretBrugerVindue extends Application {
 
     Scene scene;
