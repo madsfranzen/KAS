@@ -23,7 +23,7 @@ import java.io.File;
 
 public class DeltagerVindue extends Stage {
 
-    Deltager deltager = Storage.getDeltagere().getFirst();
+    Deltager deltager;
 
     ListView lvwKonferencer = new ListView<>();
     TextArea txaKonferenceInfo = new TextArea();
@@ -42,7 +42,8 @@ public class DeltagerVindue extends Stage {
     ListView lvwTilmeldinger = new ListView<>();
     Button btnOpdaterTilmelding = new Button("Opdater Tilmelding");
 
-    public DeltagerVindue() {
+    public DeltagerVindue(Deltager deltager) {
+        this.deltager = deltager;
         BorderPane pane = new BorderPane();
         this.initContent(pane);
 
@@ -156,6 +157,7 @@ public class DeltagerVindue extends Stage {
         gridPaneR.add(hbox, 0, 5, 3, 2);
         hbox.setAlignment(Pos.CENTER);
 
+        btnOpdaterTilmelding.setOnAction(e -> opdaterTilmelding());
         initGUI();
     }
 
@@ -204,6 +206,16 @@ public class DeltagerVindue extends Stage {
         }
     }
 
+    public void opdaterTilmelding(){
+       Tilmelding tilmelding = (Tilmelding) lvwTilmeldinger.getSelectionModel().getSelectedItem();
+       if (tilmelding != null){
+           Konference konference = (Konference) tilmelding.getKonference();
+           TilmeldingsVindue tilmeldingsVindue = new TilmeldingsVindue(konference, deltager, tilmelding);
+           tilmeldingsVindue.showAndWait();
+           initGUI();
+       }
+    }
+
     public void afmeld() {
         Tilmelding tilmelding = (Tilmelding) lvwTilmeldinger.getSelectionModel().getSelectedItem();
         if (tilmelding != null) {
@@ -216,7 +228,7 @@ public class DeltagerVindue extends Stage {
                     Controller.sletTilmelding(konference, deltager, tilmelding);
                     initGUI();
                 } else {
-
+                    // Do nothing
                 }
             });
         }

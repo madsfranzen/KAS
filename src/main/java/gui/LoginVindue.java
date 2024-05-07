@@ -1,5 +1,6 @@
 package gui;
 
+import controller.Controller;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import model.Deltager;
 
 public class LoginVindue extends Stage {
 
@@ -80,9 +82,15 @@ public class LoginVindue extends Stage {
             this.hide();
             adminvindue.show();
         } else {
-            DeltagerVindue deltagerVindue = new DeltagerVindue();
-            this.hide();
-            deltagerVindue.show();
+            for (Deltager deltager : Controller.getDeltagere()) {
+                if (deltager.getBrugernavn().equals(txfBrugernavn.getText())) {
+                    if (deltager.getKodeord().equals(psfKodeord.getText())) {
+                        DeltagerVindue deltagerVindue = new DeltagerVindue(deltager);
+                        this.hide();
+                        deltagerVindue.show();
+                    }
+                }
+            }
         }
     }
 }

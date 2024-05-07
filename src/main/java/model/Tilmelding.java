@@ -41,6 +41,21 @@ public class Tilmelding {
         return this.konference;
     }
 
+    public LocalDate getStartDato() {
+        return startDato;
+    }
+
+    public LocalDate getSlutDato() {
+        return slutDato;
+    }
+
+    public boolean isForedragsholder() {
+        return foredragsholder;
+    }
+
+    public Booking getBooking() {
+        return booking;
+    }
 
     @Override
     public String toString() {

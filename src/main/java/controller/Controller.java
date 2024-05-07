@@ -24,6 +24,7 @@ public abstract class Controller {
         return tilmelding;
     }
 
+
     public static void sletTilmelding(Konference konference, Deltager deltager, Tilmelding tilmelding){
         konference.fjernTilmelding(tilmelding);
         deltager.fjernTilmelding(tilmelding);

@@ -77,4 +77,8 @@ public class Deltager extends Bruger {
     public String getFirma() {
         return firma;
     }
+
+
 }
+
+
