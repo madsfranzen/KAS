@@ -193,7 +193,7 @@ public class OpretBrugerVindue extends Stage {
             alert.showAndWait();
         } else {
             if (deltager != null) {
-                deltager.opdaterInfo(brugernavn, kodeord, navn, adresse, by, land, tlf);
+                Controller.opdaterDeltager(deltager, brugernavn, kodeord, navn, adresse, by, land, tlf);
                 this.hide();
             } else {
                 deltager = Controller.opretDeltager(brugernavn, kodeord, navn, adresse, by, land, tlf);
