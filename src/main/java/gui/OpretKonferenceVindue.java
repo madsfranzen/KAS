@@ -21,6 +21,8 @@ import java.util.ArrayList;
 
 public class OpretKonferenceVindue extends Stage {
 
+    Konference konference;
+
     TextField txfKonferenceNavn = new TextField();
     DatePicker dpStart = new DatePicker();
     DatePicker dpSlut = new DatePicker();
@@ -49,6 +51,19 @@ public class OpretKonferenceVindue extends Stage {
         this.setTitle("Opret Konference");
         BorderPane pane = new BorderPane();
         this.initContent(pane);
+        Scene scene = new Scene(pane);
+        this.setScene(scene);
+        this.setResizable(false);
+    }
+
+
+    public OpretKonferenceVindue(Konference konference) {
+        this.setTitle("Opret Konference");
+        BorderPane pane = new BorderPane();
+        this.initContent(pane);
+        this.konference = konference;
+        this.setKonference();
+        this.changeLooks();
         Scene scene = new Scene(pane);
         this.setScene(scene);
         this.setResizable(false);
@@ -242,6 +257,10 @@ public class OpretKonferenceVindue extends Stage {
             showAlert("Opret venligst udflugter. En Konference må ikke være foruden udflugter.");
         } else if (tilknyttedeHoteller.isEmpty()) {
             showAlert("Tilknyt venligst mindst et hotel.");
+        } else if (konference != null) {
+            konference.opdaterInfo(navn, beskrivelse, lokation, startDato, slutDato, pris, tilknyttedeHoteller, udflugter);
+            VindueManager.adminVindue.updateGUI();
+            this.hide();
         } else {
 
             Konference konference = Controller.opretKonference(navn, beskrivelse, lokation, startDato, slutDato, pris);
@@ -274,5 +293,22 @@ public class OpretKonferenceVindue extends Stage {
         udflugter.clear();
         lvwUdflugter.getItems().setAll(udflugter);
         lvwTilkHoteller.getItems().setAll(tilknyttedeHoteller);
+    }
+
+    public void setKonference() {
+        txfKonferenceNavn.setText(konference.getNavn());
+        txfPris.setText(String.valueOf(konference.getPris()));
+        txfLokation.setText(konference.getLokation());
+        dpStart.setValue(konference.getStartDato());
+        dpSlut.setValue(konference.getSlutDato());
+        txaBeskrivelse.setText(konference.getBeskrivelse());
+        tilknyttedeHoteller.addAll(konference.getHoteller());
+        lvwTilkHoteller.getItems().setAll(tilknyttedeHoteller);
+        udflugter.addAll(konference.getUdflugter());
+        lvwUdflugter.getItems().setAll(udflugter);
+    }
+
+    public void changeLooks() {
+        btnOpretKonference.setText("Opdater Konference");
     }
 }
