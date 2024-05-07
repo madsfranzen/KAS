@@ -52,4 +52,24 @@ public class Deltager extends Bruger {
     public String getNavn() {
         return navn;
     }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public String getBy() {
+        return by;
+    }
+
+    public String getLand() {
+        return land;
+    }
+
+    public String getTlf() {
+        return tlf;
+    }
+
+    public String getFirma() {
+        return firma;
+    }
 }

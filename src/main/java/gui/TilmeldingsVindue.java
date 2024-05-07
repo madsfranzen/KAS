@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -13,7 +14,7 @@ import model.Hotel;
 import model.Konference;
 import storage.Storage;
 
-public class TilmeldingsVindue extends Application {
+public class TilmeldingsVindue extends Stage {
 
     Konference konference;
 
@@ -38,16 +39,12 @@ public class TilmeldingsVindue extends Application {
 
     TextField txfSamletPris = new TextField();
 
-    @Override
-    public void start(Stage stage) {
-        stage.setTitle("KAS");
+    public TilmeldingsVindue() {
         GridPane pane = new GridPane();
         this.initContent(pane);
-
         Scene scene = new Scene(pane);
-        stage.setScene(scene);
-//        stage.setResizable(false);
-        stage.show();
+        this.setScene(scene);
+
     }
 
     public void initContent(GridPane pane) {
@@ -155,6 +152,8 @@ public class TilmeldingsVindue extends Application {
         txaHotelInfo.setText(sb.toString());
         lvwHotelTilvalg.getItems().setAll(hotel.getHotelTilvalg());
     }
+
+
 }
 
 

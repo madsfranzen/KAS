@@ -19,7 +19,7 @@ import model.Hotel;
 import model.Konference;
 import storage.Storage;
 
-public class AdminVindue extends Application {
+public class AdminVindue extends Stage {
 
     // BRUGER
     ListView lvwBrugere = new ListView<>();
@@ -49,18 +49,12 @@ public class AdminVindue extends Application {
     Button btnOpdaterHotel = new Button("Opdater");
     Button btnSletHotel = new Button("Slet");
 
-    public void start(Stage stage) {
-        stage.setTitle("AdminVindue");
+    public AdminVindue() {
         BorderPane pane = new BorderPane();
         this.initContent(pane);
-
         Scene scene = new Scene(pane);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
-        stage.centerOnScreen();
+        this.setScene(scene);
     }
-
 
     private void initContent(BorderPane pane) {
         GridPane mainPane = new GridPane();

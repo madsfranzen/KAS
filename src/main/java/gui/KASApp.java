@@ -10,7 +10,7 @@ public class KASApp {
     public static void main(String[] args) {
 
         initStorage();
-        Application.launch(AdminVindue.class);
+        Application.launch(VindueManager.class);
     }
 
     private static void initStorage() {
@@ -21,7 +21,7 @@ public class KASApp {
 
         Hotel denHvideSvane = Controller.opretHotel("Den Hvide Svane", 1050, 1250);
         HotelTilvalg wifi = Controller.opretHotelTilvalg("Wifi", 50, denHvideSvane);
-        Hotel dangleterre = Controller.opretHotel("Dangleterre",1500,2000);
+        Hotel dangleterre = Controller.opretHotel("Dangleterre", 1500, 2000);
 
         Deltager finn = Controller.opretDeltager("Fm123", "kode", "Finn Madsen", "Adresse", "By", "Land", "12345678");
         Tilmelding finnTilmelding = Controller.opretTilmelding(LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), false, finn, havOgHimmel);
