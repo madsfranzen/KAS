@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 public class VindueManager extends Application {
 
     static LoginVindue loginVindue = new LoginVindue();
+    static OpretHotelVindue opretHotelVindue = new OpretHotelVindue();
 
     public void start(Stage stage) {
         loginVindue.show();

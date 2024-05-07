@@ -45,7 +45,6 @@ public class KASApp {
         Booking booking = Controller.opretBooking(LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), peterTilmelding, denHvideSvane);
         booking.tilføjTilvalg(wifi);
 
-
         Deltager lone = Controller.opretDeltager("Lonlon", "kode", "Lone Jensen", "Vej5", "Ulstrup", "London", "139580229");
         Tilmelding loneTilmelding = Controller.opretTilmelding(LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), true, lone, havOgHimmel);
         Ledsager jan = Controller.opretLedsager("Jan Madsen", loneTilmelding);
