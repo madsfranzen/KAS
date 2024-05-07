@@ -11,7 +11,7 @@ public class VindueManager extends Application {
     static LoginVindue loginVindue = new LoginVindue();
 
     public void start(Stage stage) {
-        loginVindue.hide();
+        loginVindue.show();
     }
 
 }

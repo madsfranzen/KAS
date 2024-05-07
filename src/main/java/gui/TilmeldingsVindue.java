@@ -42,6 +42,7 @@ public class TilmeldingsVindue extends Stage {
     private ListView lvwUdflugter = new ListView();
 
     private TextField txfSamletPris = new TextField();
+    private Label lblError = new Label();
 
     public TilmeldingsVindue() {
         this.setTitle("KAS");
@@ -211,7 +212,7 @@ public class TilmeldingsVindue extends Stage {
                 inputIsValid = false;
             }
 
-            if (hotel == null){
+            if (hotel == null) {
                 lblError.setText("Vælg hotel");
                 inputIsValid = false;
             }
@@ -231,10 +232,10 @@ public class TilmeldingsVindue extends Stage {
                 System.out.println(ledsager);
             }
             Booking booking = null;
-            if (cbxHotelØnskes.isSelected()){
+            if (cbxHotelØnskes.isSelected()) {
                 booking = Controller.opretBooking(bookingStartDato, bookingSlutDato, tilmelding, hotel);
-                for (Object tilvalg : lvwHotelTilvalg.getSelectionModel().getSelectedItems()){
-                    booking.tilføjTilvalg((HotelTilvalg)tilvalg);
+                for (Object tilvalg : lvwHotelTilvalg.getSelectionModel().getSelectedItems()) {
+                    booking.tilføjTilvalg((HotelTilvalg) tilvalg);
                 }
             }
 
