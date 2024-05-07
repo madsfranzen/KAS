@@ -32,7 +32,7 @@ public class Konference {
         this.tilmeldinger.add(tilmelding);
     }
 
-    public ArrayList<Udflugt> getUdflugter(){
+    public ArrayList<Udflugt> getUdflugter() {
         return new ArrayList<>(udflugter);
     }
 
@@ -45,14 +45,7 @@ public class Konference {
         sorterDeltagere(alleDeltagere);
         return alleDeltagere;
     }
-
-    public LocalDate getStartDato() {
-        return startDato;
-    }
-
-    public LocalDate getSlutDato() {
-        return slutDato;
-    }
+    
 
     public static void sorterDeltagere(ArrayList<Deltager> arr) {
         for (int i = arr.size() - 1; i > 0; i--) {
@@ -83,8 +76,30 @@ public class Konference {
         return this.pris;
     }
 
+    public String getNavn() {
+        return navn;
+    }
+
+    public String getBeskrivelse() {
+        return beskrivelse;
+    }
+
+    public String getLokation() {
+        return lokation;
+    }
+
+    public LocalDate getStartDato() {
+        return startDato;
+    }
+
+    public LocalDate getSlutDato() {
+        return slutDato;
+    }
+
     @Override
     public String toString() {
         return String.format("%s", navn);
     }
+
+
 }

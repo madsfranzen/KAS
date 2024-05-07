@@ -17,7 +17,7 @@ import storage.Storage;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class TilmeldingsVindue extends Application {
+public class TilmeldingsVindue extends Stage {
 
     private Konference konference;
     private Deltager deltager = Storage.getDeltagere().getFirst();
@@ -46,16 +46,12 @@ public class TilmeldingsVindue extends Application {
 
     private Label lblError = new Label("Error");
 
-    @Override
-    public void start(Stage stage) {
-        stage.setTitle("KAS");
+    public TilmeldingsVindue() {
+        this.setTitle("KAS");
         GridPane pane = new GridPane();
         this.initContent(pane);
-
         Scene scene = new Scene(pane);
-        stage.setScene(scene);
-//        stage.setResizable(false);
-        stage.show();
+        this.setScene(scene);
     }
 
     public void initContent(GridPane pane) {
@@ -165,7 +161,7 @@ public class TilmeldingsVindue extends Application {
 
     //================ Helpers ====================
     private void updateGui() {
-        konference = Storage.getKonferecer().getFirst();
+        konference = Storage.getKonferencer().getFirst();
         lvwHoteller.getItems().setAll(Storage.getHoteller());
         lvwUdflugter.getItems().setAll(konference.getUdflugter());
     }
@@ -223,7 +219,7 @@ public class TilmeldingsVindue extends Application {
                 inputIsValid = false;
             }
 
-            if (hotel == null){
+            if (hotel == null) {
                 lblError.setText("Vælg hotel");
                 inputIsValid = false;
             }
@@ -243,10 +239,10 @@ public class TilmeldingsVindue extends Application {
                 System.out.println(ledsager);
             }
             Booking booking = null;
-            if (cbxHotelØnskes.isSelected()){
+            if (cbxHotelØnskes.isSelected()) {
                 booking = Controller.opretBooking(bookingStartDato, bookingSlutDato, tilmelding, hotel);
-                for (Object tilvalg : lvwHotelTilvalg.getSelectionModel().getSelectedItems()){
-                    booking.tilføjTilvalg((HotelTilvalg)tilvalg);
+                for (Object tilvalg : lvwHotelTilvalg.getSelectionModel().getSelectedItems()) {
+                    booking.tilføjTilvalg((HotelTilvalg) tilvalg);
                 }
             }
 

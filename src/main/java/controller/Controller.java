@@ -30,7 +30,7 @@ public abstract class Controller {
         return udflugt;
     }
 
-    public static void tilføjUdflugtTilTilmelding(Udflugt udflugt, Tilmelding tilmelding){
+    public static void tilføjUdflugtTilTilmelding(Udflugt udflugt, Tilmelding tilmelding) {
         tilmelding.tilføjUdflugt(udflugt);
     }
 
@@ -59,11 +59,11 @@ public abstract class Controller {
         return booking;
     }
 
-    public static void tilføjTilvalgTilBooking(Booking booking, HotelTilvalg tilvalg){
+    public static void tilføjTilvalgTilBooking(Booking booking, HotelTilvalg tilvalg) {
         booking.tilføjTilvalg(tilvalg);
     }
 
-    public static Ledsager opretLedsager(String navn, Tilmelding tilmelding){
+    public static Ledsager opretLedsager(String navn, Tilmelding tilmelding) {
         Ledsager ledsager = new Ledsager(navn);
         tilmelding.setLedsager(ledsager);
         return ledsager;
@@ -75,7 +75,7 @@ public abstract class Controller {
             for (Booking booking : hotel.getBookinger()) {
                 Tilmelding tilmelding = booking.getTilmelding();
                 String deltagerNavn = tilmelding.getDeltager().getNavn();
-                if (tilmelding.getLedsager() == null){
+                if (tilmelding.getLedsager() == null) {
                     System.out.printf("%s\n", deltagerNavn);
                 } else {
                     String ledsagerNavn = tilmelding.getLedsager().getNavn();
@@ -83,6 +83,18 @@ public abstract class Controller {
                 }
             }
         }
+    }
+
+    public static ArrayList<Hotel> getHoteller() {
+        return Storage.getHoteller();
+    }
+
+    public static ArrayList<Deltager> getDeltagere() {
+        return Storage.getDeltagere();
+    }
+
+    public static ArrayList<Konference> getKonferencer() {
+        return Storage.getKonferencer();
     }
 
 

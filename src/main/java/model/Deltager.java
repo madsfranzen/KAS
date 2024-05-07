@@ -22,18 +22,54 @@ public class Deltager extends Bruger {
 
     @Override
     public String toString() {
-        return String.format("%s",navn);
+        return String.format("%s", navn);
+    }
+
+    public String infoToString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format(navn + "\n"));
+        sb.append(String.format(adresse + "\n"));
+        sb.append(String.format(by + ", " + land + "\n"));
+        sb.append(String.format(tlf + "\n"));
+        if (firma != null) {
+            sb.append(String.format(firma + "\n"));
+        }
+        return sb.toString();
     }
 
     public void tilføjTilmelding(Tilmelding tilmelding) {
         this.tilmeldinger.add(tilmelding);
     }
 
-    public int CompareTo (Deltager other) {
+    public int CompareTo(Deltager other) {
         return this.navn.compareTo(other.navn);
+    }
+
+    public ArrayList<Tilmelding> getTilmeldinger() {
+        return new ArrayList<>(tilmeldinger);
     }
 
     public String getNavn() {
         return navn;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public String getBy() {
+        return by;
+    }
+
+    public String getLand() {
+        return land;
+    }
+
+    public String getTlf() {
+        return tlf;
+    }
+
+    public String getFirma() {
+        return firma;
     }
 }

@@ -27,6 +27,7 @@ import java.lang.foreign.AddressLayout;
 
 public class OpretBrugerVindue extends Application {
 
+    Scene scene;
 
     private HBox bundHbox = new HBox();
 
@@ -79,11 +80,12 @@ public class OpretBrugerVindue extends Application {
 //        profilBillede.setFitHeight(100);
 //        profilBillede.setPreserveRatio(true);
 
-        Scene scene = new Scene(pane);
+        scene = new Scene(pane);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
     }
+
     private void initContent(BorderPane pane) {
         GridPane gridPane = new GridPane();
         pane.setCenter(gridPane);
@@ -116,31 +118,28 @@ public class OpretBrugerVindue extends Application {
         gridPane.add(txfLand, 3, 7);
 
 
-
-
-
-        gridPane.add(bundHbox, 0,8,7,1);
+        gridPane.add(bundHbox, 0, 8, 7, 1);
         bundHbox.getChildren().add(btnOpretBruger);
         bundHbox.setAlignment(Pos.BASELINE_CENTER);
 
-        gridPane.add(topHbox, 0,0,7,1);
+        gridPane.add(topHbox, 0, 0, 7, 1);
         topHbox.getChildren().add(btnUploadProfilbillede);
 //        topHbox.getChildren().add(profilBillede)
         topHbox.setAlignment(Pos.BASELINE_CENTER);
 
         btnOpretBruger.setOnAction(event -> opretBrugerAction());
-        btnOpretBruger.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR,15));
+        btnOpretBruger.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
 
-        btnUploadProfilbillede.setFont(Font.font("verdana", FontWeight.NORMAL, FontPosture.REGULAR,10));
+        btnUploadProfilbillede.setFont(Font.font("verdana", FontWeight.NORMAL, FontPosture.REGULAR, 10));
 
 
-        gridPane.add(lblBrugernavn, 0,3);
+        gridPane.add(lblBrugernavn, 0, 3);
         gridPane.add(lblKodeOrd, 2, 3);
-        gridPane.add(lblNavn, 0,5);
+        gridPane.add(lblNavn, 0, 5);
         gridPane.add(lblAdresse, 2, 5);
-        gridPane.add(lblTlf, 0,6);
+        gridPane.add(lblTlf, 0, 6);
         gridPane.add(lblBy, 2, 6);
-        gridPane.add(lblFirma, 0,7);
+        gridPane.add(lblFirma, 0, 7);
         gridPane.add(lblLand, 2, 7);
 
         GridPane.setHalignment(btnOpretBruger, javafx.geometry.HPos.LEFT);
@@ -170,35 +169,27 @@ public class OpretBrugerVindue extends Application {
         String firma = txfFirma.getText();
         String land = txfLand.getText();
 
-        if(brugernavn.isEmpty() || kodeord.isEmpty() || navn.isEmpty() || navn.isEmpty() || adresse.isEmpty() ||tlf.isEmpty() || by.isEmpty() || land.isEmpty() || erRigtigTelefonNummer(tlf) || erRigtigNavn(navn)) {
+        if (brugernavn.isEmpty() || kodeord.isEmpty() || navn.isEmpty() || navn.isEmpty() || adresse.isEmpty() || tlf.isEmpty() || by.isEmpty() || land.isEmpty() || erRigtigTelefonNummer(tlf) || erRigtigNavn(navn)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Fejl");
             alert.setHeaderText(null);
             if (brugernavn.isEmpty()) {
                 alert.setContentText("Du kan ikke oprette en bruger uden brugernavn");
-            }
-            else if (kodeord.isEmpty()) {
+            } else if (kodeord.isEmpty()) {
                 alert.setContentText("Du kan ikke oprette en bruger uden kodeord");
-            }
-            else if (navn.isEmpty()) {
+            } else if (navn.isEmpty()) {
                 alert.setContentText(" Du kan ikke oprette en bruger uden navn");
-            }
-            else if (!erRigtigNavn(navn)) {
+            } else if (!erRigtigNavn(navn)) {
                 alert.setContentText(" Du kan ikke oprette en bruger med tal i dit navn");
-            }
-            else if (adresse.isEmpty()) {
+            } else if (adresse.isEmpty()) {
                 alert.setContentText(" Du kan ikke oprette en bruger uden adresse");
-            }
-            else if (tlf.isEmpty()) {
+            } else if (tlf.isEmpty()) {
                 alert.setContentText(" Du kan ikke oprette en bruger uden telefonnummer");
-            }
-            else if (erRigtigTelefonNummer(tlf)) {
+            } else if (erRigtigTelefonNummer(tlf)) {
                 alert.setContentText(" Du kan ikke have tal i dit telefonnummer");
-            }
-            else if (by.isEmpty()) {
+            } else if (by.isEmpty()) {
                 alert.setContentText(" Du kan ikke oprette en bruger uden en by");
-            }
-            else if (land.isEmpty()) {
+            } else if (land.isEmpty()) {
                 alert.setContentText(" Du kan ikke oprette en bruger uden et land");
             }
         }
@@ -207,7 +198,7 @@ public class OpretBrugerVindue extends Application {
             Controller.opretDeltager(brugernavn, kodeord, navn, adresse, by, land, tlf);
         }
 
-    // Kommenteret ud da vi mangler constructor til at oprette deltager med firma
+        // Kommenteret ud da vi mangler constructor til at oprette deltager med firma
 //
 //        if (!firma.isEmpty()) {
 //            Controller.opretDeltager(brugernavn, kodeord, navn, adresse, by, land, tlf, firma);

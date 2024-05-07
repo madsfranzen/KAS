@@ -10,10 +10,10 @@ public class KASApp {
     public static void main(String[] args) {
 
         initStorage();
-        Application.launch(TilmeldingsVindue.class);
+        Application.launch(VindueManager.class);
     }
 
-    private static void initStorage(){
+    private static void initStorage() {
         Konference havOgHimmel = Controller.opretKonference("Hav og Himmel", "Det handler om Hav, samt Himmel", "Odense Universitet", LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), 1500);
         Udflugt byrundtur = Controller.opretUdflugt("Byrundtur, Odense", 125, LocalDate.of(2024, 5, 18), true, havOgHimmel);
         Udflugt egeskov = Controller.opretUdflugt("Egeskov", 75, LocalDate.of(2024, 5, 19), false, havOgHimmel);
@@ -21,7 +21,7 @@ public class KASApp {
 
         Hotel denHvideSvane = Controller.opretHotel("Den Hvide Svane", 1050, 1250);
         HotelTilvalg wifi = Controller.opretHotelTilvalg("Wifi", 50, denHvideSvane);
-        Hotel dangleterre = Controller.opretHotel("Dangleterre",1500,2000);
+        Hotel dangleterre = Controller.opretHotel("Dangleterre", 1500, 2000);
 
         Deltager finn = Controller.opretDeltager("Fm123", "kode", "Finn Madsen", "Adresse", "By", "Land", "12345678");
         Tilmelding finnTilmelding = Controller.opretTilmelding(LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), false, finn, havOgHimmel);
@@ -49,7 +49,7 @@ public class KASApp {
         Ledsager jan = Controller.opretLedsager("Jan Madsen", loneTilmelding);
         loneTilmelding.tilføjUdflugt(egeskov);
         loneTilmelding.tilføjUdflugt(byrundtur);
-        Booking loneBooking = Controller.opretBooking(LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20),loneTilmelding,denHvideSvane);
+        Booking loneBooking = Controller.opretBooking(LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), loneTilmelding, denHvideSvane);
         loneBooking.tilføjTilvalg(wifi);
     }
 }
