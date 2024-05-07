@@ -109,6 +109,7 @@ public class AdminVindue extends Stage {
         hboxBruger2.getChildren().addAll(btnTilmeldBruger, btnAfmeldBruger);
 
         btnOpretBruger.setOnAction(e -> opretBruger());
+        btnOpdaterBruger.setOnAction(e -> opdaterBruger());
         btnTilmeldBruger.setOnAction(e -> opretTilmelding());
         btnAfmeldBruger.setOnAction(e -> afmeld());
 
@@ -206,10 +207,12 @@ public class AdminVindue extends Stage {
     //========================== Updates ====================================
     public void selectedDeltagerChanged() {
         Deltager deltager = (Deltager) lvwBrugere.getSelectionModel().getSelectedItem();
-        // Opdater listview af Tilmeldinger
-        lvwTilmeldinger.getItems().setAll(deltager.getTilmeldinger());
-        // Opdater Bruger Info
-        txaBrugerInfo.setText(deltager.infoToString());
+        if (deltager != null) {
+            // Opdater listview af Tilmeldinger
+            lvwTilmeldinger.getItems().setAll(deltager.getTilmeldinger());
+            // Opdater Bruger Info
+            txaBrugerInfo.setText(deltager.infoToString());
+        }
     }
 
     public void selectedHotelChanged() {
@@ -249,11 +252,19 @@ public class AdminVindue extends Stage {
     //========================= Actions ===============================
 
 
-    public void opretBruger(){
+    public void opretBruger() {
         OpretBrugerVindue opretBrugerVindue = new OpretBrugerVindue();
         opretBrugerVindue.showAndWait();
         updateGUI();
     }
+
+    public void opdaterBruger() {
+        Deltager deltager = (Deltager) lvwBrugere.getSelectionModel().getSelectedItem();
+        OpretBrugerVindue opretBrugerVindue = new OpretBrugerVindue(deltager);
+        opretBrugerVindue.showAndWait();
+        updateGUI();
+    }
+
     public void opretTilmelding() {
         Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
         Deltager deltager = (Deltager) lvwBrugere.getSelectionModel().getSelectedItem();
