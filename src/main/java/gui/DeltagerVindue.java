@@ -23,7 +23,7 @@ import java.io.File;
 
 public class DeltagerVindue extends Stage {
 
-    Deltager deltager = Storage.getDeltagere().getLast();
+    Deltager deltager;
 
     ListView lvwKonferencer = new ListView<>();
     TextArea txaKonferenceInfo = new TextArea();
@@ -42,7 +42,8 @@ public class DeltagerVindue extends Stage {
     ListView lvwTilmeldinger = new ListView<>();
     Button btnOpdaterTilmelding = new Button("Opdater Tilmelding");
 
-    public DeltagerVindue() {
+    public DeltagerVindue(Deltager deltager) {
+        this.deltager = deltager;
         BorderPane pane = new BorderPane();
         this.initContent(pane);
 
