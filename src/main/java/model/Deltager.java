@@ -41,11 +41,12 @@ public class Deltager extends Bruger {
         this.tilmeldinger.add(tilmelding);
     }
 
-    public void fjernTilmelding(Tilmelding tildmelding){
-        if (this.tilmeldinger.contains(tildmelding)){
+    public void fjernTilmelding(Tilmelding tildmelding) {
+        if (this.tilmeldinger.contains(tildmelding)) {
             this.tilmeldinger.remove(tildmelding);
         }
     }
+
     public int CompareTo(Deltager other) {
         return this.navn.compareTo(other.navn);
     }
@@ -78,6 +79,39 @@ public class Deltager extends Bruger {
         return firma;
     }
 
+    public void setNavn(String navn) {
+        this.navn = navn;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public void setBy(String by) {
+        this.by = by;
+    }
+
+    public void setLand(String land) {
+        this.land = land;
+    }
+
+    public void setTlf(String tlf) {
+        this.tlf = tlf;
+    }
+
+    public void setFirma(String firma) {
+        this.firma = firma;
+    }
+
+    public void opdaterInfo(String brugernavn, String kodeord, String navn, String adresse, String by, String land, String tlf) {
+        this.setBrugernavn(brugernavn);
+        this.setKodeord(kodeord);
+        this.navn = navn;
+        this.adresse = adresse;
+        this.by = by;
+        this.land = land;
+        this.tlf = tlf;
+    }
 
 }
 
