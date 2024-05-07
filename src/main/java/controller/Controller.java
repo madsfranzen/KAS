@@ -25,7 +25,7 @@ public abstract class Controller {
     }
 
 
-    public static void sletTilmelding(Konference konference, Deltager deltager, Tilmelding tilmelding){
+    public static void sletTilmelding(Konference konference, Deltager deltager, Tilmelding tilmelding) {
         konference.fjernTilmelding(tilmelding);
         deltager.fjernTilmelding(tilmelding);
     }
@@ -34,6 +34,10 @@ public abstract class Controller {
         Udflugt udflugt = new Udflugt(navn, pris, dato, inklusivFrokost);
         konference.tilføjUdflugt(udflugt);
         return udflugt;
+    }
+
+    public static void tilføjUdflugtTilKonference(Konference konference, Udflugt udflugt) {
+        konference.tilføjUdflugt(udflugt);
     }
 
     public static void tilføjUdflugtTilTilmelding(Udflugt udflugt, Tilmelding tilmelding) {
