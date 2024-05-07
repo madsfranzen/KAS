@@ -44,6 +44,10 @@ public abstract class Controller {
         konference.tilføjUdflugt(udflugt);
     }
 
+    public static void tilføjHotelTilKonference(Konference konference, Hotel hotel){
+        konference.tilføjHotel(hotel);
+    }
+
     public static void tilføjUdflugtTilTilmelding(Udflugt udflugt, Tilmelding tilmelding) {
         tilmelding.tilføjUdflugt(udflugt);
     }

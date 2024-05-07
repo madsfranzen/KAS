@@ -208,7 +208,7 @@ public class TilmeldingsVindue extends Stage {
 
     //================ Helpers ====================
     private void updateGui() {
-        lvwHoteller.getItems().setAll(Storage.getHoteller());
+        lvwHoteller.getItems().setAll(konference.getHoteller());
         lvwUdflugter.getItems().setAll(konference.getUdflugter());
     }
 

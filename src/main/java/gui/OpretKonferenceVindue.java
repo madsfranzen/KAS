@@ -268,6 +268,9 @@ public class OpretKonferenceVindue extends Stage {
             for (Udflugt udflugt : udflugter) {
                 Controller.tilføjUdflugtTilKonference(konference, udflugt);
             }
+            for (Hotel hotel : tilknyttedeHoteller){
+                Controller.tilføjHotelTilKonference(konference,hotel);
+            }
 
             clearGUI();
             VindueManager.adminVindue.updateGUI();
