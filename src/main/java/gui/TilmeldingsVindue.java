@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class TilmeldingsVindue extends Stage {
 
     private Konference konference;
-    private Deltager deltager = Storage.getDeltagere().getFirst();
+    private Deltager deltager;
 
     private DatePicker dpCheckIn = new DatePicker();
     private DatePicker dpCheckUd = new DatePicker();
@@ -44,7 +44,9 @@ public class TilmeldingsVindue extends Stage {
     private TextField txfSamletPris = new TextField();
     private Label lblError = new Label();
 
-    public TilmeldingsVindue() {
+    public TilmeldingsVindue(Konference konference, Deltager deltager) {
+        this.konference = konference;
+        this.deltager = deltager;
         this.setTitle("KAS");
         GridPane pane = new GridPane();
         this.initContent(pane);
@@ -95,6 +97,7 @@ public class TilmeldingsVindue extends Stage {
         pane.add(lblHotelTilvalg, 2, 6);
         pane.add(lvwHotelTilvalg, 2, 7, 1, 2);
         lvwHotelTilvalg.setMaxWidth(175);
+        lvwHotelTilvalg.setDisable(true);
 
 
         //================== Deltager og ledsager info ======================
@@ -110,6 +113,7 @@ public class TilmeldingsVindue extends Stage {
 
         pane.add(cbxForedragsholder, 3, 2);
         pane.add(cbxLedsager, 3, 3);
+        cbxLedsager.setOnAction(e -> ledsagerØnskes());
 
         GridPane ledsagerPane = new GridPane();
         Label lblLedsagerNavn = new Label("Ledsager Navn:");
@@ -118,6 +122,7 @@ public class TilmeldingsVindue extends Stage {
         ledsagerPane.setHgap(10);
         pane.add(ledsagerPane, 3, 4, 2, 1);
         txfLedsagerNavn.setMaxWidth(150);
+        txfLedsagerNavn.setDisable(true);
 
         //========= Udflugter ==========
 
@@ -128,6 +133,8 @@ public class TilmeldingsVindue extends Stage {
         udflugtPane.add(lvwUdflugter, 0, 1);
         lvwUdflugter.setMaxHeight(150);
         pane.add(udflugtPane, 3, 5, 2, 4);
+        lvwUdflugter.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        lvwUdflugter.setDisable(true);
 
 
         Label lblSamletPris = new Label("Samlet Pris:");
@@ -154,7 +161,6 @@ public class TilmeldingsVindue extends Stage {
 
     //================ Helpers ====================
     private void updateGui() {
-        konference = Storage.getKonferencer().getFirst();
         lvwHoteller.getItems().setAll(Storage.getHoteller());
         lvwUdflugter.getItems().setAll(konference.getUdflugter());
     }
@@ -229,7 +235,6 @@ public class TilmeldingsVindue extends Stage {
 
             if (cbxLedsager.isSelected()) {
                 Ledsager ledsager = Controller.opretLedsager(ledsagerNavn, tilmelding);
-                System.out.println(ledsager);
             }
             Booking booking = null;
             if (cbxHotelØnskes.isSelected()) {
@@ -238,11 +243,8 @@ public class TilmeldingsVindue extends Stage {
                     booking.tilføjTilvalg((HotelTilvalg) tilvalg);
                 }
             }
+            this.hide();
 
-            System.out.println(tilmelding);
-            System.out.println(tilmelding.getUdflugter());
-            System.out.println(booking);
-            lblError.setText("");
         }
 
     }

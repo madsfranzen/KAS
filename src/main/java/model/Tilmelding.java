@@ -37,6 +37,10 @@ public class Tilmelding {
         return this.deltager;
     }
 
+    public Konference getKonference() {
+        return this.konference;
+    }
+
 
     @Override
     public String toString() {

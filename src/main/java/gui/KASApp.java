@@ -19,6 +19,8 @@ public class KASApp {
         Udflugt egeskov = Controller.opretUdflugt("Egeskov", 75, LocalDate.of(2024, 5, 19), false, havOgHimmel);
         Udflugt trapholt = Controller.opretUdflugt("Trapholt Museum, Kolding", 200, LocalDate.of(2024, 5, 20), true, havOgHimmel);
 
+        Konference BlizzCon = Controller.opretKonference("BlizzCon", "Computerspil Juhu!", "Amerika?", LocalDate.of(2024,6,15),LocalDate.of(2024,6,21),1250);
+
         Hotel denHvideSvane = Controller.opretHotel("Den Hvide Svane", 1050, 1250);
         HotelTilvalg wifi = Controller.opretHotelTilvalg("Wifi", 50, denHvideSvane);
         Hotel dangleterre = Controller.opretHotel("Dangleterre", 1500, 2000);

@@ -24,6 +24,11 @@ public abstract class Controller {
         return tilmelding;
     }
 
+    public static void sletTilmelding(Konference konference, Deltager deltager, Tilmelding tilmelding){
+        konference.fjernTilmelding(tilmelding);
+        deltager.fjernTilmelding(tilmelding);
+    }
+
     public static Udflugt opretUdflugt(String navn, double pris, LocalDate dato, boolean inklusivFrokost, Konference konference) {
         Udflugt udflugt = new Udflugt(navn, pris, dato, inklusivFrokost);
         konference.tilføjUdflugt(udflugt);

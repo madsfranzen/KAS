@@ -32,6 +32,16 @@ public class Konference {
         this.tilmeldinger.add(tilmelding);
     }
 
+    public void fjernTilmelding(Tilmelding tildmelding){
+       if (this.tilmeldinger.contains(tildmelding)){
+          this.tilmeldinger.remove(tildmelding);
+       }
+    }
+
+    public ArrayList<Tilmelding> getTilmeldinger(){
+        return new ArrayList<>(tilmeldinger);
+    }
+
     public ArrayList<Udflugt> getUdflugter() {
         return new ArrayList<>(udflugter);
     }

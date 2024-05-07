@@ -75,14 +75,11 @@ public class LoginVindue extends Stage {
 
 
     public void loginAction() {
-        AdminVindue adminVindue = new AdminVindue();
+        DeltagerVindue deltagerVindue = new DeltagerVindue();
         this.hide();
-        adminVindue.show();
+        deltagerVindue.show();
     }
 
     public void opretBrugerAction() {
-        TilmeldingsVindue tilmeldingsVindue = new TilmeldingsVindue();
-        this.hide();
-        tilmeldingsVindue.show();
     }
 }
