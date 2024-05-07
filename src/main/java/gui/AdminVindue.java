@@ -195,6 +195,8 @@ public class AdminVindue extends Stage {
         ChangeListener<Hotel> Hotellistener = (ov, o, n) -> this.selectedHotelChanged();
         lvwHoteller.getSelectionModel().selectedItemProperty().addListener(Hotellistener);
 
+        btnOpretHotel.setOnAction(event -> VindueManager.visOpretHotelVindue());
+
         updateGUI();
     }
 
