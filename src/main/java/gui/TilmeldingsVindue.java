@@ -157,7 +157,7 @@ public class TilmeldingsVindue extends Stage {
         GridPane.setHalignment(lblSamletPris, HPos.RIGHT);
         txfSamletPris.setMaxWidth(100);
         Button btnOpretTilmelding = new Button("Opret Tilmelding");
-        if (tilmelding != null){
+        if (tilmelding != null) {
             btnOpretTilmelding.setText("Opdater Tilmelding");
         }
         pane.add(btnOpretTilmelding, 4, 9);
@@ -183,8 +183,8 @@ public class TilmeldingsVindue extends Stage {
             cbxLedsager.setSelected(true);
             ledsagerØnskes();
             txfLedsagerNavn.setText(tilmelding.getLedsager().getNavn());
-            for (Object udflugt : lvwUdflugter.getItems()){
-                if (tilmelding.getUdflugter().contains(udflugt)){
+            for (Object udflugt : lvwUdflugter.getItems()) {
+                if (tilmelding.getUdflugter().contains(udflugt)) {
                     lvwUdflugter.getSelectionModel().select(udflugt);
                 }
             }
@@ -196,8 +196,8 @@ public class TilmeldingsVindue extends Stage {
             dpCheckIn.setValue(booking.getStartDato());
             dpCheckUd.setValue(booking.getSlutDato());
             lvwHoteller.getSelectionModel().select(booking.getHotel());
-            for (Object tilvalg : lvwHotelTilvalg.getItems()){
-                if (booking.getTilvalg().contains(tilvalg)){
+            for (Object tilvalg : lvwHotelTilvalg.getItems()) {
+                if (booking.getTilvalg().contains(tilvalg)) {
                     lvwHotelTilvalg.getSelectionModel().select(tilvalg);
                 }
             }
@@ -212,6 +212,13 @@ public class TilmeldingsVindue extends Stage {
         lvwUdflugter.getItems().setAll(konference.getUdflugter());
     }
 
+    public void showAlert(String infoText) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Fejl");
+        alert.setHeaderText(null);
+        alert.setContentText(infoText);
+        alert.showAndWait();
+    }
 
     //=================== Actions ================
 
@@ -219,55 +226,43 @@ public class TilmeldingsVindue extends Stage {
     private void opretTilmelding() {
         boolean inputIsValid = true;
         LocalDate startDato = dpDeltagerFra.getValue();
-        if (startDato == null) {
-            inputIsValid = false;
-            lblError.setText("Startdato invalid");
-        } else if (startDato.isBefore(konference.getStartDato()) || startDato.isAfter(konference.getSlutDato())) {
-            lblError.setText("Startdato invalid");
-            inputIsValid = false;
-        }
-
         LocalDate slutDato = dpDeltagerTil.getValue();
-        if (slutDato == null) {
-            inputIsValid = false;
-            lblError.setText("Slutdato invalid");
-        } else if (slutDato.isBefore(konference.getStartDato()) || slutDato.isAfter(konference.getSlutDato()) || startDato.isAfter(slutDato)) {
-            lblError.setText("Slutdato invalid");
-            inputIsValid = false;
-        }
-
-
         boolean foredragsholder = cbxForedragsholder.isSelected();
-
         String ledsagerNavn = txfLedsagerNavn.getText();
-        if (ledsagerNavn.equalsIgnoreCase("") && cbxLedsager.isSelected()) {
-            inputIsValid = false;
-            lblError.setText("Ledsagernavn invalid");
-        }
-
         LocalDate bookingStartDato = dpCheckIn.getValue();
         LocalDate bookingSlutDato = dpCheckUd.getValue();
         Hotel hotel = (Hotel) lvwHoteller.getSelectionModel().getSelectedItem();
 
-        if (cbxHotelØnskes.isSelected()) {
+        if (startDato == null) {
+            inputIsValid = false;
+            showAlert("Indtast en start dato");
+        } else if (startDato.isBefore(konference.getStartDato()) || startDato.isAfter(konference.getSlutDato())) {
+            showAlert("Indtast en gyldig start dato");
+            inputIsValid = false;
+        } else if (slutDato == null) {
+            inputIsValid = false;
+            showAlert("Indtast en slut Dato.");
+        } else if (slutDato.isBefore(konference.getStartDato()) || slutDato.isAfter(konference.getSlutDato()) || startDato.isAfter(slutDato)) {
+            showAlert("Indtast en gyldig Slut Dato");
+            inputIsValid = false;
+        } else if (ledsagerNavn.equalsIgnoreCase("") && cbxLedsager.isSelected()) {
+            inputIsValid = false;
+            showAlert("Indtast vendligst navnet på din ledsager");
+        } else if (cbxHotelØnskes.isSelected()) {
             if (bookingStartDato == null) {
                 inputIsValid = false;
-                lblError.setText("Booking dato invalid");
+                showAlert("Indtast en startdato på booking");
             } else if (bookingStartDato.isBefore(konference.getStartDato()) || bookingStartDato.isAfter(konference.getSlutDato())) {
-                lblError.setText("Booking dato invalid");
+                showAlert("Indtast en gyldig startdato på booking ");
                 inputIsValid = false;
-            }
-
-            if (bookingSlutDato == null) {
+            } else if (bookingSlutDato == null) {
                 inputIsValid = false;
-                lblError.setText("Booking dato invalid");
+                showAlert("Indtast en startdato på booking ");
             } else if (bookingSlutDato.isBefore(konference.getStartDato()) || bookingSlutDato.isAfter(konference.getSlutDato()) || bookingStartDato.isAfter(bookingSlutDato)) {
-                lblError.setText("Booking dato invalid");
+                showAlert("Indtast en gyldig slutdato på booking ");
                 inputIsValid = false;
-            }
-
-            if (hotel == null) {
-                lblError.setText("Vælg hotel");
+            } else if (hotel == null) {
+                showAlert("Vælg veligst et hotel");
                 inputIsValid = false;
             }
 

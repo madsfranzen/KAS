@@ -259,7 +259,8 @@ public class OpretKonferenceVindue extends Stage {
     public void showAlert(String infoText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Fejl");
-        alert.setHeaderText(infoText);
+        alert.setHeaderText(null);
+        alert.setContentText(infoText);
         alert.showAndWait();
     }
 
