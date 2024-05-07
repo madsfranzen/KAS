@@ -39,6 +39,10 @@ public class Konference {
         }
     }
 
+    public void tilføjHotel(Hotel hotel){
+        this.hoteller.add(hotel);
+    }
+
     public ArrayList<Tilmelding> getTilmeldinger() {
         return new ArrayList<>(tilmeldinger);
     }

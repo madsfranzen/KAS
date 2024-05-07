@@ -14,7 +14,12 @@ public abstract class Controller {
         return deltager;
     }
 
-    public static void sletDeltager(Deltager deltager){
+
+    public static void opdaterDeltager(Deltager deltager, String brugernavn, String kodeord, String navn, String adresse, String by, String land, String tlf) {
+        deltager.opdaterInfo(brugernavn, kodeord, navn, adresse, by, land, tlf);
+    }
+
+    public static void sletDeltager(Deltager deltager) {
         Storage.deleteDeltager(deltager);
     }
 
@@ -44,6 +49,10 @@ public abstract class Controller {
         konference.tilføjUdflugt(udflugt);
     }
 
+    public static void tilføjHotelTilKonference(Konference konference, Hotel hotel) {
+        konference.tilføjHotel(hotel);
+    }
+
     public static void tilføjUdflugtTilTilmelding(Udflugt udflugt, Tilmelding tilmelding) {
         tilmelding.tilføjUdflugt(udflugt);
     }
@@ -68,6 +77,10 @@ public abstract class Controller {
         Konference konference = new Konference(navn, beskrivelse, lokation, startDato, slutDato, pris);
         Storage.storeKonference(konference);
         return konference;
+    }
+
+    public static void opdaterKonference(Konference konference, String navn, String beskrivelse, String lokation, LocalDate startDato, LocalDate slutDato, double pris, ArrayList<Hotel> hoteller, ArrayList<Udflugt> udflugter) {
+        konference.opdaterInfo(navn, beskrivelse, lokation, startDato, slutDato, pris, hoteller, udflugter);
     }
 
     public static Booking opretBooking(LocalDate startDato, LocalDate slutDato, Tilmelding tilmelding, Hotel hotel) {

@@ -258,7 +258,7 @@ public class OpretKonferenceVindue extends Stage {
         } else if (tilknyttedeHoteller.isEmpty()) {
             showAlert("Tilknyt venligst mindst et hotel.");
         } else if (konference != null) {
-            konference.opdaterInfo(navn, beskrivelse, lokation, startDato, slutDato, pris, tilknyttedeHoteller, udflugter);
+            Controller.opdaterKonference(konference, navn, beskrivelse, lokation, startDato, slutDato, pris, tilknyttedeHoteller, udflugter);
             VindueManager.adminVindue.updateGUI();
             this.hide();
         } else {
@@ -267,6 +267,9 @@ public class OpretKonferenceVindue extends Stage {
             // Tilføj Udflugterne til Konferencen
             for (Udflugt udflugt : udflugter) {
                 Controller.tilføjUdflugtTilKonference(konference, udflugt);
+            }
+            for (Hotel hotel : tilknyttedeHoteller){
+                Controller.tilføjHotelTilKonference(konference,hotel);
             }
 
             clearGUI();
@@ -278,7 +281,8 @@ public class OpretKonferenceVindue extends Stage {
     public void showAlert(String infoText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Fejl");
-        alert.setHeaderText(infoText);
+        alert.setHeaderText(null);
+        alert.setContentText(infoText);
         alert.showAndWait();
     }
 
