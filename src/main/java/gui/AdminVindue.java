@@ -201,6 +201,7 @@ public class AdminVindue extends Stage {
         lvwHoteller.getSelectionModel().selectedItemProperty().addListener(Hotellistener);
 
         btnOpretHotel.setOnAction(event -> VindueManager.visOpretHotelVindue());
+        btnOpdaterHotel.setOnAction(event -> opdaterHotel());
         btnOpretBruger.setOnAction(event -> VindueManager.opretBrugerVindue.show());
         btnOpretKonference.setOnAction(event -> VindueManager.opretKonferenceVindue.show());
         updateGUI();
@@ -256,8 +257,17 @@ public class AdminVindue extends Stage {
         lvwBrugere.getSelectionModel().clearSelection();
         lvwKonferencer.getSelectionModel().clearSelection();
         lvwHoteller.getSelectionModel().clearSelection();
+        clearGUI();
     }
 
+    public void clearGUI() {
+        txaBrugerInfo.clear();
+        txaKonferenceInfo.clear();
+        txaHotelInfo.clear();
+        lvwTilmeldinger.getItems().clear();
+        lvwTilvalg.getItems().clear();
+        lvwUdflugter.getItems().clear();
+    }
 
     //========================= Actions ===============================
 
@@ -321,5 +331,12 @@ public class AdminVindue extends Stage {
             alert.setContentText("Vælg venlist en tilmelding");
             alert.showAndWait();
         }
+    }
+
+    public void opdaterHotel() {
+        Hotel hotel = (Hotel) lvwHoteller.getSelectionModel().getSelectedItem();
+        OpretHotelVindue opretHotelVindue = new OpretHotelVindue(hotel);
+        opretHotelVindue.showAndWait();
+        updateGUI();
     }
 }

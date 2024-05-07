@@ -16,6 +16,14 @@ public class Hotel {
         this.prisDobbelt = prisDobbelt;
     }
 
+    public void opdaterInfo(String navn, double prisEnkelt, double prisDobbelt, ArrayList<HotelTilvalg> hotelTilvalg) {
+        this.navn = navn;
+        this.prisEnkelt = prisEnkelt;
+        this.prisDobbelt = prisDobbelt;
+        this.hotelTilvalg.clear();
+        this.hotelTilvalg.addAll(hotelTilvalg);
+    }
+
     public void tilføjHotelTilvalg(HotelTilvalg hotelTilvalg) {
         this.hotelTilvalg.add(hotelTilvalg);
     }

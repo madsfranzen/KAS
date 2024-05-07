@@ -18,6 +18,8 @@ import java.util.ArrayList;
 
 public class OpretHotelVindue extends Stage {
 
+    Hotel hotel;
+
     private ArrayList<HotelTilvalg> tilvalgArr = new ArrayList<>();
 
     Button btnOpretTilvalg = new Button("Opret Tilvalg");
@@ -36,6 +38,18 @@ public class OpretHotelVindue extends Stage {
         this.setTitle("Opret Hotel");
         BorderPane pane = new BorderPane();
         this.initContent(pane);
+        Scene scene = new Scene(pane);
+        this.setScene(scene);
+        this.setResizable(false);
+    }
+
+    public OpretHotelVindue(Hotel hotel) {
+        this.setTitle("Opret Hotel");
+        BorderPane pane = new BorderPane();
+        this.initContent(pane);
+        this.hotel = hotel;
+        this.setHotel();
+        this.changeLooks();
         Scene scene = new Scene(pane);
         this.setScene(scene);
         this.setResizable(false);
@@ -97,6 +111,8 @@ public class OpretHotelVindue extends Stage {
         paneR.add(btnOpretHotel, 1, 5);
 
         btnOpretHotel.setOnAction(event -> opretHotel());
+
+
     }
 
     //=============================== METHODS ==================================//
@@ -133,6 +149,10 @@ public class OpretHotelVindue extends Stage {
             showAlert("Indtast en Pris for Single Værelse.");
         } else if (dobbeltPris == 0) {
             showAlert("Indtast en Pris for Dobbelt Værelse.");
+        } else if (hotel != null) {
+            hotel.opdaterInfo(navn, singlePris, dobbeltPris, tilvalgArr);
+            VindueManager.adminVindue.updateGUI();
+            this.hide();
         } else {
             Hotel hotel = Controller.opretHotel(navn, singlePris, dobbeltPris);
             // Tiløj Tilvalg
@@ -155,4 +175,18 @@ public class OpretHotelVindue extends Stage {
         alert.setHeaderText(infoText);
         alert.showAndWait();
     }
+
+    public void setHotel() {
+        txfNavnHotel.setText(hotel.getNavn());
+        txfPrisSingle.setText(String.valueOf(hotel.getPrisEnkelt()));
+        txfPrisDobbelt.setText(String.valueOf(hotel.getPrisDobbelt()));
+        tilvalgArr.addAll(hotel.getHotelTilvalg());
+        lvwTilvalg.getItems().setAll(tilvalgArr);
+    }
+
+    public void changeLooks() {
+        btnOpretHotel.setText("Opdater Hotel");
+    }
+
+
 }
