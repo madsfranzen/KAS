@@ -1,5 +1,7 @@
 package gui;
 
+import controller.Controller;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -8,8 +10,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import model.Hotel;
+import model.HotelTilvalg;
+import model.Konference;
+
+import java.util.ArrayList;
 
 public class OpretHotelVindue extends Stage {
+
+    private ArrayList<HotelTilvalg> tilvalgArr = new ArrayList<>();
 
     Button btnOpretTilvalg = new Button("Opret Tilvalg");
     Button btnSletTilvalg = new Button("Slet Tilvalg");
@@ -66,6 +75,11 @@ public class OpretHotelVindue extends Stage {
         hBox.setSpacing(25);
         hBox.setAlignment(Pos.CENTER);
         paneL.add(hBox, 0, 5, 2, 1);
+
+        btnOpretTilvalg.setOnAction(event -> opretTilvalg());
+        btnSletTilvalg.setOnAction(event -> sletTilvalg());
+
+
         //==================== HØJRE SIDE =====================//
         Label lblHotel = new Label("Hotel");
         Label lblHotelNavn = new Label("Navn");
@@ -81,5 +95,32 @@ public class OpretHotelVindue extends Stage {
         Label lbl = new Label(" ");
         paneR.add(lbl, 0, 4);
         paneR.add(btnOpretHotel, 1, 5);
+
+        btnOpretHotel.setOnAction(event -> opretHotel());
+    }
+
+    public void opretTilvalg() {
+        HotelTilvalg tilvalg = new HotelTilvalg(txfNavnTilvalg.getText(), Double.parseDouble(txfPris.getText()));
+        tilvalgArr.add(tilvalg);
+        lvwTilvalg.getItems().setAll(tilvalgArr);
+        txfNavnTilvalg.clear();
+        txfPris.clear();
+    }
+
+    public void sletTilvalg() {
+        HotelTilvalg tilvalg = (HotelTilvalg) lvwTilvalg.getSelectionModel().getSelectedItem();
+        tilvalgArr.remove(tilvalg);
+        lvwTilvalg.getItems().setAll(tilvalgArr);
+    }
+
+    public void opretHotel() {
+        Hotel hotel = Controller.opretHotel(txfNavnHotel.getText(), Double.parseDouble(txfPrisSingle.getText()), Double.parseDouble(txfPrisDobbelt.getText()));
+        for (HotelTilvalg tilvalg : tilvalgArr) {
+            Controller.tilføjHotelTilvalg(hotel, tilvalg);
+        }
+        txfNavnHotel.clear();
+        txfPrisSingle.clear();
+        txfPrisDobbelt.clear();
+        System.out.println(hotel);
     }
 }

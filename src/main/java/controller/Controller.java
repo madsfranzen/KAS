@@ -46,6 +46,10 @@ public abstract class Controller {
         return hotelTilvalg;
     }
 
+    public static void tilføjHotelTilvalg(Hotel hotel, HotelTilvalg hotelTilvalg) {
+        hotel.tilføjHotelTilvalg(hotelTilvalg);
+    }
+
     public static Konference opretKonference(String navn, String beskrivelse, String lokation, LocalDate startDato, LocalDate slutDato, double pris) {
         Konference konference = new Konference(navn, beskrivelse, lokation, startDato, slutDato, pris);
         Storage.storeKonference(konference);
