@@ -21,6 +21,7 @@ public class TilmeldingsVindue extends Stage {
 
     private Konference konference;
     private Deltager deltager;
+    private Tilmelding tilmelding;
 
     private DatePicker dpCheckIn = new DatePicker();
     private DatePicker dpCheckUd = new DatePicker();
@@ -50,6 +51,18 @@ public class TilmeldingsVindue extends Stage {
         this.setTitle("KAS");
         GridPane pane = new GridPane();
         this.initContent(pane);
+        Scene scene = new Scene(pane);
+        this.setScene(scene);
+    }
+
+    public TilmeldingsVindue(Konference konference, Deltager deltager, Tilmelding tilmelding) {
+        this.konference = konference;
+        this.deltager = deltager;
+        this.tilmelding = tilmelding;
+        this.setTitle("KAS");
+        GridPane pane = new GridPane();
+        this.initContent(pane);
+        this.setTilmelding();
         Scene scene = new Scene(pane);
         this.setScene(scene);
     }
@@ -144,6 +157,9 @@ public class TilmeldingsVindue extends Stage {
         GridPane.setHalignment(lblSamletPris, HPos.RIGHT);
         txfSamletPris.setMaxWidth(100);
         Button btnOpretTilmelding = new Button("Opret Tilmelding");
+        if (tilmelding != null){
+            btnOpretTilmelding.setText("Opdater Tilmelding");
+        }
         pane.add(btnOpretTilmelding, 4, 9);
         btnOpretTilmelding.setOnAction(e -> opretTilmelding());
 
@@ -159,11 +175,43 @@ public class TilmeldingsVindue extends Stage {
     }
 
 
+    public void setTilmelding() {
+        dpDeltagerFra.setValue(tilmelding.getStartDato());
+        dpDeltagerTil.setValue(tilmelding.getSlutDato());
+        cbxForedragsholder.setSelected(tilmelding.isForedragsholder());
+        if (tilmelding.getLedsager() != null) {
+            cbxLedsager.setSelected(true);
+            ledsagerØnskes();
+            txfLedsagerNavn.setText(tilmelding.getLedsager().getNavn());
+            for (Object udflugt : lvwUdflugter.getItems()){
+                if (tilmelding.getUdflugter().contains(udflugt)){
+                    lvwUdflugter.getSelectionModel().select(udflugt);
+                }
+            }
+        }
+        if (tilmelding.getBooking() != null) {
+            Booking booking = tilmelding.getBooking();
+            cbxHotelØnskes.setSelected(true);
+            hotelØnskes();
+            dpCheckIn.setValue(booking.getStartDato());
+            dpCheckUd.setValue(booking.getSlutDato());
+            lvwHoteller.getSelectionModel().select(booking.getHotel());
+            for (Object tilvalg : lvwHotelTilvalg.getItems()){
+                if (booking.getTilvalg().contains(tilvalg)){
+                    lvwHotelTilvalg.getSelectionModel().select(tilvalg);
+                }
+            }
+        }
+
+    }
+
+
     //================ Helpers ====================
     private void updateGui() {
         lvwHoteller.getItems().setAll(Storage.getHoteller());
         lvwUdflugter.getItems().setAll(konference.getUdflugter());
     }
+
 
     //=================== Actions ================
 
@@ -225,9 +273,12 @@ public class TilmeldingsVindue extends Stage {
 
         }
 
-
+        if (tilmelding != null) {
+            Controller.sletTilmelding(konference, deltager, tilmelding);
+            tilmelding = null;
+        }
         if (inputIsValid) {
-            Tilmelding tilmelding = Controller.opretTilmelding(startDato, slutDato, foredragsholder, deltager, konference);
+            tilmelding = Controller.opretTilmelding(startDato, slutDato, foredragsholder, deltager, konference);
 
             for (Object udflugt : lvwUdflugter.getSelectionModel().getSelectedItems()) {
                 tilmelding.tilføjUdflugt((Udflugt) udflugt);
@@ -244,7 +295,6 @@ public class TilmeldingsVindue extends Stage {
                 }
             }
             this.hide();
-
         }
 
     }

@@ -38,6 +38,22 @@ public class Booking {
         return pris;
     }
 
+    public LocalDate getStartDato() {
+        return startDato;
+    }
+
+    public LocalDate getSlutDato() {
+        return slutDato;
+    }
+
+    public ArrayList<HotelTilvalg> getTilvalg() {
+        return tilvalg;
+    }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
     public void tilføjTilvalg(HotelTilvalg tilvalg) {
         this.tilvalg.add(tilvalg);
     }

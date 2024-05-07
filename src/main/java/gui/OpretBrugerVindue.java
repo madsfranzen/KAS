@@ -70,20 +70,20 @@ public class OpretBrugerVindue extends Stage {
         GridPane gridPane = new GridPane();
         pane.setCenter(gridPane);
 
-        gridPane.setMinWidth(700);
-        gridPane.setMinHeight(600);
+//        gridPane.setMinWidth(700);
+//        gridPane.setMinHeight(600);
 
-        gridPane.setHgap(25);
-        gridPane.setVgap(25);
-        gridPane.setPadding(new Insets(100));
+        gridPane.setHgap(15);
+        gridPane.setVgap(15);
+        gridPane.setPadding(new Insets(20));
 
         gridPane.setAlignment(Pos.CENTER);
 
 
 //        lblHeading.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
 
-        gridPane.add(txfBrugernavn, 1, 3);
-        gridPane.add(psfKodeord, 3, 3);
+        gridPane.add(txfBrugernavn, 1, 4);
+        gridPane.add(psfKodeord, 3, 4);
 
 
         gridPane.add(txfNavn, 1, 5);
@@ -103,18 +103,18 @@ public class OpretBrugerVindue extends Stage {
         bundHbox.setAlignment(Pos.BASELINE_CENTER);
 
         gridPane.add(topHbox, 0, 0, 7, 1);
-        topHbox.getChildren().add(btnUploadProfilbillede);
+//        topHbox.getChildren().add(btnUploadProfilbillede);
 //        topHbox.getChildren().add(profilBillede)
         topHbox.setAlignment(Pos.BASELINE_CENTER);
 
         btnOpretBruger.setOnAction(event -> opretBrugerAction());
-        btnOpretBruger.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
+//        btnOpretBruger.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
 
         btnUploadProfilbillede.setFont(Font.font("verdana", FontWeight.NORMAL, FontPosture.REGULAR, 10));
 
 
-        gridPane.add(lblBrugernavn, 0, 3);
-        gridPane.add(lblKodeOrd, 2, 3);
+        gridPane.add(lblBrugernavn, 0, 4);
+        gridPane.add(lblKodeOrd, 2, 4);
         gridPane.add(lblNavn, 0, 5);
         gridPane.add(lblAdresse, 2, 5);
         gridPane.add(lblTlf, 0, 6);
@@ -149,7 +149,7 @@ public class OpretBrugerVindue extends Stage {
         String firma = txfFirma.getText();
         String land = txfLand.getText();
 
-        if (brugernavn.isEmpty() || kodeord.isEmpty() || navn.isEmpty() || navn.isEmpty() || adresse.isEmpty() || tlf.isEmpty() || by.isEmpty() || land.isEmpty() || erRigtigTelefonNummer(tlf) || erRigtigNavn(navn)) {
+        if (brugernavn.isEmpty() || kodeord.isEmpty() || navn.isEmpty() || navn.isEmpty() || adresse.isEmpty() || tlf.isEmpty() || by.isEmpty() || land.isEmpty() || !erRigtigTelefonNummer(tlf)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Fejl");
             alert.setHeaderText(null);
@@ -165,20 +165,21 @@ public class OpretBrugerVindue extends Stage {
                 alert.setContentText(" Du kan ikke oprette en bruger uden adresse");
             } else if (tlf.isEmpty()) {
                 alert.setContentText(" Du kan ikke oprette en bruger uden telefonnummer");
-            } else if (erRigtigTelefonNummer(tlf)) {
-                alert.setContentText(" Du kan ikke have tal i dit telefonnummer");
+            } else if (!erRigtigTelefonNummer(tlf)) {
+                alert.setContentText(" Du kan ikke have bogstaver i dit telefonnummer");
             } else if (by.isEmpty()) {
                 alert.setContentText(" Du kan ikke oprette en bruger uden en by");
             } else if (land.isEmpty()) {
                 alert.setContentText(" Du kan ikke oprette en bruger uden et land");
             }
-        }
-
-        if (firma.isEmpty()) {
+            alert.showAndWait();
+        } else if (firma.isEmpty()) {
             Controller.opretDeltager(brugernavn, kodeord, navn, adresse, by, land, tlf);
+            this.hide();
         }
 
         // Kommenteret ud da vi mangler constructor til at oprette deltager med firma
+
 //
 //        if (!firma.isEmpty()) {
 //            Controller.opretDeltager(brugernavn, kodeord, navn, adresse, by, land, tlf, firma);
@@ -197,6 +198,8 @@ public class OpretBrugerVindue extends Stage {
         return true;
     }
 
+
+    // Forstår ik den her funktion, pls explain jona!
     private boolean erRigtigNavn(String navn) {
         for (int i = 0; i < navn.length(); i++) {
             char c = navn.charAt(i);
