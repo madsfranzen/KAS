@@ -21,6 +21,7 @@ public class TilmeldingsVindue extends Stage {
 
     private Konference konference;
     private Deltager deltager;
+    private Tilmelding tilmelding;
 
     private DatePicker dpCheckIn = new DatePicker();
     private DatePicker dpCheckUd = new DatePicker();
@@ -50,6 +51,18 @@ public class TilmeldingsVindue extends Stage {
         this.setTitle("KAS");
         GridPane pane = new GridPane();
         this.initContent(pane);
+        Scene scene = new Scene(pane);
+        this.setScene(scene);
+    }
+
+    public TilmeldingsVindue(Konference konference, Deltager deltager, Tilmelding tilmelding) {
+        this.konference = konference;
+        this.deltager = deltager;
+        this.tilmelding = tilmelding;
+        this.setTitle("KAS");
+        GridPane pane = new GridPane();
+        this.initContent(pane);
+        this.setTilmelding();
         Scene scene = new Scene(pane);
         this.setScene(scene);
     }
@@ -159,11 +172,36 @@ public class TilmeldingsVindue extends Stage {
     }
 
 
+    public void setTilmelding() {
+        // Fix at ting er disablet når man åbner det her
+        // TODO
+        dpDeltagerFra.setValue(tilmelding.getStartDato());
+        dpDeltagerTil.setValue(tilmelding.getSlutDato());
+        cbxForedragsholder.setSelected(tilmelding.isForedragsholder());
+        if (tilmelding.getLedsager() != null) {
+            cbxLedsager.setSelected(true);
+            ledsagerØnskes();
+            txfLedsagerNavn.setText(tilmelding.getLedsager().getNavn());
+        }
+        if (tilmelding.getBooking() != null){
+            Booking booking = tilmelding.getBooking();
+            cbxHotelØnskes.setSelected(true);
+            hotelØnskes();
+            dpCheckIn.setValue(booking.getStartDato());
+            dpCheckUd.setValue(booking.getSlutDato());
+            lvwHoteller.getSelectionModel().select(booking.getHotel());
+            lvwHotelTilvalg.getSelectionModel().select(booking.getTilvalg());
+        }
+
+    }
+
+
     //================ Helpers ====================
     private void updateGui() {
         lvwHoteller.getItems().setAll(Storage.getHoteller());
         lvwUdflugter.getItems().setAll(konference.getUdflugter());
     }
+
 
     //=================== Actions ================
 
