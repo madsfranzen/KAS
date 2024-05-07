@@ -157,6 +157,9 @@ public class TilmeldingsVindue extends Stage {
         GridPane.setHalignment(lblSamletPris, HPos.RIGHT);
         txfSamletPris.setMaxWidth(100);
         Button btnOpretTilmelding = new Button("Opret Tilmelding");
+        if (tilmelding != null){
+            btnOpretTilmelding.setText("Opdater Tilmelding");
+        }
         pane.add(btnOpretTilmelding, 4, 9);
         btnOpretTilmelding.setOnAction(e -> opretTilmelding());
 
@@ -173,8 +176,6 @@ public class TilmeldingsVindue extends Stage {
 
 
     public void setTilmelding() {
-        // Fix at ting er disablet når man åbner det her
-        // TODO
         dpDeltagerFra.setValue(tilmelding.getStartDato());
         dpDeltagerTil.setValue(tilmelding.getSlutDato());
         cbxForedragsholder.setSelected(tilmelding.isForedragsholder());
@@ -182,15 +183,24 @@ public class TilmeldingsVindue extends Stage {
             cbxLedsager.setSelected(true);
             ledsagerØnskes();
             txfLedsagerNavn.setText(tilmelding.getLedsager().getNavn());
+            for (Object udflugt : lvwUdflugter.getItems()){
+                if (tilmelding.getUdflugter().contains(udflugt)){
+                    lvwUdflugter.getSelectionModel().select(udflugt);
+                }
+            }
         }
-        if (tilmelding.getBooking() != null){
+        if (tilmelding.getBooking() != null) {
             Booking booking = tilmelding.getBooking();
             cbxHotelØnskes.setSelected(true);
             hotelØnskes();
             dpCheckIn.setValue(booking.getStartDato());
             dpCheckUd.setValue(booking.getSlutDato());
             lvwHoteller.getSelectionModel().select(booking.getHotel());
-            lvwHotelTilvalg.getSelectionModel().select(booking.getTilvalg());
+            for (Object tilvalg : lvwHotelTilvalg.getItems()){
+                if (booking.getTilvalg().contains(tilvalg)){
+                    lvwHotelTilvalg.getSelectionModel().select(tilvalg);
+                }
+            }
         }
 
     }
@@ -263,9 +273,12 @@ public class TilmeldingsVindue extends Stage {
 
         }
 
-
+        if (tilmelding != null) {
+            Controller.sletTilmelding(konference, deltager, tilmelding);
+            tilmelding = null;
+        }
         if (inputIsValid) {
-            Tilmelding tilmelding = Controller.opretTilmelding(startDato, slutDato, foredragsholder, deltager, konference);
+            tilmelding = Controller.opretTilmelding(startDato, slutDato, foredragsholder, deltager, konference);
 
             for (Object udflugt : lvwUdflugter.getSelectionModel().getSelectedItems()) {
                 tilmelding.tilføjUdflugt((Udflugt) udflugt);
@@ -282,7 +295,6 @@ public class TilmeldingsVindue extends Stage {
                 }
             }
             this.hide();
-
         }
 
     }

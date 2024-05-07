@@ -211,6 +211,7 @@ public class DeltagerVindue extends Stage {
            Konference konference = (Konference) tilmelding.getKonference();
            TilmeldingsVindue tilmeldingsVindue = new TilmeldingsVindue(konference, deltager, tilmelding);
            tilmeldingsVindue.showAndWait();
+           initGUI();
        }
     }
 
