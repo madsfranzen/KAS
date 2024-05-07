@@ -6,10 +6,11 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 import model.Hotel;
 import model.HotelTilvalg;
 import model.Konference;
@@ -21,6 +22,8 @@ public class OpretHotelVindue extends Stage {
     Hotel hotel;
 
     private ArrayList<HotelTilvalg> tilvalgArr = new ArrayList<>();
+
+    Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(2), new Insets(-2)));
 
     Button btnOpretTilvalg = new Button("Opret Tilvalg");
     Button btnSletTilvalg = new Button("Slet Tilvalg");
@@ -112,6 +115,37 @@ public class OpretHotelVindue extends Stage {
 
         btnOpretHotel.setOnAction(event -> opretHotel());
 
+        txfPris.setTextFormatter(new TextFormatter<>(new DoubleStringConverter()));
+        txfPris.textProperty().addListener((obs, oldv, newv) -> {
+            try {
+                txfPris.getTextFormatter().getValueConverter().fromString(newv);
+                // Hvis ingen exception, er den ok
+                txfPris.setBorder(null);
+            } catch (NumberFormatException e) {
+                txfPris.setBorder(border);
+            }
+        });
+        txfPrisSingle.setTextFormatter(new TextFormatter<>(new DoubleStringConverter()));
+        txfPrisSingle.textProperty().addListener((obs, oldv, newv) -> {
+            try {
+                txfPrisSingle.getTextFormatter().getValueConverter().fromString(newv);
+                // Hvis ingen exception, er den ok
+                txfPrisSingle.setBorder(null);
+            } catch (NumberFormatException e) {
+                txfPrisSingle.setBorder(border);
+            }
+        });
+        txfPrisDobbelt.setTextFormatter(new TextFormatter<>(new DoubleStringConverter()));
+        txfPrisDobbelt.textProperty().addListener((obs, oldv, newv) -> {
+            try {
+                txfPrisDobbelt.getTextFormatter().getValueConverter().fromString(newv);
+                // Hvis ingen exception, er den ok
+                txfPrisDobbelt.setBorder(null);
+            } catch (NumberFormatException e) {
+                txfPrisDobbelt.setBorder(border);
+            }
+        });
+
 
     }
 
@@ -160,13 +194,22 @@ public class OpretHotelVindue extends Stage {
                 Controller.tilføjHotelTilvalg(hotel, tilvalg);
             }
             // Clear GUI
-            txfNavnHotel.clear();
-            txfPrisSingle.clear();
-            txfPrisDobbelt.clear();
+            clearGUI();
+
             // Luk Vindue og opdater det bagvedliggende vindue
             VindueManager.adminVindue.updateGUI();
             this.hide();
         }
+    }
+
+    public void clearGUI() {
+        txfNavnHotel.clear();
+        txfPrisSingle.clear();
+        txfPrisDobbelt.clear();
+        txfPris.clear();
+        txfNavnTilvalg.clear();
+        tilvalgArr.clear();
+        lvwTilvalg.getItems().clear();
     }
 
     public void showAlert(String infoText) {
@@ -178,8 +221,8 @@ public class OpretHotelVindue extends Stage {
 
     public void setHotel() {
         txfNavnHotel.setText(hotel.getNavn());
-        txfPrisSingle.setText(String.valueOf(hotel.getPrisEnkelt()));
-        txfPrisDobbelt.setText(String.valueOf(hotel.getPrisDobbelt()));
+        txfPrisSingle.setText(Double.toString(hotel.getPrisEnkelt()));
+        txfPrisDobbelt.setText(Double.toString(hotel.getPrisDobbelt()));
         tilvalgArr.addAll(hotel.getHotelTilvalg());
         lvwTilvalg.getItems().setAll(tilvalgArr);
     }

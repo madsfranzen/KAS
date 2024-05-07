@@ -89,6 +89,7 @@ public class DeltagerVindue extends Stage {
         gridPaneL.add(lvwKonferencer, 0, 1, 2, 1);
         gridPaneL.add(lblKonferenceInfo, 0, 2);
         gridPaneL.add(txaKonferenceInfo, 0, 3, 2, 1);
+        txaKonferenceInfo.setEditable(false);
         HBox btnBox = new HBox();
         btnBox.getChildren().setAll(btnTilmeld, btnAfmeld);
         btnBox.setSpacing(25);
@@ -198,7 +199,7 @@ public class DeltagerVindue extends Stage {
         loginVindue.show();
     }
 
-    public void opdaterBruger(){
+    public void opdaterBruger() {
         OpretBrugerVindue opretBrugerVindue = new OpretBrugerVindue(deltager);
         opretBrugerVindue.showAndWait();
         initGUI();
@@ -213,14 +214,14 @@ public class DeltagerVindue extends Stage {
         }
     }
 
-    public void opdaterTilmelding(){
-       Tilmelding tilmelding = (Tilmelding) lvwTilmeldinger.getSelectionModel().getSelectedItem();
-       if (tilmelding != null){
-           Konference konference = (Konference) tilmelding.getKonference();
-           TilmeldingsVindue tilmeldingsVindue = new TilmeldingsVindue(konference, deltager, tilmelding);
-           tilmeldingsVindue.showAndWait();
-           initGUI();
-       }
+    public void opdaterTilmelding() {
+        Tilmelding tilmelding = (Tilmelding) lvwTilmeldinger.getSelectionModel().getSelectedItem();
+        if (tilmelding != null) {
+            Konference konference = (Konference) tilmelding.getKonference();
+            TilmeldingsVindue tilmeldingsVindue = new TilmeldingsVindue(konference, deltager, tilmelding);
+            tilmeldingsVindue.showAndWait();
+            initGUI();
+        }
     }
 
     public void afmeld() {

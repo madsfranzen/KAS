@@ -222,7 +222,6 @@ public class TilmeldingsVindue extends Stage {
 
     //=================== Actions ================
 
-
     private void opretTilmelding() {
         boolean inputIsValid = true;
         LocalDate startDato = dpDeltagerFra.getValue();

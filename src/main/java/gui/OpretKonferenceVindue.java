@@ -5,11 +5,13 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import javafx.util.Callback;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 import model.Hotel;
 import model.HotelTilvalg;
 import model.Konference;
@@ -22,6 +24,8 @@ import java.util.ArrayList;
 public class OpretKonferenceVindue extends Stage {
 
     Konference konference;
+
+    Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(2), new Insets(-2)));
 
     TextField txfKonferenceNavn = new TextField();
     DatePicker dpStart = new DatePicker();
@@ -54,6 +58,7 @@ public class OpretKonferenceVindue extends Stage {
         Scene scene = new Scene(pane);
         this.setScene(scene);
         this.setResizable(false);
+
     }
 
 
@@ -120,6 +125,28 @@ public class OpretKonferenceVindue extends Stage {
         txaBeskrivelse.setMaxWidth(220);
         txaBeskrivelse.setMaxHeight(100);
 
+        dpStart.valueProperty().addListener((obs, oldValue, newValue) -> {
+            if (dpStart.getValue() != null && dpSlut.getValue() != null) {
+                dpUdflugt.setDisable(false);
+            }
+        });
+        dpSlut.valueProperty().addListener((obs, oldValue, newValue) -> {
+            if (dpStart.getValue() != null && dpSlut.getValue() != null) {
+                dpUdflugt.setDisable(false);
+            }
+        });
+
+        txfPris.setTextFormatter(new TextFormatter<>(new DoubleStringConverter()));
+        txfPris.textProperty().addListener((obs, oldv, newv) -> {
+            try {
+                txfPris.getTextFormatter().getValueConverter().fromString(newv);
+                // Hvis ingen exception, er den ok
+                txfPris.setBorder(null);
+            } catch (NumberFormatException e) {
+                txfPris.setBorder(border);
+            }
+        });
+
         //======================================== MID =======================================//
 
         Label lblUdflugt = new Label("Udlflugt");
@@ -150,11 +177,25 @@ public class OpretKonferenceVindue extends Stage {
         btnOpretUdflugt.setOnAction(event -> opretUdflugt());
         btnSletUdflugt.setOnAction(event -> sletUdflugt());
 
+        txfUdflugtPris.setTextFormatter(new TextFormatter<>(new DoubleStringConverter()));
+        txfUdflugtPris.textProperty().addListener((obs, oldv, newv) -> {
+            try {
+                txfUdflugtPris.getTextFormatter().getValueConverter().fromString(newv);
+                // Hvis ingen exception, er den ok
+                txfUdflugtPris.setBorder(null);
+            } catch (NumberFormatException e) {
+                txfUdflugtPris.setBorder(border);
+            }
+        });
+
+        dpUdflugt.setDisable(true);
+
+        tilpasFarverForForestilling(dpUdflugt);
+
         //=================================== RIGHT =========================================//
 
         Label lblHoteller = new Label("Hoteller");
         Label lblTilknHoteller = new Label("Tilknyttede Hoteller");
-
 
         paneR.add(lblHoteller, 0, 0);
         paneR.add(lblTilknHoteller, 2, 0);
@@ -268,8 +309,8 @@ public class OpretKonferenceVindue extends Stage {
             for (Udflugt udflugt : udflugter) {
                 Controller.tilføjUdflugtTilKonference(konference, udflugt);
             }
-            for (Hotel hotel : tilknyttedeHoteller){
-                Controller.tilføjHotelTilKonference(konference,hotel);
+            for (Hotel hotel : tilknyttedeHoteller) {
+                Controller.tilføjHotelTilKonference(konference, hotel);
             }
 
             clearGUI();
@@ -297,6 +338,7 @@ public class OpretKonferenceVindue extends Stage {
         udflugter.clear();
         lvwUdflugter.getItems().setAll(udflugter);
         lvwTilkHoteller.getItems().setAll(tilknyttedeHoteller);
+        chbMiddag.setSelected(false);
     }
 
     public void setKonference() {
@@ -315,4 +357,28 @@ public class OpretKonferenceVindue extends Stage {
     public void changeLooks() {
         btnOpretKonference.setText("Opdater Konference");
     }
+
+    private void tilpasFarverForForestilling(DatePicker dp) {
+        dp.setDayCellFactory(new Callback<DatePicker, DateCell>() {
+                                 @Override
+                                 public DateCell call(DatePicker param) {
+                                     return new DateCell() {
+                                         @Override
+                                         public void updateItem(LocalDate item, boolean empty) {
+                                             super.updateItem(item, empty);
+                                             if (item != null) {
+                                                 LocalDate startDato = dpStart.getValue();
+                                                 LocalDate slutDato = dpSlut.getValue();
+                                                 if ((startDato != null && item.isEqual(startDato)) || (slutDato != null && item.isEqual(slutDato)) || (item.isAfter(startDato) && item.isBefore(slutDato))) {
+                                                     setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, new CornerRadii(0), Insets.EMPTY)));
+                                                 } else
+                                                     setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(0), Insets.EMPTY)));
+                                             }
+                                         }
+                                     };
+                                 }
+                             }
+        );
+    }
+
 }

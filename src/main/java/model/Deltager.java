@@ -1,5 +1,9 @@
 package model;
 
+
+import javafx.scene.image.Image;
+
+import java.io.File;
 import java.util.ArrayList;
 
 public class Deltager extends Bruger {
@@ -9,6 +13,7 @@ public class Deltager extends Bruger {
     private String land;
     private String tlf;
     private String firma;
+    private Image imageChosen;
     private final ArrayList<Tilmelding> tilmeldinger = new ArrayList<Tilmelding>();
 
     public Deltager(String brugernavn, String kodeord, String navn, String adresse, String by, String land, String tlf) {
@@ -113,6 +118,13 @@ public class Deltager extends Bruger {
         this.tlf = tlf;
     }
 
+    public void setImageChosen(Image imageChosen) {
+        this.imageChosen = imageChosen;
+    }
+
+    public Image getImageChosen() {
+        return imageChosen;
+    }
 }
 
 
