@@ -99,6 +99,8 @@ public class OpretHotelVindue extends Stage {
         btnOpretHotel.setOnAction(event -> opretHotel());
     }
 
+    //=============================== METHODS ==================================//
+
     public void opretTilvalg() {
         HotelTilvalg tilvalg = new HotelTilvalg(txfNavnTilvalg.getText(), Double.parseDouble(txfPris.getText()));
         tilvalgArr.add(tilvalg);
@@ -114,13 +116,43 @@ public class OpretHotelVindue extends Stage {
     }
 
     public void opretHotel() {
-        Hotel hotel = Controller.opretHotel(txfNavnHotel.getText(), Double.parseDouble(txfPrisSingle.getText()), Double.parseDouble(txfPrisDobbelt.getText()));
-        for (HotelTilvalg tilvalg : tilvalgArr) {
-            Controller.tilføjHotelTilvalg(hotel, tilvalg);
+        String navn = txfNavnHotel.getText();
+        double singlePris;
+        if (txfPrisSingle.getText().isBlank()) {
+            singlePris = 0;
+        } else singlePris = Double.parseDouble(txfPrisSingle.getText());
+        double dobbeltPris;
+        if (txfPrisDobbelt.getText().isBlank()) {
+            dobbeltPris = 0;
+        } else dobbeltPris = Double.parseDouble(txfPrisDobbelt.getText());
+
+        // Tjekker for tomme felter
+        if (navn.isEmpty()) {
+            showAlert("Indtast et navn.");
+        } else if (singlePris == 0) {
+            showAlert("Indtast en Pris for Single Værelse.");
+        } else if (dobbeltPris == 0) {
+            showAlert("Indtast en Pris for Dobbelt Værelse.");
+        } else {
+            Hotel hotel = Controller.opretHotel(navn, singlePris, dobbeltPris);
+            // Tiløj Tilvalg
+            for (HotelTilvalg tilvalg : tilvalgArr) {
+                Controller.tilføjHotelTilvalg(hotel, tilvalg);
+            }
+            // Clear GUI
+            txfNavnHotel.clear();
+            txfPrisSingle.clear();
+            txfPrisDobbelt.clear();
+            // Luk Vindue og opdater det bagvedliggende vindue
+            VindueManager.adminVindue.updateGUI();
+            this.hide();
         }
-        txfNavnHotel.clear();
-        txfPrisSingle.clear();
-        txfPrisDobbelt.clear();
-        System.out.println(hotel);
+    }
+
+    public void showAlert(String infoText) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Fejl");
+        alert.setHeaderText(infoText);
+        alert.showAndWait();
     }
 }

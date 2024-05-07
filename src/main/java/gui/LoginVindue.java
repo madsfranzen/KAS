@@ -61,6 +61,7 @@ public class LoginVindue extends Stage {
         txfBrugernavn.setPromptText("Brugernavn");
         psfKodeord.setPromptText("Koderord");
 
+        btnLogin.setDefaultButton(true);
         btnLogin.setOnAction(event -> loginAction());
         btnOpretBruger.setOnAction(event -> VindueManager.visOpretBrugerVindue());
         gridPane.add(btnLogin, 0, 5);
@@ -78,9 +79,8 @@ public class LoginVindue extends Stage {
 
     public void loginAction() {
         if (txfBrugernavn.getText().equalsIgnoreCase("admin") && psfKodeord.getText().equalsIgnoreCase("admin")) {
-            AdminVindue adminvindue = new AdminVindue();
             this.hide();
-            adminvindue.show();
+            VindueManager.adminVindue.show();
         } else {
             boolean loginValid = true;
             for (Deltager deltager : Controller.getDeltagere()) {

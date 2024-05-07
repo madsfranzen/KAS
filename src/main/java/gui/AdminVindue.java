@@ -164,6 +164,8 @@ public class AdminVindue extends Stage {
         ChangeListener<Konference> Konferencelistener = (ov, o, n) -> this.selectedKonferenceChanged();
         lvwKonferencer.getSelectionModel().selectedItemProperty().addListener(Konferencelistener);
 
+        btnOpretKonference.setOnAction(event -> VindueManager.opretKonferenceVindue.show());
+
         //============================= HOTEL PANE ==========================//
 
         hotelPane.setHgap(10);
@@ -219,39 +221,45 @@ public class AdminVindue extends Stage {
     public void selectedHotelChanged() {
         Hotel hotel = (Hotel) lvwHoteller.getSelectionModel().getSelectedItem();
         // Opdater listview af HotelTilvalg
-        lvwTilvalg.getItems().setAll(hotel.getHotelTilvalg());
-        // Opdater Hotel Info
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format(hotel.getNavn() + "\n"));
-        sb.append(String.format("Pris Enkelt: %.2f \n", hotel.getPrisEnkelt()));
-        sb.append(String.format("Pris Dobbelt: %.2f \n", hotel.getPrisDobbelt()));
-        txaHotelInfo.setText(sb.toString());
+        if (!(hotel == null)) {
+            lvwTilvalg.getItems().setAll(hotel.getHotelTilvalg());
+            // Opdater Hotel Info
+            StringBuilder sb = new StringBuilder();
+            sb.append(String.format(hotel.getNavn() + "\n"));
+            sb.append(String.format("Pris Enkelt: %.2f \n", hotel.getPrisEnkelt()));
+            sb.append(String.format("Pris Dobbelt: %.2f \n", hotel.getPrisDobbelt()));
+            txaHotelInfo.setText(sb.toString());
+        }
     }
 
     public void selectedKonferenceChanged() {
         Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
         // Opdater listview af Udflugtter
-        lvwUdflugter.getItems().setAll(konference.getUdflugter());
-        // Opdater Konference Info
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format(konference.getNavn() + "\n"));
-        sb.append(String.format("Pris Enkelt: %.2f \n", konference.getPris()));
-        sb.append(String.format(konference.getBeskrivelse() + "\n"));
-        sb.append(String.format(konference.getLokation() + "\n"));
-        sb.append(String.format("Start Dato: " + konference.getStartDato() + "\n"));
-        sb.append(String.format("Slut Dato: " + konference.getSlutDato() + "\n"));
-        txaKonferenceInfo.setText(sb.toString());
+        if (!(konference == null)) {
+            lvwUdflugter.getItems().setAll(konference.getUdflugter());
+            // Opdater Konference Info
+            StringBuilder sb = new StringBuilder();
+            sb.append(String.format(konference.getNavn() + "\n"));
+            sb.append(String.format("Pris Enkelt: %.2f \n", konference.getPris()));
+            sb.append(String.format(konference.getBeskrivelse() + "\n"));
+            sb.append(String.format(konference.getLokation() + "\n"));
+            sb.append(String.format("Start Dato: " + konference.getStartDato() + "\n"));
+            sb.append(String.format("Slut Dato: " + konference.getSlutDato() + "\n"));
+            txaKonferenceInfo.setText(sb.toString());
+        }
     }
 
     public void updateGUI() {
         lvwBrugere.getItems().setAll(Controller.getDeltagere());
         lvwKonferencer.getItems().setAll(Controller.getKonferencer());
         lvwHoteller.getItems().setAll(Controller.getHoteller());
+        lvwBrugere.getSelectionModel().clearSelection();
+        lvwKonferencer.getSelectionModel().clearSelection();
+        lvwHoteller.getSelectionModel().clearSelection();
     }
 
 
     //========================= Actions ===============================
-
 
     public void opretBruger() {
         OpretBrugerVindue opretBrugerVindue = new OpretBrugerVindue();

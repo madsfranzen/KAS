@@ -123,7 +123,7 @@ public class OpretBrugerVindue extends Stage {
         topHbox.setAlignment(Pos.BASELINE_CENTER);
 
         btnOpretBruger.setOnAction(event -> opretBrugerAction());
-        if (deltager != null){
+        if (deltager != null) {
             btnOpretBruger.setText("Opdater bruger");
         }
 //        btnOpretBruger.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
@@ -192,13 +192,13 @@ public class OpretBrugerVindue extends Stage {
             }
             alert.showAndWait();
         } else {
-            if (deltager != null){
-                deltager.opdaterInfo(brugernavn,kodeord,navn,adresse,by,land,tlf);
+            if (deltager != null) {
+                deltager.opdaterInfo(brugernavn, kodeord, navn, adresse, by, land, tlf);
                 this.hide();
             } else {
                 deltager = Controller.opretDeltager(brugernavn, kodeord, navn, adresse, by, land, tlf);
+                VindueManager.adminVindue.updateGUI();
                 this.hide();
-
             }
         }
 
@@ -211,9 +211,7 @@ public class OpretBrugerVindue extends Stage {
     }
 
 
-
-
-    public void setDeltager(){
+    public void setDeltager() {
         txfBrugernavn.setText(deltager.getBrugernavn());
         psfKodeord.setText(deltager.getKodeord());
         txfNavn.setText(deltager.getNavn());
@@ -250,7 +248,7 @@ public class OpretBrugerVindue extends Stage {
         return true;
     }
 
-    public Deltager getDeltager(){
+    public Deltager getDeltager() {
         return deltager;
     }
 }

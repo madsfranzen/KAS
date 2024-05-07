@@ -161,6 +161,7 @@ public class OpretKonferenceVindue extends Stage {
 
         btnTilføjHotel.setOnAction(event -> tilføjHotel());
         btnFjernHotel.setOnAction(event -> fjernHotel());
+        btnOpretKonference.setOnAction(event -> opretKonference());
     }
 
     //========================================= METHODS ==========================================//
@@ -182,13 +183,26 @@ public class OpretKonferenceVindue extends Stage {
     }
 
     public void opretUdflugt() {
-        Udflugt udflugt = new Udflugt(txfUdflugtNavn.getText(), Double.parseDouble(txfUdflugtPris.getText()), dpUdflugt.getValue(), chbMiddag.isSelected());
-        udflugter.add(udflugt);
-        lvwUdflugter.getItems().setAll(udflugter);
+        String navn = txfUdflugtNavn.getText();
+        double pris;
+        if (txfPris.getText().isBlank()) {
+            pris = 0;
+        } else pris = Double.parseDouble(txfUdflugtPris.getText());
 
-        txfUdflugtNavn.clear();
-        txfUdflugtPris.clear();
-        dpUdflugt.setValue(null);
+        // Tjekker for tomme felter
+        if (navn.isEmpty()) {
+            showAlert("Indtast et navn.");
+        } else if (dpUdflugt.getValue() == null) {
+            showAlert("Indtast en Dato.");
+        } else {
+            // Opretter udflugt og clear felter
+            Udflugt udflugt = new Udflugt(navn, pris, dpUdflugt.getValue(), chbMiddag.isSelected());
+            udflugter.add(udflugt);
+            lvwUdflugter.getItems().setAll(udflugter);
+            txfUdflugtNavn.clear();
+            txfUdflugtPris.clear();
+            dpUdflugt.setValue(null);
+        }
     }
 
     public void sletUdflugt() {
@@ -199,32 +213,66 @@ public class OpretKonferenceVindue extends Stage {
     }
 
     public void opretKonference() {
-        // Opret Konferencen uden Udflugter
         String navn = txfKonferenceNavn.getText();
         String beskrivelse = txaBeskrivelse.getText();
         String lokation = txfLokation.getText();
+        double pris;
+        if (txfPris.getText().isEmpty()) {
+            pris = 0;
+        } else pris = Double.parseDouble(txfPris.getText());
         LocalDate startDato = dpStart.getValue();
         LocalDate slutDato = dpSlut.getValue();
-        double pris = Double.parseDouble(txfPris.getText());
-        Konference konference = Controller.opretKonference(navn, beskrivelse, lokation, startDato, slutDato, pris);
 
-        // Tilføj Udflugterne til Konferencen
-        for (Udflugt udflugt : udflugter) {
-            Controller.tilføjUdflugtTilKonference(konference, udflugt);
+        // Tjekker for tomme felter og Errors
+        if (navn.isEmpty()) {
+            showAlert("Indtast et navn.");
+        } else if (beskrivelse.isEmpty()) {
+            showAlert("Indtast en beskrivelse.");
+        } else if (lokation.isEmpty()) {
+            showAlert("Indtast en lokation.");
+        } else if (pris == 0) {
+            showAlert("Indtast en pris.");
+        } else if (dpStart.getValue() == null) {
+            showAlert("Indtast en Start Dato.");
+        } else if (dpSlut.getValue() == null) {
+            showAlert("Indtast en Slut Dato.");
+        } else if (startDato.isAfter(slutDato)) {
+            showAlert("Slut Dato skal være senere end Start Dato.");
+        } else if (udflugter.isEmpty()) {
+            showAlert("Opret venligst udflugter. En Konference må ikke være foruden udflugter.");
+        } else if (tilknyttedeHoteller.isEmpty()) {
+            showAlert("Tilknyt venligst mindst et hotel.");
+        } else {
+
+            Konference konference = Controller.opretKonference(navn, beskrivelse, lokation, startDato, slutDato, pris);
+            // Tilføj Udflugterne til Konferencen
+            for (Udflugt udflugt : udflugter) {
+                Controller.tilføjUdflugtTilKonference(konference, udflugt);
+            }
+
+            clearGUI();
+            VindueManager.adminVindue.updateGUI();
+            this.hide();
         }
-        // Clear GUI
+    }
+
+    public void showAlert(String infoText) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Fejl");
+        alert.setHeaderText(infoText);
+        alert.showAndWait();
+    }
+
+    public void clearGUI() {
         txfKonferenceNavn.clear();
         txfPris.clear();
         dpStart.setValue(null);
         dpSlut.setValue(null);
         txfLokation.clear();
         txaBeskrivelse.clear();
-    }
-
-    public void showAlert(String titel, String infoText) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(titel);
-        alert.setHeaderText(infoText);
-        alert.showAndWait();
+        tilknyttedeHoteller.clear();
+        udflugter.clear();
+        lvwUdflugter.getItems().setAll(udflugter);
+        lvwTilkHoteller.getItems().setAll(tilknyttedeHoteller);
     }
 }

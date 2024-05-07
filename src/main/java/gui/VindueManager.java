@@ -12,10 +12,10 @@ public class VindueManager extends Application {
     static OpretHotelVindue opretHotelVindue = new OpretHotelVindue();
     static OpretBrugerVindue opretBrugerVindue = new OpretBrugerVindue();
     static OpretKonferenceVindue opretKonferenceVindue = new OpretKonferenceVindue();
+    static AdminVindue adminVindue = new AdminVindue();
 
     public void start(Stage stage) {
         loginVindue.show();
-        opretKonferenceVindue.show();
     }
 
     public static void visOpretBrugerVindue() {
