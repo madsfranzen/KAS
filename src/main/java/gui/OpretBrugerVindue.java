@@ -23,10 +23,9 @@ import org.xml.sax.HandlerBase;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-//import java.lang.foreign.AddressLayout;
-public class OpretBrugerVindue extends Application {
 
-    Scene scene;
+//import java.lang.foreign.AddressLayout;
+public class OpretBrugerVindue extends Stage {
 
     private HBox bundHbox = new HBox();
 
@@ -58,31 +57,14 @@ public class OpretBrugerVindue extends Application {
 
     private Button btnUploadProfilbillede = new Button("Upload Profilbillede");
 
-    public OpretBrugerVindue() throws FileNotFoundException {
-    }
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        stage.setTitle("Opret Bruger");
+    public OpretBrugerVindue() {
+        this.setTitle("Opret Bruger");
         BorderPane pane = new BorderPane();
         this.initContent(pane);
-
-
-//        InputStream stream = new FileInputStream("C:\\Users\\jona2\\OneDrive\\Skrivebord\\pb.png");
-//
-//        Image billede = new Image(stream);
-//        ImageView profilBillede = new ImageView();
-//        profilBillede.setImage(billede);
-//
-//        profilBillede.setX(10);
-//        profilBillede.setY(10);
-//        profilBillede.setFitHeight(100);
-//        profilBillede.setPreserveRatio(true);
-
-        scene = new Scene(pane);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+        Scene scene = new Scene(pane);
+        this.setScene(scene);
+        this.setResizable(false);
+        this.show();
     }
 
     private void initContent(BorderPane pane) {

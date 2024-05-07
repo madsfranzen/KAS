@@ -60,7 +60,7 @@ public class LoginVindue extends Stage {
         psfKodeord.setPromptText("Koderord");
 
         btnLogin.setOnAction(event -> loginAction());
-        btnOpretBruger.setOnAction(event -> opretBrugerAction());
+        btnOpretBruger.setOnAction(event -> VindueManager.visOpretBrugerVindue());
         gridPane.add(btnLogin, 0, 5);
         gridPane.add(btnOpretBruger, 0, 6);
         gridPane.add(lblBrugernavn, 0, 1);
@@ -75,11 +75,14 @@ public class LoginVindue extends Stage {
 
 
     public void loginAction() {
-        DeltagerVindue deltagerVindue = new DeltagerVindue();
-        this.hide();
-        deltagerVindue.show();
-    }
-
-    public void opretBrugerAction() {
+        if (txfBrugernavn.getText().equalsIgnoreCase("admin") && psfKodeord.getText().equalsIgnoreCase("admin")) {
+            AdminVindue adminvindue = new AdminVindue();
+            this.hide();
+            adminvindue.show();
+        } else {
+            DeltagerVindue deltagerVindue = new DeltagerVindue();
+            this.hide();
+            deltagerVindue.show();
+        }
     }
 }
