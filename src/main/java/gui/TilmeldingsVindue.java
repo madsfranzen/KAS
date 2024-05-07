@@ -17,7 +17,7 @@ import storage.Storage;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class TilmeldingsVindue extends Application {
+public class TilmeldingsVindue extends Stage {
 
     private Konference konference;
     private Deltager deltager = Storage.getDeltagere().getFirst();
@@ -43,19 +43,12 @@ public class TilmeldingsVindue extends Application {
 
     private TextField txfSamletPris = new TextField();
 
-
-    private Label lblError = new Label("Error");
-
-    @Override
-    public void start(Stage stage) {
-        stage.setTitle("KAS");
+    public TilmeldingsVindue() {
+        this.setTitle("KAS");
         GridPane pane = new GridPane();
         this.initContent(pane);
-
         Scene scene = new Scene(pane);
-        stage.setScene(scene);
-//        stage.setResizable(false);
-        stage.show();
+        this.setScene(scene);
     }
 
     public void initContent(GridPane pane) {
@@ -101,7 +94,6 @@ public class TilmeldingsVindue extends Application {
         pane.add(lblHotelTilvalg, 2, 6);
         pane.add(lvwHotelTilvalg, 2, 7, 1, 2);
         lvwHotelTilvalg.setMaxWidth(175);
-        lvwHotelTilvalg.setDisable(true);
 
 
         //================== Deltager og ledsager info ======================
@@ -117,7 +109,6 @@ public class TilmeldingsVindue extends Application {
 
         pane.add(cbxForedragsholder, 3, 2);
         pane.add(cbxLedsager, 3, 3);
-        cbxLedsager.setOnAction(e -> ledsagerØnskes());
 
         GridPane ledsagerPane = new GridPane();
         Label lblLedsagerNavn = new Label("Ledsager Navn:");
@@ -126,7 +117,6 @@ public class TilmeldingsVindue extends Application {
         ledsagerPane.setHgap(10);
         pane.add(ledsagerPane, 3, 4, 2, 1);
         txfLedsagerNavn.setMaxWidth(150);
-        txfLedsagerNavn.setDisable(true);
 
         //========= Udflugter ==========
 
@@ -135,10 +125,8 @@ public class TilmeldingsVindue extends Application {
         udflugtPane.setVgap(15);
         udflugtPane.add(lblUdflugter, 0, 0);
         udflugtPane.add(lvwUdflugter, 0, 1);
-        lvwUdflugter.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         lvwUdflugter.setMaxHeight(150);
         pane.add(udflugtPane, 3, 5, 2, 4);
-        lvwUdflugter.setDisable(true);
 
 
         Label lblSamletPris = new Label("Samlet Pris:");
@@ -165,7 +153,7 @@ public class TilmeldingsVindue extends Application {
 
     //================ Helpers ====================
     private void updateGui() {
-        konference = Storage.getKonferecer().getFirst();
+        konference = Storage.getKonferencer().getFirst();
         lvwHoteller.getItems().setAll(Storage.getHoteller());
         lvwUdflugter.getItems().setAll(konference.getUdflugter());
     }

@@ -45,14 +45,7 @@ public class Konference {
         sorterDeltagere(alleDeltagere);
         return alleDeltagere;
     }
-
-    public LocalDate getStartDato() {
-        return startDato;
-    }
-
-    public LocalDate getSlutDato() {
-        return slutDato;
-    }
+    
 
     public static void sorterDeltagere(ArrayList<Deltager> arr) {
         for (int i = arr.size() - 1; i > 0; i--) {
