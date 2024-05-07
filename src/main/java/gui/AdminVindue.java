@@ -196,7 +196,8 @@ public class AdminVindue extends Stage {
         lvwHoteller.getSelectionModel().selectedItemProperty().addListener(Hotellistener);
 
         btnOpretHotel.setOnAction(event -> VindueManager.visOpretHotelVindue());
-
+        btnOpretBruger.setOnAction(event -> VindueManager.opretBrugerVindue.show());
+        btnOpretKonference.setOnAction(event -> VindueManager.opretKonferenceVindue.show());
         updateGUI();
     }
 
