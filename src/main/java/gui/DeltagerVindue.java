@@ -119,6 +119,7 @@ public class DeltagerVindue extends Stage {
         vBox1.setSpacing(25);
 
         btnLogUd.setOnAction(e -> logUd());
+        btnOpdater.setOnAction(e -> opdaterBruger());
 
         GridPane infoPane = new GridPane();
         infoPane.setHgap(10);
@@ -195,6 +196,12 @@ public class DeltagerVindue extends Stage {
         LoginVindue loginVindue = new LoginVindue();
         this.hide();
         loginVindue.show();
+    }
+
+    public void opdaterBruger(){
+        OpretBrugerVindue opretBrugerVindue = new OpretBrugerVindue(deltager);
+        opretBrugerVindue.showAndWait();
+        initGUI();
     }
 
     public void opretTilmelding() {

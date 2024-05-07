@@ -82,15 +82,21 @@ public class LoginVindue extends Stage {
             this.hide();
             adminvindue.show();
         } else {
+            boolean loginValid = true;
             for (Deltager deltager : Controller.getDeltagere()) {
                 if (deltager.getBrugernavn().equals(txfBrugernavn.getText())) {
                     if (deltager.getKodeord().equals(psfKodeord.getText())) {
                         DeltagerVindue deltagerVindue = new DeltagerVindue(deltager);
                         this.hide();
                         deltagerVindue.show();
+                        return;
                     }
                 }
             }
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Forkert brugernavn, eller kodeord");
+            alert.showAndWait();
         }
     }
 }

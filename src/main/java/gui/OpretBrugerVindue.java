@@ -18,15 +18,19 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import model.Deltager;
+import model.Tilmelding;
 import org.xml.sax.HandlerBase;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 //import java.lang.foreign.AddressLayout;
 public class OpretBrugerVindue extends Stage {
 
+    private Deltager deltager;
     private HBox bundHbox = new HBox();
 
     private HBox topHbox = new HBox();
@@ -61,6 +65,17 @@ public class OpretBrugerVindue extends Stage {
         this.setTitle("Opret Bruger");
         BorderPane pane = new BorderPane();
         this.initContent(pane);
+        Scene scene = new Scene(pane);
+        this.setScene(scene);
+        this.setResizable(false);
+    }
+
+    public OpretBrugerVindue(Deltager deltager) {
+        this.deltager = deltager;
+        this.setTitle("Opdater Bruger");
+        BorderPane pane = new BorderPane();
+        this.initContent(pane);
+        this.setDeltager();
         Scene scene = new Scene(pane);
         this.setScene(scene);
         this.setResizable(false);
@@ -108,6 +123,9 @@ public class OpretBrugerVindue extends Stage {
         topHbox.setAlignment(Pos.BASELINE_CENTER);
 
         btnOpretBruger.setOnAction(event -> opretBrugerAction());
+        if (deltager != null){
+            btnOpretBruger.setText("Opdater bruger");
+        }
 //        btnOpretBruger.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
 
         btnUploadProfilbillede.setFont(Font.font("verdana", FontWeight.NORMAL, FontPosture.REGULAR, 10));
@@ -166,16 +184,22 @@ public class OpretBrugerVindue extends Stage {
             } else if (tlf.isEmpty()) {
                 alert.setContentText(" Du kan ikke oprette en bruger uden telefonnummer");
             } else if (!erRigtigTelefonNummer(tlf)) {
-                alert.setContentText(" Du kan ikke have bogstaver i dit telefonnummer");
+                alert.setContentText(" Tast venligst et rigtigt telefonnummer ind");
             } else if (by.isEmpty()) {
                 alert.setContentText(" Du kan ikke oprette en bruger uden en by");
             } else if (land.isEmpty()) {
                 alert.setContentText(" Du kan ikke oprette en bruger uden et land");
             }
             alert.showAndWait();
-        } else if (firma.isEmpty()) {
-            Controller.opretDeltager(brugernavn, kodeord, navn, adresse, by, land, tlf);
-            this.hide();
+        } else {
+            if (deltager != null){
+                deltager.opdaterInfo(brugernavn,kodeord,navn,adresse,by,land,tlf);
+                this.hide();
+            } else {
+                deltager = Controller.opretDeltager(brugernavn, kodeord, navn, adresse, by, land, tlf);
+                this.hide();
+
+            }
         }
 
         // Kommenteret ud da vi mangler constructor til at oprette deltager med firma
@@ -185,6 +209,22 @@ public class OpretBrugerVindue extends Stage {
 //            Controller.opretDeltager(brugernavn, kodeord, navn, adresse, by, land, tlf, firma);
 //        }
     }
+
+
+
+
+    public void setDeltager(){
+        txfBrugernavn.setText(deltager.getBrugernavn());
+        psfKodeord.setText(deltager.getKodeord());
+        txfNavn.setText(deltager.getNavn());
+        txfAdresse.setText(deltager.getAdresse());
+        txfBy.setText(deltager.getBy());
+        txfFirma.setText(deltager.getFirma());
+        txfLand.setText(deltager.getLand());
+        txfTlf.setText(deltager.getTlf());
+    }
+
+    // ==================== Helpers ===================
 
     private boolean erRigtigTelefonNummer(String nummer) {
         if (nummer.length() != 8) {
@@ -209,4 +249,9 @@ public class OpretBrugerVindue extends Stage {
         }
         return true;
     }
+
+    public Deltager getDeltager(){
+        return deltager;
+    }
 }
+

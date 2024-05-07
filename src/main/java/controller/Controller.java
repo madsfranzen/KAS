@@ -14,6 +14,10 @@ public abstract class Controller {
         return deltager;
     }
 
+    public static void sletDeltager(Deltager deltager){
+        Storage.deleteDeltager(deltager);
+    }
+
     /**
      * OBS: booking og ledsager er nullable
      */
