@@ -12,7 +12,7 @@ public class Storage {
     private static final ArrayList<Firma> firmaer = new ArrayList<>();
 
 
-    public static ArrayList<Konference> getKonferecer() {
+    public static ArrayList<Konference> getKonferencer() {
         return new ArrayList<>(konferencer);
     }
 
@@ -43,12 +43,15 @@ public class Storage {
     public static void storeAdmins(Bruger bruger) {
         admins.add(bruger);
     }
+
     public static void storeHotel(Hotel hotel) {
         hoteller.add(hotel);
     }
+
     public static void storeFirmaer(Firma firma) {
         firmaer.add(firma);
     }
+
     public static void deleteKonference(Konference konference) {
         if (konferencer.contains(konference)) {
             konferencer.remove(konference);
@@ -61,7 +64,7 @@ public class Storage {
         }
     }
 
-    public static void deleteAdmins (Bruger bruger) {
+    public static void deleteAdmins(Bruger bruger) {
         if (admins.contains(bruger)) {
             admins.remove(bruger);
         }
@@ -72,12 +75,12 @@ public class Storage {
             hoteller.remove(hotel);
         }
     }
-    public static void deleteFirma (Firma firma) {
+
+    public static void deleteFirma(Firma firma) {
         if (firmaer.contains(firma)) {
             firmaer.remove(firma);
         }
     }
-
 
 
 }

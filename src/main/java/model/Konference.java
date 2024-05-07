@@ -32,7 +32,7 @@ public class Konference {
         this.tilmeldinger.add(tilmelding);
     }
 
-    public ArrayList<Udflugt> getUdflugter(){
+    public ArrayList<Udflugt> getUdflugter() {
         return new ArrayList<>(udflugter);
     }
 
@@ -83,8 +83,30 @@ public class Konference {
         return this.pris;
     }
 
+    public String getNavn() {
+        return navn;
+    }
+
+    public String getBeskrivelse() {
+        return beskrivelse;
+    }
+
+    public String getLokation() {
+        return lokation;
+    }
+
+    public LocalDate getStartDato() {
+        return startDato;
+    }
+
+    public LocalDate getSlutDato() {
+        return slutDato;
+    }
+
     @Override
     public String toString() {
         return String.format("%s", navn);
     }
+
+
 }
