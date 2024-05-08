@@ -37,20 +37,30 @@ public class ListeVindue extends Stage {
     }
 
     public void visDeltagerKonference(Konference konference) {
-        ArrayList<Deltager> deltagere = new ArrayList<>();
-
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("=========%s=========\n", konference.getNavn()));
 
-        for (Tilmelding tilmelding : konference.getTilmeldinger()) {
-            // tilføjer alle konferencens Tilmeldinger til en Arraylist af DELTAGERE, så navn og info kan hentes.
-            deltagere.add(tilmelding.getDeltager());
-        }
+        ArrayList<Tilmelding> tilmeldinger = new ArrayList<>(konference.getTilmeldinger());
+        sorterTilmeldinger(tilmeldinger);
 
-        for (Deltager deltager : deltagere)
-            // midlertidig print - RALFERT FIXER
-            sb.append(deltager + "\n");
+        // HER HAR DU DIN PRINT METODE - KNOCK URSELF OUT
+        for (Tilmelding tilmelding : tilmeldinger) {
+            sb.append(tilmelding);
+            sb.append("\n");
+        }
         txa.setText(sb.toString());
+    }
+
+    public static void sorterTilmeldinger(ArrayList<Tilmelding> arr) {
+        for (int i = arr.size() - 1; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (arr.get(j).getDeltager().CompareTo(arr.get(j + 1).getDeltager()) > 0) {
+                    Tilmelding temp = arr.get(j);
+                    arr.set(j, arr.get(j + 1));
+                    arr.set(j + 1, temp);
+                }
+            }
+        }
     }
 
     public void visUdflugter(Konference konference) {
