@@ -1,9 +1,7 @@
 package gui;
 
 import controller.Controller;
-import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -23,27 +21,26 @@ public class TilmeldingsVindue extends Stage {
     private Deltager deltager;
     private Tilmelding tilmelding;
 
-    private DatePicker dpCheckIn = new DatePicker();
-    private DatePicker dpCheckUd = new DatePicker();
-    private DatePicker dpDeltagerFra = new DatePicker();
-    private DatePicker dpDeltagerTil = new DatePicker();
+    private final DatePicker dpCheckIn = new DatePicker();
+    private final DatePicker dpCheckUd = new DatePicker();
+    private final DatePicker dpDeltagerFra = new DatePicker();
+    private final DatePicker dpDeltagerTil = new DatePicker();
 
-    private CheckBox cbxHotelØnskes = new CheckBox("Hotel Ønskes");
+    private final CheckBox cbxHotelØnskes = new CheckBox("Hotel Ønskes");
 
-    private ListView lvwHoteller = new ListView();
-    private ListView lvwHotelTilvalg = new ListView();
+    private final ListView lvwHoteller = new ListView();
+    private final ListView lvwHotelTilvalg = new ListView();
 
-    private TextArea txaHotelInfo = new TextArea();
+    private final TextArea txaHotelInfo = new TextArea();
 
-    private CheckBox cbxForedragsholder = new CheckBox("Foredragsholder");
-    private CheckBox cbxLedsager = new CheckBox("Ledsager");
+    private final CheckBox cbxForedragsholder = new CheckBox("Foredragsholder");
+    private final CheckBox cbxLedsager = new CheckBox("Ledsager");
 
-    private TextField txfLedsagerNavn = new TextField();
+    private final TextField txfLedsagerNavn = new TextField();
 
-    private ListView lvwUdflugter = new ListView();
+    private final ListView lvwUdflugter = new ListView();
 
-    private TextField txfSamletPris = new TextField();
-    private Label lblError = new Label();
+    private final TextField txfSamletPris = new TextField();
 
     public TilmeldingsVindue(Konference konference, Deltager deltager) {
         this.konference = konference;
@@ -163,9 +160,6 @@ public class TilmeldingsVindue extends Stage {
         }
         pane.add(btnOpretTilmelding, 4, 9);
         btnOpretTilmelding.setOnAction(e -> opretTilmelding());
-
-        lblError.setTextFill(Color.RED);
-        pane.add(lblError, 0, 9);
 
         updateGui();
         tilpasFarverForForestilling(dpCheckIn);

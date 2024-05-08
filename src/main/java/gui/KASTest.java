@@ -4,7 +4,6 @@ import controller.Controller;
 import model.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class KASTest {
     public static void main(String[] args) {

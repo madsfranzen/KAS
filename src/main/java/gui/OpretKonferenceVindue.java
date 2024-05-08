@@ -8,12 +8,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import javafx.util.converter.DoubleStringConverter;
-import javafx.util.converter.IntegerStringConverter;
 import model.Hotel;
-import model.HotelTilvalg;
 import model.Konference;
 import model.Udflugt;
 
@@ -25,31 +22,31 @@ public class OpretKonferenceVindue extends Stage {
 
     private Konference konference;
 
-    private Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(2), new Insets(-2)));
+    private final Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(2), new Insets(-2)));
 
-    private TextField txfKonferenceNavn = new TextField();
-    private DatePicker dpStart = new DatePicker();
-    private DatePicker dpSlut = new DatePicker();
-    private TextField txfLokation = new TextField();
-    private TextArea txaBeskrivelse = new TextArea();
-    private TextField txfPris = new TextField();
+    private final TextField txfKonferenceNavn = new TextField();
+    private final DatePicker dpStart = new DatePicker();
+    private final DatePicker dpSlut = new DatePicker();
+    private final TextField txfLokation = new TextField();
+    private final TextArea txaBeskrivelse = new TextArea();
+    private final TextField txfPris = new TextField();
 
-    private TextField txfUdflugtNavn = new TextField();
-    private TextField txfUdflugtPris = new TextField();
-    private DatePicker dpUdflugt = new DatePicker();
-    private CheckBox chbMiddag = new CheckBox("Middag Inkluderet");
-    private ListView lvwUdflugter = new ListView<>();
-    private Button btnOpretUdflugt = new Button("Opret Udflugt");
-    private Button btnSletUdflugt = new Button("Slet Udflugt");
+    private final TextField txfUdflugtNavn = new TextField();
+    private final TextField txfUdflugtPris = new TextField();
+    private final DatePicker dpUdflugt = new DatePicker();
+    private final CheckBox chbMiddag = new CheckBox("Middag Inkluderet");
+    private final ListView lvwUdflugter = new ListView<>();
+    private final Button btnOpretUdflugt = new Button("Opret Udflugt");
+    private final Button btnSletUdflugt = new Button("Slet Udflugt");
 
-    private ListView lvwHoteller = new ListView<>();
-    private ListView lvwTilkHoteller = new ListView<>();
-    private Button btnTilføjHotel = new Button("Tilføj ->");
-    private Button btnFjernHotel = new Button("<- Fjern");
-    private Button btnOpretKonference = new Button("Opret Konference");
+    private final ListView lvwHoteller = new ListView<>();
+    private final ListView lvwTilkHoteller = new ListView<>();
+    private final Button btnTilføjHotel = new Button("Tilføj ->");
+    private final Button btnFjernHotel = new Button("<- Fjern");
+    private final Button btnOpretKonference = new Button("Opret Konference");
 
-    private ArrayList<Hotel> tilknyttedeHoteller = new ArrayList<>();
-    private ArrayList<Udflugt> udflugter = new ArrayList<>();
+    private final ArrayList<Hotel> tilknyttedeHoteller = new ArrayList<>();
+    private final ArrayList<Udflugt> udflugter = new ArrayList<>();
 
     public OpretKonferenceVindue() {
         this.setTitle("Opret Konference");
