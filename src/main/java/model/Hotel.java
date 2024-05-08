@@ -32,6 +32,8 @@ public class Hotel {
         this.bookinger.add(booking);
     }
 
+    public void fjernBooking(Booking booking) {this.bookinger.remove(booking);}
+
     public double getPrisEnkelt() {
         return prisEnkelt;
     }
