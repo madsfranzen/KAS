@@ -28,6 +28,7 @@ public class AdminVindue extends Stage {
     private Button btnSletbruger = new Button("Slet");
     private Button btnTilmeldBruger = new Button("   Tilmeld   ");
     private Button btnAfmeldBruger = new Button("   Afmeld    ");
+    private Button btnLogud = new Button( "LOG UD");
 
     // KONFERENCE
     private ListView lvwKonferencer = new ListView<>();
@@ -206,7 +207,6 @@ public class AdminVindue extends Stage {
         hotelPane.add(lvwTilvalg, 1, 3);
 
         HBox hboxHotel1 = new HBox();
-        HBox hBoxHotel2 = new HBox();
         hboxHotel1.getChildren().addAll(btnOpretHotel, btnOpdaterHotel, btnSletHotel);
         hboxHotel1.setSpacing(50);
         hboxHotel1.setAlignment(Pos.CENTER);
@@ -215,6 +215,15 @@ public class AdminVindue extends Stage {
         hBoxHotel2.setSpacing(50);
         hBoxHotel2.setAlignment(Pos.CENTER);
         hotelPane.add(hBoxHotel2, 0, 5, 2, 1);
+
+
+
+        HBox hboxInfoLogud = new HBox();
+        hboxInfoLogud.getChildren().addAll(lblHotelInfo, btnLogud);
+        hboxInfoLogud.setSpacing(150);
+        hboxInfoLogud.setAlignment(Pos.BASELINE_LEFT);
+        hotelPane.add(hboxInfoLogud,1,0,2,1);
+        btnLogud.setOnAction(event -> logUd());
 
         ChangeListener<Hotel> Hotellistener = (ov, o, n) -> this.selectedHotelChanged();
         lvwHoteller.getSelectionModel().selectedItemProperty().addListener(Hotellistener);
@@ -230,6 +239,14 @@ public class AdminVindue extends Stage {
     }
 
     //========================== Updates ====================================
+
+    public void logUd() {
+        LoginVindue loginVindue = new LoginVindue();
+        this.hide();
+        loginVindue.show();
+    }
+
+
     public void selectedDeltagerChanged() {
         Deltager deltager = (Deltager) lvwBrugere.getSelectionModel().getSelectedItem();
         if (deltager != null) {
@@ -316,7 +333,6 @@ public class AdminVindue extends Stage {
         listeVindue.visBookinger();
         listeVindue.showAndWait();
     }
-
     public void opretBruger() {
         VindueManager.opretBrugerVindue.clearGUI();
         VindueManager.opretBrugerVindue.showAndWait();
@@ -375,15 +391,6 @@ public class AdminVindue extends Stage {
                 }
             });
         }
-    }
-
-    public void ingenKonferenceValgtAlert() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Fejl");
-        alert.setHeaderText("Ingen Konference Valgt");
-        alert.setContentText("Vælg venligst en konference.");
-        alert.showAndWait();
-
     }
 
     public void opdaterTilmelding() {
