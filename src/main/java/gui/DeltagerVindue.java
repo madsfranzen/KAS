@@ -1,7 +1,6 @@
 package gui;
 
 import controller.Controller;
-import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -25,27 +24,27 @@ public class DeltagerVindue extends Stage {
 
     private Deltager deltager;
 
-    private File file = new File("src/main/resources/pb.png");
-    private Image image = new Image(file.toURI().toString());
-    private ImageView imgProfile = new ImageView(image);
+    private final File file = new File("src/main/resources/pb.png");
+    private final Image image = new Image(file.toURI().toString());
+    private final ImageView imgProfile = new ImageView(image);
 
-    private ListView lvwKonferencer = new ListView<>();
-    private TextArea txaKonferenceInfo = new TextArea();
-    private Button btnTilmeld = new Button("Tilmeld");
-    private Button btnAfmeld = new Button("Afmeld");
-    private Button btnLogUd = new Button("Log Ud");
-    private Button btnOpdater = new Button("Opdater");
+    private final ListView lvwKonferencer = new ListView<>();
+    private final TextArea txaKonferenceInfo = new TextArea();
+    private final Button btnTilmeld = new Button("Tilmeld");
+    private final Button btnAfmeld = new Button("Afmeld");
+    private final Button btnLogUd = new Button("Log Ud");
+    private final Button btnOpdater = new Button("Opdater");
 
-    private TextField txfNavn = new TextField();
-    private TextField txfAdresse = new TextField();
-    private TextField txfTlf = new TextField();
-    private TextField txfBy = new TextField();
-    private TextField txfFirma = new TextField();
-    private TextField txfLand = new TextField();
-    private TextField txfPris = new TextField();
+    private final TextField txfNavn = new TextField();
+    private final TextField txfAdresse = new TextField();
+    private final TextField txfTlf = new TextField();
+    private final TextField txfBy = new TextField();
+    private final TextField txfFirma = new TextField();
+    private final TextField txfLand = new TextField();
+    private final TextField txfPris = new TextField();
 
-    private ListView<Tilmelding> lvwTilmeldinger = new ListView<>();
-    private Button btnOpdaterTilmelding = new Button("Opdater Tilmelding");
+    private final ListView<Tilmelding> lvwTilmeldinger = new ListView<>();
+    private final Button btnOpdaterTilmelding = new Button("Opdater Tilmelding");
 
     public DeltagerVindue(Deltager deltager) {
         this.deltager = deltager;
@@ -241,9 +240,9 @@ public class DeltagerVindue extends Stage {
     }
 
     public void opdaterTilmelding() {
-        Tilmelding tilmelding = (Tilmelding) lvwTilmeldinger.getSelectionModel().getSelectedItem();
+        Tilmelding tilmelding = lvwTilmeldinger.getSelectionModel().getSelectedItem();
         if (tilmelding != null) {
-            Konference konference = (Konference) tilmelding.getKonference();
+            Konference konference = tilmelding.getKonference();
             TilmeldingsVindue tilmeldingsVindue = new TilmeldingsVindue(konference, deltager, tilmelding);
             tilmeldingsVindue.showAndWait();
             initGUI();
@@ -251,9 +250,9 @@ public class DeltagerVindue extends Stage {
     }
 
     public void afmeld() {
-        Tilmelding tilmelding = (Tilmelding) lvwTilmeldinger.getSelectionModel().getSelectedItem();
+        Tilmelding tilmelding = lvwTilmeldinger.getSelectionModel().getSelectedItem();
         if (tilmelding != null) {
-            Konference konference = (Konference) tilmelding.getKonference();
+            Konference konference = tilmelding.getKonference();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setHeaderText("Er du sikker?");
             alert.setContentText("Vil du slette din tilmelding?");

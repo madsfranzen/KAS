@@ -1,11 +1,8 @@
 package gui;
 
 import controller.Controller;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -87,6 +84,7 @@ public class ListeVindue extends Stage {
                     sb.append(String.format("%s (%s %s) \n", tilmelding.getLedsager().getNavn(), tilmelding.getDeltager().getNavn(), tilmelding.getDeltager().getTlf()));
                 }
             }
+            sb.append("\n");
             txa.setText(sb.toString());
         }
     }
@@ -114,6 +112,7 @@ public class ListeVindue extends Stage {
                     }
                     sb.append("\n");
                 }
+                sb.append("\n");
             }
         }
         txa.setText(sb.toString());
