@@ -101,6 +101,7 @@ public class AdminVindue extends Stage {
         lvwBrugere.setMinWidth((width / 3) / 3);
         brugerPane.add(txaBrugerInfo, 1, 1);
         txaBrugerInfo.setMinHeight(120);
+        txaBrugerInfo.setEditable(false);
         brugerPane.add(lvwTilmeldinger, 1, 3);
 
         HBox hboxBruger1 = new HBox();
@@ -148,6 +149,7 @@ public class AdminVindue extends Stage {
         lvwKonferencer.setMinWidth((width / 3) / 3);
         konferencePane.add(txaKonferenceInfo, 1, 1);
         txaKonferenceInfo.setMinHeight(120);
+        txaKonferenceInfo.setEditable(false);
         konferencePane.add(lvwUdflugter, 1, 3);
 
         HBox hboxKonference1 = new HBox();
@@ -174,6 +176,7 @@ public class AdminVindue extends Stage {
         });
         btnOpdaterKonference.setOnAction(event -> opdaterKonference());
         btnSletKonference.setOnAction(e -> sletKonference());
+        btnHentTilmeldte.setOnAction(e -> hentTilmeldte());
 
         //============================= HOTEL PANE ==========================//
 
@@ -283,29 +286,30 @@ public class AdminVindue extends Stage {
     //========================= Actions ===============================
 
 
-    public void hentTilmeldte(){
+    public void hentTilmeldte() {
         Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
-        if (konference != null){
+        if (konference != null) {
             ListeVindue listeVindue = new ListeVindue();
             listeVindue.visDeltagerKonference(konference);
             listeVindue.showAndWait();
         }
     }
 
-    public void hentLedsagerePåUdflugter(){
+    public void hentLedsagerePåUdflugter() {
         Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
-        if (konference != null){
+        if (konference != null) {
             ListeVindue listeVindue = new ListeVindue();
             listeVindue.visUdflugter(konference);
             listeVindue.showAndWait();
         }
     }
 
-    public void hentBookinger(){
+    public void hentBookinger() {
         ListeVindue listeVindue = new ListeVindue();
         listeVindue.visBookinger();
         listeVindue.showAndWait();
     }
+
     public void opretBruger() {
         VindueManager.opretBrugerVindue.clearGUI();
         VindueManager.opretBrugerVindue.showAndWait();

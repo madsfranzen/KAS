@@ -186,6 +186,7 @@ public class DeltagerVindue extends Stage {
 
         }
         txfPris.setText(String.format("%.2f kr", totalPris));
+        imgProfile.setImage(deltager.getImageChosen());
     }
 
     public void selectedKonferenceChanged() {

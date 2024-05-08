@@ -38,7 +38,6 @@ public class ListeVindue extends Stage {
     }
 
     public void visDeltagerKonference(Konference konference) {
-            //Todo
             StringBuilder sb = new StringBuilder();
             sb.append(String.format("=========%s=========", konference.getNavn()));
             ArrayList<Deltager> deltagere = konference.visDeltagere();
@@ -46,6 +45,15 @@ public class ListeVindue extends Stage {
                 sb.append(deltager + "\n");
             }
             txa.setText(sb.toString());
+
+
+//        StringBuilder sb = new StringBuilder();
+//        sb.append(String.format("=========%s=========", konference.getNavn()));
+//        ArrayList<Deltager> deltagere = konference.visDeltagere();
+//        for (Deltager deltager : deltagere) {
+//            sb.append(deltager + "\n");
+//        }
+//        txa.setText(sb.toString());
     }
 
     public void visUdflugter(Konference konference) {
