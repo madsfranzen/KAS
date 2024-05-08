@@ -1,7 +1,6 @@
 package gui;
 
 import controller.Controller;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -24,35 +23,35 @@ import java.io.File;
 public class OpretBrugerVindue extends Stage {
 
     private Deltager deltager;
-    private HBox bundHbox = new HBox();
+    private final HBox bundHbox = new HBox();
 
-    private VBox topVbox = new VBox();
-    private TextField txfBrugernavn = new TextField();
-    private TextField txfNavn = new TextField();
-    private TextField txfAdresse = new TextField();
-    private TextField txfTlf = new TextField();
-    private TextField txfBy = new TextField();
-    private TextField txfFirma = new TextField();
-    private TextField txfLand = new TextField();
+    private final VBox topVbox = new VBox();
+    private final TextField txfBrugernavn = new TextField();
+    private final TextField txfNavn = new TextField();
+    private final TextField txfAdresse = new TextField();
+    private final TextField txfTlf = new TextField();
+    private final TextField txfBy = new TextField();
+    private final TextField txfFirma = new TextField();
+    private final TextField txfLand = new TextField();
 
-    private PasswordField psfKodeord = new PasswordField();
+    private final PasswordField psfKodeord = new PasswordField();
 
-    private Label lblBrugernavn = new Label("Brugernavn :");
-    private Label lblKodeOrd = new Label("Kodeord :");
+    private final Label lblBrugernavn = new Label("Brugernavn :");
+    private final Label lblKodeOrd = new Label("Kodeord :");
 
-    private Label lblNavn = new Label("Navn :");
-    private Label lblAdresse = new Label("Adresse :");
+    private final Label lblNavn = new Label("Navn :");
+    private final Label lblAdresse = new Label("Adresse :");
 
-    private Label lblTlf = new Label("Tlf :");
-    private Label lblBy = new Label("By :");
+    private final Label lblTlf = new Label("Tlf :");
+    private final Label lblBy = new Label("By :");
 
-    private Label lblFirma = new Label("Firma :");
-    private Label lblLand = new Label("Land :");
+    private final Label lblFirma = new Label("Firma :");
+    private final Label lblLand = new Label("Land :");
 
 
-    private Button btnOpretBruger = new Button("Opret Bruger");
+    private final Button btnOpretBruger = new Button("Opret Bruger");
 
-    private Button btnUploadProfilbillede = new Button("Upload Profilbillede");
+    private final Button btnUploadProfilbillede = new Button("Upload Profilbillede");
 
 
     private File file = new File("src/main/resources/pb.png");
@@ -159,7 +158,7 @@ public class OpretBrugerVindue extends Stage {
         String land = txfLand.getText();
         Image imageChosen = imgProfile.getImage();
 
-        if (brugernavn.isEmpty() || kodeord.isEmpty() || navn.isEmpty() || navn.isEmpty() || adresse.isEmpty() || tlf.isEmpty() || by.isEmpty() || land.isEmpty() || !erRigtigTelefonNummer(tlf)) {
+        if (brugernavn.isEmpty() || kodeord.isEmpty() || navn.isEmpty() || adresse.isEmpty() || tlf.isEmpty() || by.isEmpty() || land.isEmpty() || !erRigtigTelefonNummer(tlf)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Fejl");
             alert.setHeaderText(null);

@@ -10,45 +10,42 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import model.Deltager;
-import model.Hotel;
-import model.Konference;
-import model.Tilmelding;
+import model.*;
 
 import java.util.Optional;
 
 public class AdminVindue extends Stage {
 
     // BRUGER
-    private ListView lvwBrugere = new ListView<>();
-    private TextArea txaBrugerInfo = new TextArea();
-    private ListView<Tilmelding> lvwTilmeldinger = new ListView<>();
-    private Button btnOpretBruger = new Button("Opret");
-    private Button btnOpdaterBruger = new Button("Opdater");
-    private Button btnSletbruger = new Button("Slet");
-    private Button btnTilmeldBruger = new Button("   Tilmeld   ");
-    private Button btnAfmeldBruger = new Button("   Afmeld    ");
-    private Button btnLogud = new Button("LOG UD");
+    private final ListView<Deltager> lvwBrugere = new ListView<>();
+    private final TextArea txaBrugerInfo = new TextArea();
+    private final ListView<Tilmelding> lvwTilmeldinger = new ListView<>();
+    private final Button btnOpretBruger = new Button("Opret");
+    private final Button btnOpdaterBruger = new Button("Opdater");
+    private final Button btnSletbruger = new Button("Slet");
+    private final Button btnTilmeldBruger = new Button("   Tilmeld   ");
+    private final Button btnAfmeldBruger = new Button("   Afmeld    ");
+    private final Button btnLogud = new Button("LOG UD");
 
     // KONFERENCE
-    private ListView lvwKonferencer = new ListView<>();
-    private TextArea txaKonferenceInfo = new TextArea();
-    private ListView lvwUdflugter = new ListView<>();
-    private Button btnOpretKonference = new Button("Opret");
-    private Button btnOpdaterKonference = new Button("Opdater");
-    private Button btnSletKonference = new Button("Slet");
-    private Button btnHentTilmeldte = new Button("Print Tilmeldte");
-    private Button btnPrintUdflugter = new Button("Print Udflugter");
+    private final ListView<Konference> lvwKonferencer = new ListView<>();
+    private final TextArea txaKonferenceInfo = new TextArea();
+    private final ListView<Udflugt> lvwUdflugter = new ListView<>();
+    private final Button btnOpretKonference = new Button("Opret");
+    private final Button btnOpdaterKonference = new Button("Opdater");
+    private final Button btnSletKonference = new Button("Slet");
+    private final Button btnHentTilmeldte = new Button("Print Tilmeldte");
+    private final Button btnPrintUdflugter = new Button("Print Udflugter");
 
     // HOTEL
-    private ListView lvwHoteller = new ListView<>();
-    private TextArea txaHotelInfo = new TextArea();
-    private ListView lvwTilvalg = new ListView<>();
-    private Button btnOpretHotel = new Button("Opret");
-    private Button btnOpdaterHotel = new Button("Opdater");
-    private Button btnSletHotel = new Button("Slet");
-    private Button btnHentBookinger = new Button("Print Alle Bookinger");
-    private HBox hBoxHotel2 = new HBox();
+    private final ListView lvwHoteller = new ListView<>();
+    private final TextArea txaHotelInfo = new TextArea();
+    private final ListView lvwTilvalg = new ListView<>();
+    private final Button btnOpretHotel = new Button("Opret");
+    private final Button btnOpdaterHotel = new Button("Opdater");
+    private final Button btnSletHotel = new Button("Slet");
+    private final Button btnHentBookinger = new Button("Print Alle Bookinger");
+    private final HBox hBoxHotel2 = new HBox();
 
     public AdminVindue() {
         BorderPane pane = new BorderPane();
@@ -69,7 +66,7 @@ public class AdminVindue extends Stage {
         hotelPane.setGridLinesVisible(false);
 
         pane.setCenter(mainPane);
-        int width = 1500;
+        int width = 1400;
         int height = 500;
         mainPane.setMaxWidth(width);
         mainPane.setMinWidth(width);
@@ -207,6 +204,9 @@ public class AdminVindue extends Stage {
         txaHotelInfo.setEditable(false);
         hotelPane.add(lvwTilvalg, 1, 3);
 
+        txaHotelInfo.maxWidth(100);
+        lvwTilvalg.maxWidth(100);
+
         HBox hboxHotel1 = new HBox();
         hboxHotel1.getChildren().addAll(btnOpretHotel, btnOpdaterHotel, btnSletHotel);
         hboxHotel1.setSpacing(50);
@@ -220,8 +220,9 @@ public class AdminVindue extends Stage {
 
         HBox hboxInfoLogud = new HBox();
         hboxInfoLogud.getChildren().addAll(lblHotelInfo, btnLogud);
-        hboxInfoLogud.setSpacing(150);
+        hboxInfoLogud.setSpacing(15);
         hboxInfoLogud.setAlignment(Pos.BASELINE_LEFT);
+
         hotelPane.add(hboxInfoLogud, 1, 0, 2, 1);
         btnLogud.setOnAction(event -> logUd());
 
@@ -247,7 +248,7 @@ public class AdminVindue extends Stage {
     }
 
     public void selectedDeltagerChanged() {
-        Deltager deltager = (Deltager) lvwBrugere.getSelectionModel().getSelectedItem();
+        Deltager deltager = lvwBrugere.getSelectionModel().getSelectedItem();
         if (deltager != null) {
             // Opdater listview af Tilmeldinger
             lvwTilmeldinger.getItems().setAll(deltager.getTilmeldinger());
@@ -271,7 +272,7 @@ public class AdminVindue extends Stage {
     }
 
     public void selectedKonferenceChanged() {
-        Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
+        Konference konference = lvwKonferencer.getSelectionModel().getSelectedItem();
         // Opdater listview af Udflugtter
         if (!(konference == null)) {
             lvwUdflugter.getItems().setAll(konference.getUdflugter());
@@ -310,7 +311,7 @@ public class AdminVindue extends Stage {
 
 
     public void hentTilmeldte() {
-        Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
+        Konference konference = lvwKonferencer.getSelectionModel().getSelectedItem();
         if (konference != null) {
             ListeVindue listeVindue = new ListeVindue();
             listeVindue.visDeltagerKonference(konference);
@@ -319,7 +320,7 @@ public class AdminVindue extends Stage {
     }
 
     public void hentLedsagerePåUdflugter() {
-        Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
+        Konference konference = lvwKonferencer.getSelectionModel().getSelectedItem();
         if (konference != null) {
             ListeVindue listeVindue = new ListeVindue();
             listeVindue.visUdflugter(konference);
@@ -340,15 +341,15 @@ public class AdminVindue extends Stage {
     }
 
     public void opdaterBruger() {
-        Deltager deltager = (Deltager) lvwBrugere.getSelectionModel().getSelectedItem();
+        Deltager deltager = lvwBrugere.getSelectionModel().getSelectedItem();
         OpretBrugerVindue opretBrugerVindue = new OpretBrugerVindue(deltager);
         opretBrugerVindue.showAndWait();
         updateGUI();
     }
 
     public void opretTilmelding() {
-        Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
-        Deltager deltager = (Deltager) lvwBrugere.getSelectionModel().getSelectedItem();
+        Konference konference = lvwKonferencer.getSelectionModel().getSelectedItem();
+        Deltager deltager = lvwBrugere.getSelectionModel().getSelectedItem();
         Boolean erTilmeldt = false;
 
         for (Tilmelding tilmelding : deltager.getTilmeldinger()) {
@@ -375,10 +376,10 @@ public class AdminVindue extends Stage {
     }
 
     public void afmeld() {
-        Tilmelding tilmelding = (Tilmelding) lvwTilmeldinger.getSelectionModel().getSelectedItem();
-        Deltager deltager = (Deltager) lvwBrugere.getSelectionModel().getSelectedItem();
+        Tilmelding tilmelding = lvwTilmeldinger.getSelectionModel().getSelectedItem();
+        Deltager deltager = lvwBrugere.getSelectionModel().getSelectedItem();
         if (tilmelding != null) {
-            Konference konference = (Konference) tilmelding.getKonference();
+            Konference konference = tilmelding.getKonference();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setHeaderText("Er du sikker?");
             alert.setContentText("Vil du slette din tilmelding?");
@@ -394,10 +395,10 @@ public class AdminVindue extends Stage {
     }
 
     public void opdaterTilmelding() {
-        Deltager deltager = (Deltager) lvwBrugere.getSelectionModel().getSelectedItem();
-        Tilmelding tilmelding = (Tilmelding) lvwTilmeldinger.getSelectionModel().getSelectedItem();
+        Deltager deltager = lvwBrugere.getSelectionModel().getSelectedItem();
+        Tilmelding tilmelding = lvwTilmeldinger.getSelectionModel().getSelectedItem();
         if (tilmelding != null) {
-            Konference konference = (Konference) tilmelding.getKonference();
+            Konference konference = tilmelding.getKonference();
             TilmeldingsVindue tilmeldingsVindue = new TilmeldingsVindue(konference, deltager, tilmelding);
             tilmeldingsVindue.showAndWait();
         } else {
@@ -416,14 +417,14 @@ public class AdminVindue extends Stage {
     }
 
     public void opdaterKonference() {
-        Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
+        Konference konference = lvwKonferencer.getSelectionModel().getSelectedItem();
         OpretKonferenceVindue opretKonferenceVindue = new OpretKonferenceVindue(konference);
         opretKonferenceVindue.showAndWait();
         updateGUI();
     }
 
     public void sletDeltager() {
-        Deltager deltager = (Deltager) lvwBrugere.getSelectionModel().getSelectedItem();
+        Deltager deltager = lvwBrugere.getSelectionModel().getSelectedItem();
         if (deltager != null) {
             if (showConfirmation("Er du sikker på, at du vil slette denne bruger?")) {
                 Controller.sletDeltager(deltager);
@@ -443,7 +444,7 @@ public class AdminVindue extends Stage {
     }
 
     public void sletKonference() {
-        Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
+        Konference konference = lvwKonferencer.getSelectionModel().getSelectedItem();
         if (konference != null) {
             if (showConfirmation("Er du sikker på, at du vil slette denne konference?")) {
                 Controller.sletKonference(konference);

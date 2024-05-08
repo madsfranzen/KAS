@@ -1,7 +1,6 @@
 package gui;
 
 import controller.Controller;
-import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -21,21 +20,21 @@ public class OpretHotelVindue extends Stage {
 
     private Hotel hotel;
 
-    private ArrayList<HotelTilvalg> tilvalgArr = new ArrayList<>();
+    private final ArrayList<HotelTilvalg> tilvalgArr = new ArrayList<>();
 
-    private Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(2), new Insets(-2)));
+    private final Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(2), new Insets(-2)));
 
-    private Button btnOpretTilvalg = new Button("Opret Tilvalg");
-    private Button btnSletTilvalg = new Button("Slet Tilvalg");
-    private Button btnOpretHotel = new Button("Opret Hotel");
+    private final Button btnOpretTilvalg = new Button("Opret Tilvalg");
+    private final Button btnSletTilvalg = new Button("Slet Tilvalg");
+    private final Button btnOpretHotel = new Button("Opret Hotel");
 
-    private TextField txfNavnTilvalg = new TextField();
-    private TextField txfPris = new TextField();
-    private ListView lvwTilvalg = new ListView<>();
+    private final TextField txfNavnTilvalg = new TextField();
+    private final TextField txfPris = new TextField();
+    private final ListView lvwTilvalg = new ListView<>();
 
-    private TextField txfNavnHotel = new TextField();
-    private TextField txfPrisSingle = new TextField();
-    private TextField txfPrisDobbelt = new TextField();
+    private final TextField txfNavnHotel = new TextField();
+    private final TextField txfPrisSingle = new TextField();
+    private final TextField txfPrisDobbelt = new TextField();
 
     public OpretHotelVindue() {
         this.setTitle("Opret Hotel");
