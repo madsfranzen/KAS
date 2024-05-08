@@ -17,6 +17,10 @@ public class Udflugt {
         InklusivFrokost = inklusivFrokost;
     }
 
+    public String getNavn() {
+        return navn;
+    }
+
     public double getPris() {
         return pris;
     }
