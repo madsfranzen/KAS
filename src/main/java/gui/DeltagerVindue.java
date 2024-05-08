@@ -42,8 +42,9 @@ public class DeltagerVindue extends Stage {
     private TextField txfBy = new TextField();
     private TextField txfFirma = new TextField();
     private TextField txfLand = new TextField();
+    private TextField txfPris = new TextField();
 
-    private ListView lvwTilmeldinger = new ListView<>();
+    private ListView<Tilmelding> lvwTilmeldinger = new ListView<>();
     private Button btnOpdaterTilmelding = new Button("Opdater Tilmelding");
 
     public DeltagerVindue(Deltager deltager) {
@@ -157,9 +158,14 @@ public class DeltagerVindue extends Stage {
 
         gridPaneR.add(lvwTilmeldinger, 0, 4, 2, 1);
         lvwTilmeldinger.setMaxHeight(200);
-        HBox hbox = new HBox(btnOpdaterTilmelding);
+        Label lblPris = new Label("Total Pris:");
+        HBox hbox = new HBox(lblPris, txfPris, btnOpdaterTilmelding);
+        hbox.setSpacing(10);
+        txfPris.setMaxWidth(100);
         gridPaneR.add(hbox, 0, 5, 3, 2);
+
         hbox.setAlignment(Pos.CENTER);
+        txfPris.setEditable(false);
 
         btnOpdaterTilmelding.setOnAction(e -> opdaterTilmelding());
         initGUI();
@@ -174,6 +180,12 @@ public class DeltagerVindue extends Stage {
         txfLand.setText(deltager.getLand());
         lvwTilmeldinger.getItems().setAll(deltager.getTilmeldinger());
         lvwKonferencer.getItems().setAll(Storage.getKonferencer());
+        double totalPris = 0;
+        for (Tilmelding tilmelding : lvwTilmeldinger.getItems()){
+           totalPris += tilmelding.beregnPris();
+
+        }
+        txfPris.setText(String.format("%.2f kr", totalPris));
         imgProfile.setImage(deltager.getImageChosen());
     }
 

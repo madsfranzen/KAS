@@ -158,6 +158,7 @@ public class AdminVindue extends Stage {
         hboxKonference1.getChildren().addAll(btnOpretKonference, btnOpdaterKonference, btnSletKonference);
         hboxKonference2.getChildren().addAll(btnHentTilmeldte, btnHentBookinger);
 
+
         hboxKonference1.setSpacing(50);
         hboxKonference1.setAlignment(Pos.CENTER);
         hboxKonference2.setSpacing(50);
