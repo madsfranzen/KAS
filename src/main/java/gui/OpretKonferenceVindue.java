@@ -23,33 +23,33 @@ import java.util.ArrayList;
 
 public class OpretKonferenceVindue extends Stage {
 
-    Konference konference;
+    private Konference konference;
 
-    Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(2), new Insets(-2)));
+    private Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(2), new Insets(-2)));
 
-    TextField txfKonferenceNavn = new TextField();
-    DatePicker dpStart = new DatePicker();
-    DatePicker dpSlut = new DatePicker();
-    TextField txfLokation = new TextField();
-    TextArea txaBeskrivelse = new TextArea();
-    TextField txfPris = new TextField();
+    private TextField txfKonferenceNavn = new TextField();
+    private DatePicker dpStart = new DatePicker();
+    private DatePicker dpSlut = new DatePicker();
+    private TextField txfLokation = new TextField();
+    private TextArea txaBeskrivelse = new TextArea();
+    private TextField txfPris = new TextField();
 
-    TextField txfUdflugtNavn = new TextField();
-    TextField txfUdflugtPris = new TextField();
-    DatePicker dpUdflugt = new DatePicker();
-    CheckBox chbMiddag = new CheckBox("Middag Inkluderet");
-    ListView lvwUdflugter = new ListView<>();
-    Button btnOpretUdflugt = new Button("Opret Udflugt");
-    Button btnSletUdflugt = new Button("Slet Udflugt");
+    private TextField txfUdflugtNavn = new TextField();
+    private TextField txfUdflugtPris = new TextField();
+    private DatePicker dpUdflugt = new DatePicker();
+    private CheckBox chbMiddag = new CheckBox("Middag Inkluderet");
+    private ListView lvwUdflugter = new ListView<>();
+    private Button btnOpretUdflugt = new Button("Opret Udflugt");
+    private Button btnSletUdflugt = new Button("Slet Udflugt");
 
-    ListView lvwHoteller = new ListView<>();
-    ListView lvwTilkHoteller = new ListView<>();
-    Button btnTilføjHotel = new Button("Tilføj ->");
-    Button btnFjernHotel = new Button("<- Fjern");
-    Button btnOpretKonference = new Button("Opret Konference");
+    private ListView lvwHoteller = new ListView<>();
+    private ListView lvwTilkHoteller = new ListView<>();
+    private Button btnTilføjHotel = new Button("Tilføj ->");
+    private Button btnFjernHotel = new Button("<- Fjern");
+    private Button btnOpretKonference = new Button("Opret Konference");
 
-    ArrayList<Hotel> tilknyttedeHoteller = new ArrayList<>();
-    ArrayList<Udflugt> udflugter = new ArrayList<>();
+    private ArrayList<Hotel> tilknyttedeHoteller = new ArrayList<>();
+    private ArrayList<Udflugt> udflugter = new ArrayList<>();
 
     public OpretKonferenceVindue() {
         this.setTitle("Opret Konference");

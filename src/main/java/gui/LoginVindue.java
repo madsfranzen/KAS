@@ -21,15 +21,15 @@ import java.io.File;
 
 public class LoginVindue extends Stage {
 
-    TextField txfBrugernavn = new TextField();
-    PasswordField psfKodeord = new PasswordField();
+    private TextField txfBrugernavn = new TextField();
+    private PasswordField psfKodeord = new PasswordField();
 
-    Label lblBrugernavn = new Label("Brugernavn :");
-    Label lblKodeOrd = new Label("Kodeord :");
+    private Label lblBrugernavn = new Label("Brugernavn :");
+    private Label lblKodeOrd = new Label("Kodeord :");
 
 
-    Button btnLogin = new Button("Login");
-    Button btnOpretBruger = new Button("Opret Bruger");
+    private Button btnLogin = new Button("Login");
+    private Button btnOpretBruger = new Button("Opret Bruger");
 
 
     public LoginVindue() {
@@ -49,7 +49,6 @@ public class LoginVindue extends Stage {
         gridPane.setVgap(25);
         gridPane.setPadding(new Insets(100));
         gridPane.setAlignment(Pos.CENTER);
-
 
 
         File logoFile = new File("src/main/resources/logo.png");

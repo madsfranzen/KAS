@@ -19,23 +19,23 @@ import java.util.ArrayList;
 
 public class OpretHotelVindue extends Stage {
 
-    Hotel hotel;
+    private Hotel hotel;
 
     private ArrayList<HotelTilvalg> tilvalgArr = new ArrayList<>();
 
-    Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(2), new Insets(-2)));
+    private Border border = new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(2), new Insets(-2)));
 
-    Button btnOpretTilvalg = new Button("Opret Tilvalg");
-    Button btnSletTilvalg = new Button("Slet Tilvalg");
-    Button btnOpretHotel = new Button("Opret Hotel");
+    private Button btnOpretTilvalg = new Button("Opret Tilvalg");
+    private Button btnSletTilvalg = new Button("Slet Tilvalg");
+    private Button btnOpretHotel = new Button("Opret Hotel");
 
-    TextField txfNavnTilvalg = new TextField();
-    TextField txfPris = new TextField();
-    ListView lvwTilvalg = new ListView<>();
+    private TextField txfNavnTilvalg = new TextField();
+    private TextField txfPris = new TextField();
+    private ListView lvwTilvalg = new ListView<>();
 
-    TextField txfNavnHotel = new TextField();
-    TextField txfPrisSingle = new TextField();
-    TextField txfPrisDobbelt = new TextField();
+    private TextField txfNavnHotel = new TextField();
+    private TextField txfPrisSingle = new TextField();
+    private TextField txfPrisDobbelt = new TextField();
 
     public OpretHotelVindue() {
         this.setTitle("Opret Hotel");

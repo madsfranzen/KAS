@@ -20,32 +20,33 @@ import java.util.Optional;
 public class AdminVindue extends Stage {
 
     // BRUGER
-    ListView lvwBrugere = new ListView<>();
-    TextArea txaBrugerInfo = new TextArea();
-    ListView<Tilmelding> lvwTilmeldinger = new ListView<>();
-    Button btnOpretBruger = new Button("Opret");
-    Button btnOpdaterBruger = new Button("Opdater");
-    Button btnSletbruger = new Button("Slet");
-    Button btnTilmeldBruger = new Button("   Tilmeld   ");
-    Button btnAfmeldBruger = new Button("   Afmeld    ");
+    private ListView lvwBrugere = new ListView<>();
+    private TextArea txaBrugerInfo = new TextArea();
+    private ListView<Tilmelding> lvwTilmeldinger = new ListView<>();
+    private Button btnOpretBruger = new Button("Opret");
+    private Button btnOpdaterBruger = new Button("Opdater");
+    private Button btnSletbruger = new Button("Slet");
+    private Button btnTilmeldBruger = new Button("   Tilmeld   ");
+    private Button btnAfmeldBruger = new Button("   Afmeld    ");
 
     // KONFERENCE
-    ListView lvwKonferencer = new ListView<>();
-    TextArea txaKonferenceInfo = new TextArea();
-    ListView lvwUdflugter = new ListView<>();
-    Button btnOpretKonference = new Button("Opret");
-    Button btnOpdaterKonference = new Button("Opdater");
-    Button btnSletKonference = new Button("Slet");
-    Button btnHentTilmeldte = new Button("Hent Tilmeldte");
-    Button btnHentBookinger = new Button("Hent Bookinger");
+    private ListView lvwKonferencer = new ListView<>();
+    private TextArea txaKonferenceInfo = new TextArea();
+    private ListView lvwUdflugter = new ListView<>();
+    private Button btnOpretKonference = new Button("Opret");
+    private Button btnOpdaterKonference = new Button("Opdater");
+    private Button btnSletKonference = new Button("Slet");
+    private Button btnHentTilmeldte = new Button("Print Tilmeldte");
+    private Button btnPrintUdflugter = new Button("Print Udflugter");
 
     // HOTEL
-    ListView lvwHoteller = new ListView<>();
-    TextArea txaHotelInfo = new TextArea();
-    ListView lvwTilvalg = new ListView<>();
-    Button btnOpretHotel = new Button("Opret");
-    Button btnOpdaterHotel = new Button("Opdater");
-    Button btnSletHotel = new Button("Slet");
+    private ListView lvwHoteller = new ListView<>();
+    private TextArea txaHotelInfo = new TextArea();
+    private ListView lvwTilvalg = new ListView<>();
+    private Button btnOpretHotel = new Button("Opret");
+    private Button btnOpdaterHotel = new Button("Opdater");
+    private Button btnSletHotel = new Button("Slet");
+    private Button btnHentBookinger = new Button("Print Alle Bookinger");
 
     public AdminVindue() {
         BorderPane pane = new BorderPane();
@@ -156,7 +157,7 @@ public class AdminVindue extends Stage {
         HBox hboxKonference2 = new HBox();
 
         hboxKonference1.getChildren().addAll(btnOpretKonference, btnOpdaterKonference, btnSletKonference);
-        hboxKonference2.getChildren().addAll(btnHentTilmeldte, btnHentBookinger);
+        hboxKonference2.getChildren().addAll(btnHentTilmeldte, btnPrintUdflugter);
 
 
         hboxKonference1.setSpacing(50);
@@ -177,6 +178,7 @@ public class AdminVindue extends Stage {
         btnOpdaterKonference.setOnAction(event -> opdaterKonference());
         btnSletKonference.setOnAction(e -> sletKonference());
         btnHentTilmeldte.setOnAction(e -> hentTilmeldte());
+        btnPrintUdflugter.setOnAction(e -> hentLedsagerePåUdflugter());
 
         //============================= HOTEL PANE ==========================//
 
@@ -204,11 +206,15 @@ public class AdminVindue extends Stage {
         hotelPane.add(lvwTilvalg, 1, 3);
 
         HBox hboxHotel1 = new HBox();
+        HBox hBoxHotel2 = new HBox();
         hboxHotel1.getChildren().addAll(btnOpretHotel, btnOpdaterHotel, btnSletHotel);
         hboxHotel1.setSpacing(50);
         hboxHotel1.setAlignment(Pos.CENTER);
         hotelPane.add(hboxHotel1, 0, 4, 2, 1);
-        hboxHotel1.setMinHeight(62);
+        hBoxHotel2.getChildren().addAll(btnHentBookinger);
+        hBoxHotel2.setSpacing(50);
+        hBoxHotel2.setAlignment(Pos.CENTER);
+        hotelPane.add(hBoxHotel2, 0, 5, 2, 1);
 
         ChangeListener<Hotel> Hotellistener = (ov, o, n) -> this.selectedHotelChanged();
         lvwHoteller.getSelectionModel().selectedItemProperty().addListener(Hotellistener);
@@ -219,6 +225,7 @@ public class AdminVindue extends Stage {
         });
         btnOpdaterHotel.setOnAction(event -> opdaterHotel());
         btnSletHotel.setOnAction(e -> sletHotel());
+        btnHentBookinger.setOnAction(e -> hentBookinger());
         updateGUI();
     }
 
@@ -292,7 +299,7 @@ public class AdminVindue extends Stage {
             ListeVindue listeVindue = new ListeVindue();
             listeVindue.visDeltagerKonference(konference);
             listeVindue.showAndWait();
-        }
+        } else ingenKonferenceValgtAlert();
     }
 
     public void hentLedsagerePåUdflugter() {
@@ -301,7 +308,7 @@ public class AdminVindue extends Stage {
             ListeVindue listeVindue = new ListeVindue();
             listeVindue.visUdflugter(konference);
             listeVindue.showAndWait();
-        }
+        } else ingenKonferenceValgtAlert();
     }
 
     public void hentBookinger() {
@@ -355,6 +362,15 @@ public class AdminVindue extends Stage {
                 }
             });
         }
+    }
+
+    public void ingenKonferenceValgtAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Fejl");
+        alert.setHeaderText("Ingen Konference Valgt");
+        alert.setContentText("Vælg venligst en konference.");
+        alert.showAndWait();
+
     }
 
     public void opdaterTilmelding() {

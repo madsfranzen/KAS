@@ -25,9 +25,9 @@ public class DeltagerVindue extends Stage {
 
     private Deltager deltager;
 
-    File file = new File("src/main/resources/pb.png");
-    Image image = new Image(file.toURI().toString());
-    ImageView imgProfile = new ImageView(image);
+    private File file = new File("src/main/resources/pb.png");
+    private Image image = new Image(file.toURI().toString());
+    private ImageView imgProfile = new ImageView(image);
 
     private ListView lvwKonferencer = new ListView<>();
     private TextArea txaKonferenceInfo = new TextArea();
@@ -181,8 +181,8 @@ public class DeltagerVindue extends Stage {
         lvwTilmeldinger.getItems().setAll(deltager.getTilmeldinger());
         lvwKonferencer.getItems().setAll(Storage.getKonferencer());
         double totalPris = 0;
-        for (Tilmelding tilmelding : lvwTilmeldinger.getItems()){
-           totalPris += tilmelding.beregnPris();
+        for (Tilmelding tilmelding : lvwTilmeldinger.getItems()) {
+            totalPris += tilmelding.beregnPris();
 
         }
         txfPris.setText(String.format("%.2f kr", totalPris));
@@ -222,7 +222,7 @@ public class DeltagerVindue extends Stage {
     public void opretTilmelding() {
         Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
         boolean erTilmeldt = false;
-        for ( Tilmelding tilmelding : deltager.getTilmeldinger() ) {
+        for (Tilmelding tilmelding : deltager.getTilmeldinger()) {
             if (tilmelding.getKonference().equals(konference)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText("Fejl");
