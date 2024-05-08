@@ -330,6 +330,7 @@ public class TilmeldingsVindue extends Stage {
                 }
             }
         }
+        sb.append(String.format("Samlet Pris: %.2f", tilmelding.beregnPris()));
         alert.setContentText(sb.toString());
         alert.showAndWait();
         this.hide();
