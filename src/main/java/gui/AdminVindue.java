@@ -69,7 +69,7 @@ public class AdminVindue extends Stage {
         hotelPane.setGridLinesVisible(false);
 
         pane.setCenter(mainPane);
-        int width = 1500;
+        int width = 1400;
         int height = 500;
         mainPane.setMaxWidth(width);
         mainPane.setMinWidth(width);
@@ -207,6 +207,9 @@ public class AdminVindue extends Stage {
         txaHotelInfo.setEditable(false);
         hotelPane.add(lvwTilvalg, 1, 3);
 
+        txaHotelInfo.maxWidth(100);
+        lvwTilvalg.maxWidth(100);
+
         HBox hboxHotel1 = new HBox();
         hboxHotel1.getChildren().addAll(btnOpretHotel, btnOpdaterHotel, btnSletHotel);
         hboxHotel1.setSpacing(50);
@@ -220,8 +223,9 @@ public class AdminVindue extends Stage {
 
         HBox hboxInfoLogud = new HBox();
         hboxInfoLogud.getChildren().addAll(lblHotelInfo, btnLogud);
-        hboxInfoLogud.setSpacing(150);
+        hboxInfoLogud.setSpacing(15);
         hboxInfoLogud.setAlignment(Pos.BASELINE_LEFT);
+
         hotelPane.add(hboxInfoLogud, 1, 0, 2, 1);
         btnLogud.setOnAction(event -> logUd());
 

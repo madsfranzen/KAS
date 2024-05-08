@@ -342,16 +342,19 @@ public class OpretKonferenceVindue extends Stage {
     }
 
     public void setKonference() {
-        txfKonferenceNavn.setText(konference.getNavn());
-        txfPris.setText(String.valueOf(konference.getPris()));
-        txfLokation.setText(konference.getLokation());
-        dpStart.setValue(konference.getStartDato());
-        dpSlut.setValue(konference.getSlutDato());
-        txaBeskrivelse.setText(konference.getBeskrivelse());
-        tilknyttedeHoteller.addAll(konference.getHoteller());
-        lvwTilkHoteller.getItems().setAll(tilknyttedeHoteller);
-        udflugter.addAll(konference.getUdflugter());
-        lvwUdflugter.getItems().setAll(udflugter);
+        if (konference != null) {
+            txfKonferenceNavn.setText(konference.getNavn());
+            txfPris.setText(String.valueOf(konference.getPris()));
+            txfLokation.setText(konference.getLokation());
+            dpStart.setValue(konference.getStartDato());
+            dpSlut.setValue(konference.getSlutDato());
+            txaBeskrivelse.setText(konference.getBeskrivelse());
+            tilknyttedeHoteller.addAll(konference.getHoteller());
+            lvwTilkHoteller.getItems().setAll(tilknyttedeHoteller);
+            udflugter.addAll(konference.getUdflugter());
+            lvwUdflugter.getItems().setAll(udflugter);
+
+        }
     }
 
     public void changeLooks() {
