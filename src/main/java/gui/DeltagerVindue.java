@@ -174,6 +174,7 @@ public class DeltagerVindue extends Stage {
         lvwKonferencer.getItems().setAll(Storage.getKonferencer());
     }
 
+    /* Metoden finder ud af hvilken konference der er valgt */
     public void selectedKonferenceChanged() {
         Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
         // Opdater Konference Info

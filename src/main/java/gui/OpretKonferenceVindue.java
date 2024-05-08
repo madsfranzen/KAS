@@ -358,6 +358,7 @@ public class OpretKonferenceVindue extends Stage {
         btnOpretKonference.setText("Opdater Konference");
     }
 
+    /* Viser de datoer på DatePickeren som der er indefor datoen af konferencen som grønne. */
     private void tilpasFarverForForestilling(DatePicker dp) {
         dp.setDayCellFactory(new Callback<DatePicker, DateCell>() {
                                  @Override

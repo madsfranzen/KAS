@@ -53,9 +53,6 @@ public class LoginVindue extends Stage {
 
         gridPane.setAlignment(Pos.CENTER);
 
-        // Label lblHeading = new Label("KAS");
-        //  lblHeading.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
-        // gridPane.add(lblHeading, 0, 0);
 
 
         File logoFile = new File("src/main/resources/logo.png");
@@ -86,7 +83,7 @@ public class LoginVindue extends Stage {
         GridPane.setHalignment(logoView, javafx.geometry.HPos.CENTER);
     }
 
-
+    /* Tjekker om dit login er gyldigt samt om det er et Admin login du logger ind med*/
     public void loginAction() {
         if (txfBrugernavn.getText().equalsIgnoreCase("admin") && psfKodeord.getText().equalsIgnoreCase("admin")) {
             this.hide();
