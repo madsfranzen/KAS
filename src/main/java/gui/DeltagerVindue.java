@@ -23,24 +23,24 @@ import java.io.File;
 
 public class DeltagerVindue extends Stage {
 
-    Deltager deltager;
+    private Deltager deltager;
 
-    ListView lvwKonferencer = new ListView<>();
-    TextArea txaKonferenceInfo = new TextArea();
-    Button btnTilmeld = new Button("Tilmeld");
-    Button btnAfmeld = new Button("Afmeld");
-    Button btnLogUd = new Button("Log Ud");
-    Button btnOpdater = new Button("Opdater");
+    private ListView lvwKonferencer = new ListView<>();
+    private TextArea txaKonferenceInfo = new TextArea();
+    private Button btnTilmeld = new Button("Tilmeld");
+    private Button btnAfmeld = new Button("Afmeld");
+    private Button btnLogUd = new Button("Log Ud");
+    private Button btnOpdater = new Button("Opdater");
 
-    TextField txfNavn = new TextField();
-    TextField txfAdresse = new TextField();
-    TextField txfTlf = new TextField();
-    TextField txfBy = new TextField();
-    TextField txfFirma = new TextField();
-    TextField txfLand = new TextField();
+    private TextField txfNavn = new TextField();
+    private TextField txfAdresse = new TextField();
+    private TextField txfTlf = new TextField();
+    private TextField txfBy = new TextField();
+    private TextField txfFirma = new TextField();
+    private TextField txfLand = new TextField();
 
-    ListView lvwTilmeldinger = new ListView<>();
-    Button btnOpdaterTilmelding = new Button("Opdater Tilmelding");
+    private ListView lvwTilmeldinger = new ListView<>();
+    private Button btnOpdaterTilmelding = new Button("Opdater Tilmelding");
 
     public DeltagerVindue(Deltager deltager) {
         this.deltager = deltager;

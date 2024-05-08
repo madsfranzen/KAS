@@ -92,7 +92,6 @@ public class LoginVindue extends Stage {
             this.hide();
             VindueManager.adminVindue.show();
         } else {
-            boolean loginValid = true;
             for (Deltager deltager : Controller.getDeltagere()) {
                 if (deltager.getBrugernavn().equals(txfBrugernavn.getText())) {
                     if (deltager.getKodeord().equals(psfKodeord.getText())) {

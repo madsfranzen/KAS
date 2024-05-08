@@ -171,7 +171,7 @@ public class OpretBrugerVindue extends Stage {
         String land = txfLand.getText();
         Image imageChosen = imgProfile.getImage();
 
-        if (brugernavn.isEmpty() || kodeord.isEmpty() || navn.isEmpty() || navn.isEmpty() || adresse.isEmpty() || tlf.isEmpty() || by.isEmpty() || land.isEmpty() || !erRigtigTelefonNummer(tlf)) {
+        if (brugernavn.isEmpty() || kodeord.isEmpty() || navn.isEmpty() || adresse.isEmpty() || tlf.isEmpty() || by.isEmpty() || land.isEmpty() || !erRigtigTelefonNummer(tlf)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Fejl");
             alert.setHeaderText(null);
@@ -244,7 +244,6 @@ public class OpretBrugerVindue extends Stage {
     }
 
 
-    // Forstår ik den her funktion, pls explain jona!
     private boolean erRigtigNavn(String navn) {
         for (int i = 0; i < navn.length(); i++) {
             char c = navn.charAt(i);
