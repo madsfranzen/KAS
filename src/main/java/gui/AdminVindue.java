@@ -28,7 +28,7 @@ public class AdminVindue extends Stage {
     private Button btnSletbruger = new Button("Slet");
     private Button btnTilmeldBruger = new Button("   Tilmeld   ");
     private Button btnAfmeldBruger = new Button("   Afmeld    ");
-    private Button btnLogud = new Button( "LOG UD");
+    private Button btnLogud = new Button("LOG UD");
 
     // KONFERENCE
     private ListView lvwKonferencer = new ListView<>();
@@ -48,6 +48,7 @@ public class AdminVindue extends Stage {
     private Button btnOpdaterHotel = new Button("Opdater");
     private Button btnSletHotel = new Button("Slet");
     private Button btnHentBookinger = new Button("Print Alle Bookinger");
+    private HBox hBoxHotel2 = new HBox();
 
     public AdminVindue() {
         BorderPane pane = new BorderPane();
@@ -217,12 +218,11 @@ public class AdminVindue extends Stage {
         hotelPane.add(hBoxHotel2, 0, 5, 2, 1);
 
 
-
         HBox hboxInfoLogud = new HBox();
         hboxInfoLogud.getChildren().addAll(lblHotelInfo, btnLogud);
         hboxInfoLogud.setSpacing(150);
         hboxInfoLogud.setAlignment(Pos.BASELINE_LEFT);
-        hotelPane.add(hboxInfoLogud,1,0,2,1);
+        hotelPane.add(hboxInfoLogud, 1, 0, 2, 1);
         btnLogud.setOnAction(event -> logUd());
 
         ChangeListener<Hotel> Hotellistener = (ov, o, n) -> this.selectedHotelChanged();
@@ -333,6 +333,7 @@ public class AdminVindue extends Stage {
         listeVindue.visBookinger();
         listeVindue.showAndWait();
     }
+
     public void opretBruger() {
         VindueManager.opretBrugerVindue.clearGUI();
         VindueManager.opretBrugerVindue.showAndWait();
@@ -351,7 +352,7 @@ public class AdminVindue extends Stage {
         Deltager deltager = (Deltager) lvwBrugere.getSelectionModel().getSelectedItem();
         Boolean erTilmeldt = false;
 
-        for ( Tilmelding tilmelding : deltager.getTilmeldinger() ) {
+        for (Tilmelding tilmelding : deltager.getTilmeldinger()) {
             if (tilmelding.getKonference().equals(konference)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText("Fejl");
@@ -366,7 +367,7 @@ public class AdminVindue extends Stage {
             TilmeldingsVindue tilmeldingsVindue = new TilmeldingsVindue(konference, deltager);
             tilmeldingsVindue.showAndWait();
             lvwTilmeldinger.getItems().setAll(deltager.getTilmeldinger());
-        } else if ( !erTilmeldt){
+        } else if (!erTilmeldt) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setContentText("Vælg venlist en deltager, og en konference");
@@ -463,5 +464,13 @@ public class AdminVindue extends Stage {
             ok = true;
         } else ok = false;
         return ok;
+    }
+
+    public void ingenKonferenceValgtAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Fejl");
+        alert.setHeaderText("Ingen konference valgt");
+        alert.setContentText("Vælg venligst en konference.");
+        alert.showAndWait();
     }
 }
