@@ -101,6 +101,7 @@ public class AdminVindue extends Stage {
         lvwBrugere.setMinWidth((width / 3) / 3);
         brugerPane.add(txaBrugerInfo, 1, 1);
         txaBrugerInfo.setMinHeight(120);
+        txaBrugerInfo.setEditable(false);
         brugerPane.add(lvwTilmeldinger, 1, 3);
 
         HBox hboxBruger1 = new HBox();
@@ -148,6 +149,7 @@ public class AdminVindue extends Stage {
         lvwKonferencer.setMinWidth((width / 3) / 3);
         konferencePane.add(txaKonferenceInfo, 1, 1);
         txaKonferenceInfo.setMinHeight(120);
+        txaKonferenceInfo.setEditable(false);
         konferencePane.add(lvwUdflugter, 1, 3);
 
         HBox hboxKonference1 = new HBox();
