@@ -83,8 +83,6 @@ public class OpretBrugerVindue extends Stage {
         GridPane gridPane = new GridPane();
         pane.setCenter(gridPane);
 
-//        gridPane.setMinWidth(700);
-//        gridPane.setMinHeight(600);
 
         gridPane.setHgap(15);
         gridPane.setVgap(15);

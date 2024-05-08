@@ -9,6 +9,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import model.Deltager;
 import model.Hotel;
@@ -28,6 +31,7 @@ public class AdminVindue extends Stage {
     Button btnSletbruger = new Button("Slet");
     Button btnTilmeldBruger = new Button("   Tilmeld   ");
     Button btnAfmeldBruger = new Button("   Afmeld    ");
+    Button btnLogud = new Button( "LOG UD");
 
     // KONFERENCE
     ListView lvwKonferencer = new ListView<>();
@@ -194,6 +198,7 @@ public class AdminVindue extends Stage {
         hotelPane.add(lblHotelInfo, 1, 0);
         hotelPane.add(lblTilvalg, 1, 2);
 
+
         hotelPane.add(lvwHoteller, 0, 1, 1, 3);
         lvwHoteller.setMinWidth((width / 3) / 3);
         hotelPane.add(txaHotelInfo, 1, 1);
@@ -208,6 +213,15 @@ public class AdminVindue extends Stage {
         hotelPane.add(hboxHotel1, 0, 4, 2, 1);
         hboxHotel1.setMinHeight(62);
 
+
+
+        HBox hboxInfoLogud = new HBox();
+        hboxInfoLogud.getChildren().addAll(lblHotelInfo, btnLogud);
+        hboxInfoLogud.setSpacing(150);
+        hboxInfoLogud.setAlignment(Pos.BASELINE_LEFT);
+        hotelPane.add(hboxInfoLogud,1,0,2,1);
+        btnLogud.setOnAction(event -> logUd());
+
         ChangeListener<Hotel> Hotellistener = (ov, o, n) -> this.selectedHotelChanged();
         lvwHoteller.getSelectionModel().selectedItemProperty().addListener(Hotellistener);
 
@@ -218,9 +232,20 @@ public class AdminVindue extends Stage {
         btnOpdaterHotel.setOnAction(event -> opdaterHotel());
         btnSletHotel.setOnAction(e -> sletHotel());
         updateGUI();
+
     }
 
+
+
     //========================== Updates ====================================
+
+    public void logUd() {
+        LoginVindue loginVindue = new LoginVindue();
+        this.hide();
+        loginVindue.show();
+    }
+
+
     public void selectedDeltagerChanged() {
         Deltager deltager = (Deltager) lvwBrugere.getSelectionModel().getSelectedItem();
         if (deltager != null) {
