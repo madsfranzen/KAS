@@ -46,11 +46,8 @@ public class LoginVindue extends Stage {
     private void initContent(BorderPane pane) {
         GridPane gridPane = new GridPane();
         pane.setCenter(gridPane);
-
-
         gridPane.setVgap(25);
         gridPane.setPadding(new Insets(100));
-
         gridPane.setAlignment(Pos.CENTER);
 
 
@@ -89,6 +86,7 @@ public class LoginVindue extends Stage {
             this.hide();
             VindueManager.adminVindue.show();
         } else {
+            boolean loginValid = true;
             for (Deltager deltager : Controller.getDeltagere()) {
                 if (deltager.getBrugernavn().equals(txfBrugernavn.getText())) {
                     if (deltager.getKodeord().equals(psfKodeord.getText())) {

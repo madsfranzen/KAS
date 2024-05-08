@@ -382,8 +382,9 @@ public class TilmeldingsVindue extends Stage {
                                                  LocalDate startDato = konference.getStartDato();
                                                  LocalDate slutDato = konference.getSlutDato();
                                                  if ((startDato != null && item.isEqual(startDato)) || (slutDato != null && item.isEqual(slutDato)) || (item.isAfter(startDato) && item.isBefore(slutDato))) {
-                                                     setBackground(new Background(new BackgroundFill(Color.GREEN, new CornerRadii(0), Insets.EMPTY)));
-                                                 }
+                                                     setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, new CornerRadii(0), Insets.EMPTY)));
+                                                 } else
+                                                     setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(0), Insets.EMPTY)));
                                              }
                                          }
                                      };

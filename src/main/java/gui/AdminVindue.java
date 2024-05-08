@@ -22,7 +22,7 @@ public class AdminVindue extends Stage {
     // BRUGER
     ListView lvwBrugere = new ListView<>();
     TextArea txaBrugerInfo = new TextArea();
-    ListView lvwTilmeldinger = new ListView<>();
+    ListView<Tilmelding> lvwTilmeldinger = new ListView<>();
     Button btnOpretBruger = new Button("Opret");
     Button btnOpdaterBruger = new Button("Opdater");
     Button btnSletbruger = new Button("Slet");
@@ -156,9 +156,6 @@ public class AdminVindue extends Stage {
         hboxKonference1.getChildren().addAll(btnOpretKonference, btnOpdaterKonference, btnSletKonference);
         hboxKonference2.getChildren().addAll(btnHentTilmeldte, btnHentBookinger);
 
-        btnHentTilmeldte.setOnAction(e -> hentLedsagerePåUdflugter());
-        btnHentBookinger.setOnAction(e -> hentBookinger());
-
         hboxKonference1.setSpacing(50);
         hboxKonference1.setAlignment(Pos.CENTER);
         hboxKonference2.setSpacing(50);
@@ -232,7 +229,6 @@ public class AdminVindue extends Stage {
         }
     }
 
-    /* Metoden finder ud af hvilket hotel der er valgt */
     public void selectedHotelChanged() {
         Hotel hotel = (Hotel) lvwHoteller.getSelectionModel().getSelectedItem();
         // Opdater listview af HotelTilvalg
@@ -246,7 +242,7 @@ public class AdminVindue extends Stage {
             txaHotelInfo.setText(sb.toString());
         }
     }
-    /* Metoden finder ud af hvilken konference der er valgt */
+
     public void selectedKonferenceChanged() {
         Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
         // Opdater listview af Udflugtter

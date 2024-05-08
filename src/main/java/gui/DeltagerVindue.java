@@ -25,6 +25,10 @@ public class DeltagerVindue extends Stage {
 
     private Deltager deltager;
 
+    File file = new File("src/main/resources/pb.png");
+    Image image = new Image(file.toURI().toString());
+    ImageView imgProfile = new ImageView(image);
+
     private ListView lvwKonferencer = new ListView<>();
     private TextArea txaKonferenceInfo = new TextArea();
     private Button btnTilmeld = new Button("Tilmeld");
@@ -104,9 +108,7 @@ public class DeltagerVindue extends Stage {
 
 
         //================================ HØJRE SIDE =========================//
-        File file = new File("src/main/resources/pb.png");
-        Image image = new Image(file.toURI().toString());
-        ImageView imgProfile = new ImageView(image);
+
         imgProfile.setFitWidth(200);
         imgProfile.setFitHeight(200);
         imgProfile.setPreserveRatio(true);
@@ -174,7 +176,6 @@ public class DeltagerVindue extends Stage {
         lvwKonferencer.getItems().setAll(Storage.getKonferencer());
     }
 
-    /* Metoden finder ud af hvilken konference der er valgt */
     public void selectedKonferenceChanged() {
         Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
         // Opdater Konference Info
