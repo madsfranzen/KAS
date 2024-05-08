@@ -16,7 +16,6 @@ import model.Konference;
 import model.Tilmelding;
 
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AdminVindue extends Stage {
 
@@ -157,6 +156,9 @@ public class AdminVindue extends Stage {
         hboxKonference1.getChildren().addAll(btnOpretKonference, btnOpdaterKonference, btnSletKonference);
         hboxKonference2.getChildren().addAll(btnHentTilmeldte, btnHentBookinger);
 
+        btnHentTilmeldte.setOnAction(e -> hentLedsagerePåUdflugter());
+        btnHentBookinger.setOnAction(e -> hentBookinger());
+
         hboxKonference1.setSpacing(50);
         hboxKonference1.setAlignment(Pos.CENTER);
         hboxKonference2.setSpacing(50);
@@ -283,6 +285,30 @@ public class AdminVindue extends Stage {
 
     //========================= Actions ===============================
 
+
+    public void hentTilmeldte(){
+        Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
+        if (konference != null){
+            ListeVindue listeVindue = new ListeVindue();
+            listeVindue.visDeltagerKonference(konference);
+            listeVindue.showAndWait();
+        }
+    }
+
+    public void hentLedsagerePåUdflugter(){
+        Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
+        if (konference != null){
+            ListeVindue listeVindue = new ListeVindue();
+            listeVindue.visUdflugter(konference);
+            listeVindue.showAndWait();
+        }
+    }
+
+    public void hentBookinger(){
+        ListeVindue listeVindue = new ListeVindue();
+        listeVindue.visBookinger();
+        listeVindue.showAndWait();
+    }
     public void opretBruger() {
         VindueManager.opretBrugerVindue.clearGUI();
         VindueManager.opretBrugerVindue.showAndWait();

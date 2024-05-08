@@ -312,9 +312,9 @@ public class TilmeldingsVindue extends Stage {
             sb.append(String.format("Du har tilmeldt dig %s, fra %s til %s\n", konference.getNavn(), tilmelding.getStartDato(), tilmelding.getSlutDato()));
         }
         if (tilmelding.getLedsager() != null) {
-            sb.append(String.format("Ledsager: %s \n", tilmelding.getLedsager()));
+            sb.append(String.format("Ledsager: %s \n", tilmelding.getLedsager().getNavn()));
             if (!tilmelding.getUdflugter().isEmpty()) {
-                sb.append(String.format("%s er tilmeldt: ", tilmelding.getLedsager()));
+                sb.append(String.format("%s er tilmeldt: ", tilmelding.getLedsager().getNavn()));
                 for (Udflugt udflugt : tilmelding.getUdflugter()) {
                     sb.append(String.format("%s \n", udflugt.getNavn()));
                 }
