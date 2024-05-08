@@ -87,6 +87,7 @@ public class ListeVindue extends Stage {
                     sb.append(String.format("%s (%s %s) \n", tilmelding.getLedsager().getNavn(), tilmelding.getDeltager().getNavn(), tilmelding.getDeltager().getTlf()));
                 }
             }
+            sb.append("\n");
             txa.setText(sb.toString());
         }
     }
@@ -114,6 +115,7 @@ public class ListeVindue extends Stage {
                     }
                     sb.append("\n");
                 }
+                sb.append("\n");
             }
         }
         txa.setText(sb.toString());
