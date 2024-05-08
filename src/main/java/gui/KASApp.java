@@ -2,11 +2,15 @@ package gui;
 
 import controller.Controller;
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import model.*;
 
+import java.io.File;
 import java.time.LocalDate;
 
 public class KASApp {
+
+
     public static void main(String[] args) {
 
         initStorage();
@@ -23,6 +27,7 @@ public class KASApp {
         Hotel denHvideSvane = Controller.opretHotel("Den Hvide Svane", 1050, 1250);
         HotelTilvalg wifi = Controller.opretHotelTilvalg("Wifi", 50, denHvideSvane);
         Controller.tilføjHotelTilKonference(havOgHimmel,denHvideSvane);
+
 
         Deltager finn = Controller.opretDeltager("Fm123", "kode", "Finn Madsen", "Adresse", "By", "Land", "12345678");
         Tilmelding finnTilmelding = Controller.opretTilmelding(LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), false, finn, havOgHimmel);
@@ -51,5 +56,7 @@ public class KASApp {
         loneTilmelding.tilføjUdflugt(byrundtur);
         Booking loneBooking = Controller.opretBooking(LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), loneTilmelding, denHvideSvane);
         loneBooking.tilføjTilvalg(wifi);
+
+
     }
 }
