@@ -2,11 +2,15 @@ package gui;
 
 import controller.Controller;
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import model.*;
 
+import java.io.File;
 import java.time.LocalDate;
 
 public class KASApp {
+
+
     public static void main(String[] args) {
 
         initStorage();
@@ -19,13 +23,13 @@ public class KASApp {
         Udflugt egeskov = Controller.opretUdflugt("Egeskov", 75, LocalDate.of(2024, 5, 19), false, havOgHimmel);
         Udflugt trapholt = Controller.opretUdflugt("Trapholt Museum, Kolding", 200, LocalDate.of(2024, 5, 20), true, havOgHimmel);
 
-        Konference BlizzCon = Controller.opretKonference("BlizzCon", "Computerspil Juhu!", "Amerika?", LocalDate.of(2024,6,15),LocalDate.of(2024,6,21),1250);
+        Konference BlizzCon = Controller.opretKonference("BlizzCon", "Computerspil Juhu!", "Amerika?", LocalDate.of(2024, 6, 15), LocalDate.of(2024, 6, 21), 1250);
 
 
         Hotel denHvideSvane = Controller.opretHotel("Den Hvide Svane", 1050, 1250);
         HotelTilvalg wifi = Controller.opretHotelTilvalg("Wifi", 50, denHvideSvane);
         Hotel dangleterre = Controller.opretHotel("Dangleterre", 1500, 2000);
-        Controller.tilføjHotelTilKonference(havOgHimmel,denHvideSvane);
+        Controller.tilføjHotelTilKonference(havOgHimmel, denHvideSvane);
 
         Deltager finn = Controller.opretDeltager("Fm123", "kode", "Finn Madsen", "Adresse", "By", "Land", "12345678");
         Tilmelding finnTilmelding = Controller.opretTilmelding(LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), false, finn, havOgHimmel);
@@ -54,5 +58,7 @@ public class KASApp {
         loneTilmelding.tilføjUdflugt(byrundtur);
         Booking loneBooking = Controller.opretBooking(LocalDate.of(2024, 5, 18), LocalDate.of(2024, 5, 20), loneTilmelding, denHvideSvane);
         loneBooking.tilføjTilvalg(wifi);
+
+
     }
 }

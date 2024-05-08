@@ -62,11 +62,12 @@ public class Tilmelding {
         return String.format("%s : %s fra %s -> %s (%.2f kr)", konference, deltager, startDato, slutDato, beregnPris());
     }
 
-    /* Beregner samlet pris på tilmeldingen */
-
+    /**
+     * Beregner samlet pris på tilmeldingen
+     */
     public double beregnPris() {
-        double pris = 0 ;
-        if (!foredragsholder){
+        double pris = 0;
+        if (!foredragsholder) {
             pris = konference.getPris() * getDage();
         }
         if (booking != null) {
