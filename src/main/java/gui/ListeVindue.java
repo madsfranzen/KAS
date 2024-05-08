@@ -43,9 +43,22 @@ public class ListeVindue extends Stage {
         ArrayList<Tilmelding> tilmeldinger = new ArrayList<>(konference.getTilmeldinger());
         sorterTilmeldinger(tilmeldinger);
 
-        // HER HAR DU DIN PRINT METODE - KNOCK URSELF OUT
         for (Tilmelding tilmelding : tilmeldinger) {
-            sb.append(tilmelding);
+            Deltager deltager = tilmelding.getDeltager();
+            sb.append(String.format("------ %s ", deltager.getNavn()));
+            if (tilmelding.getLedsager() != null) {
+                sb.append(String.format("med %s ------ \n", tilmelding.getLedsager().getNavn()));
+            } else {
+                sb.append("------ \n");
+            }
+            if (tilmelding.isForedragsholder()){
+                sb.append("Er foredragsholder \n");
+            }
+            sb.append(String.format("Deltager fra %s til %s\n", tilmelding.getStartDato(), tilmelding.getSlutDato()));
+            if (tilmelding.getBooking() != null) {
+                Booking booking = tilmelding.getBooking();
+                sb.append(String.format("Booking hos %s \n", booking.getHotel().getNavn()));
+            }
             sb.append("\n");
         }
         txa.setText(sb.toString());
