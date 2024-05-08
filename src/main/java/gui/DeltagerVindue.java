@@ -174,6 +174,7 @@ public class DeltagerVindue extends Stage {
         txfLand.setText(deltager.getLand());
         lvwTilmeldinger.getItems().setAll(deltager.getTilmeldinger());
         lvwKonferencer.getItems().setAll(Storage.getKonferencer());
+        imgProfile.setImage(deltager.getImageChosen());
     }
 
     public void selectedKonferenceChanged() {
