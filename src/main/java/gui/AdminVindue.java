@@ -1,7 +1,6 @@
 package gui;
 
 import controller.Controller;
-import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,7 +14,9 @@ import model.Deltager;
 import model.Hotel;
 import model.Konference;
 import model.Tilmelding;
-import storage.Storage;
+
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AdminVindue extends Stage {
 
@@ -88,6 +89,7 @@ public class AdminVindue extends Stage {
         brugerPane.setMinHeight(height);
         brugerPane.setMaxWidth(width / 3);
         brugerPane.setMaxHeight(height);
+        brugerPane.setStyle("-fx-border-color: black");
 
         Label lblBruger = new Label("Brugere");
         Label lblBrugerInfo = new Label("Bruger Info");
@@ -112,6 +114,7 @@ public class AdminVindue extends Stage {
         btnOpdaterBruger.setOnAction(e -> opdaterBruger());
         btnTilmeldBruger.setOnAction(e -> opretTilmelding());
         btnAfmeldBruger.setOnAction(e -> afmeld());
+        btnSletbruger.setOnAction(e -> sletDeltager());
 
         hboxBruger1.setSpacing(50);
         hboxBruger1.setAlignment(Pos.CENTER);
@@ -133,6 +136,7 @@ public class AdminVindue extends Stage {
         konferencePane.setMinHeight(height);
         konferencePane.setMaxWidth(width / 3);
         konferencePane.setMaxHeight(height);
+        konferencePane.setStyle("-fx-border-color: black");
 
         Label lblKonference = new Label("Konferencer");
         Label lblKonferenceInfo = new Label("Konference Info");
@@ -164,8 +168,12 @@ public class AdminVindue extends Stage {
         ChangeListener<Konference> Konferencelistener = (ov, o, n) -> this.selectedKonferenceChanged();
         lvwKonferencer.getSelectionModel().selectedItemProperty().addListener(Konferencelistener);
 
-        btnOpretKonference.setOnAction(event -> VindueManager.opretKonferenceVindue.show());
+        btnOpretKonference.setOnAction(event -> {
+            VindueManager.opretKonferenceVindue.clearGUI();
+            VindueManager.opretKonferenceVindue.show();
+        });
         btnOpdaterKonference.setOnAction(event -> opdaterKonference());
+        btnSletKonference.setOnAction(e -> sletKonference());
 
         //============================= HOTEL PANE ==========================//
 
@@ -176,6 +184,7 @@ public class AdminVindue extends Stage {
         hotelPane.setMinHeight(height);
         hotelPane.setMaxWidth(width / 3);
         hotelPane.setMaxHeight(height);
+        hotelPane.setStyle("-fx-border-color: black");
 
         Label lblHotel = new Label("Hoteller");
         Label lblHotelInfo = new Label("Hotel Info");
@@ -201,12 +210,14 @@ public class AdminVindue extends Stage {
         ChangeListener<Hotel> Hotellistener = (ov, o, n) -> this.selectedHotelChanged();
         lvwHoteller.getSelectionModel().selectedItemProperty().addListener(Hotellistener);
 
-        btnOpretHotel.setOnAction(event -> VindueManager.visOpretHotelVindue());
+        btnOpretHotel.setOnAction(event -> {
+            VindueManager.opretHotelVindue.clearGUI();
+            VindueManager.visOpretHotelVindue();
+        });
         btnOpdaterHotel.setOnAction(event -> opdaterHotel());
-        btnOpretBruger.setOnAction(event -> VindueManager.opretBrugerVindue.show());
+        btnSletHotel.setOnAction(e -> sletHotel());
         updateGUI();
     }
-
 
     //========================== Updates ====================================
     public void selectedDeltagerChanged() {
@@ -272,8 +283,8 @@ public class AdminVindue extends Stage {
     //========================= Actions ===============================
 
     public void opretBruger() {
-        OpretBrugerVindue opretBrugerVindue = new OpretBrugerVindue();
-        opretBrugerVindue.showAndWait();
+        VindueManager.opretBrugerVindue.clearGUI();
+        VindueManager.opretBrugerVindue.showAndWait();
         updateGUI();
     }
 
@@ -345,5 +356,48 @@ public class AdminVindue extends Stage {
         OpretKonferenceVindue opretKonferenceVindue = new OpretKonferenceVindue(konference);
         opretKonferenceVindue.showAndWait();
         updateGUI();
+    }
+
+    public void sletDeltager() {
+        Deltager deltager = (Deltager) lvwBrugere.getSelectionModel().getSelectedItem();
+        if (deltager != null) {
+            if (showConfirmation("Er du sikker på, at du vil slette denne bruger?")) {
+                Controller.sletDeltager(deltager);
+                updateGUI();
+            }
+        }
+    }
+
+    public void sletHotel() {
+        Hotel hotel = (Hotel) lvwHoteller.getSelectionModel().getSelectedItem();
+        if (hotel != null) {
+            if (showConfirmation("Er du sikker på, at du vil slette dette hotel?")) {
+                Controller.sletHotel(hotel);
+                updateGUI();
+            }
+        }
+    }
+
+    public void sletKonference() {
+        Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
+        if (konference != null) {
+            if (showConfirmation("Er du sikker på, at du vil slette denne konference?")) {
+                Controller.sletKonference(konference);
+                updateGUI();
+            }
+        }
+    }
+
+    public boolean showConfirmation(String infoText) {
+        Boolean ok;
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Godkend");
+        alert.setHeaderText(null);
+        alert.setContentText(infoText);
+        Optional<ButtonType> buttonType = alert.showAndWait();
+        if (buttonType.isPresent() && buttonType.get().equals(ButtonType.OK)) {
+            ok = true;
+        } else ok = false;
+        return ok;
     }
 }

@@ -6,6 +6,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -14,6 +16,8 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import model.Deltager;
+
+import java.io.File;
 
 public class LoginVindue extends Stage {
 
@@ -43,18 +47,23 @@ public class LoginVindue extends Stage {
         GridPane gridPane = new GridPane();
         pane.setCenter(gridPane);
 
-        gridPane.setMinWidth(700);
-        gridPane.setMinHeight(600);
 
-        gridPane.setHgap(25);
         gridPane.setVgap(25);
         gridPane.setPadding(new Insets(100));
 
         gridPane.setAlignment(Pos.CENTER);
 
-        Label lblHeading = new Label("KAS");
-        lblHeading.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
-        gridPane.add(lblHeading, 0, 0);
+        // Label lblHeading = new Label("KAS");
+        //  lblHeading.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
+        // gridPane.add(lblHeading, 0, 0);
+
+
+        File logoFile = new File("src/main/resources/logo.png");
+        Image logo = new Image(logoFile.toURI().toString());
+        ImageView logoView = new ImageView(logo);
+        gridPane.add(logoView, 0, 0);
+        logoView.setFitHeight(200);
+        logoView.setPreserveRatio(true);
 
         gridPane.add(txfBrugernavn, 0, 2);
         gridPane.add(psfKodeord, 0, 4);
@@ -73,7 +82,8 @@ public class LoginVindue extends Stage {
         GridPane.setHalignment(lblKodeOrd, javafx.geometry.HPos.CENTER);
         GridPane.setHalignment(btnLogin, javafx.geometry.HPos.CENTER);
         GridPane.setHalignment(btnOpretBruger, javafx.geometry.HPos.CENTER);
-        GridPane.setHalignment(lblHeading, javafx.geometry.HPos.CENTER);
+        //GridPane.setHalignment(lblHeading, javafx.geometry.HPos.CENTER);
+        GridPane.setHalignment(logoView, javafx.geometry.HPos.CENTER);
     }
 
 

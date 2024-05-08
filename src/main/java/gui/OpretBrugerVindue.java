@@ -1,10 +1,9 @@
 package gui;
 
 import controller.Controller;
-import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -12,28 +11,22 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.shape.Box;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Deltager;
-import model.Tilmelding;
-import org.xml.sax.HandlerBase;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.ArrayList;
+import java.io.File;
 
-//import java.lang.foreign.AddressLayout;
 public class OpretBrugerVindue extends Stage {
 
     private Deltager deltager;
     private HBox bundHbox = new HBox();
 
-    private HBox topHbox = new HBox();
+    private VBox topVbox = new VBox();
     private TextField txfBrugernavn = new TextField();
     private TextField txfNavn = new TextField();
     private TextField txfAdresse = new TextField();
@@ -60,6 +53,11 @@ public class OpretBrugerVindue extends Stage {
     private Button btnOpretBruger = new Button("Opret Bruger");
 
     private Button btnUploadProfilbillede = new Button("Upload Profilbillede");
+
+
+    File file = new File("src/main/resources/pb.png");
+    Image image = new Image(file.toURI().toString());
+    ImageView imgProfile = new ImageView(image);
 
     public OpretBrugerVindue() {
         this.setTitle("Opret Bruger");
@@ -95,32 +93,28 @@ public class OpretBrugerVindue extends Stage {
         gridPane.setAlignment(Pos.CENTER);
 
 
-//        lblHeading.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
+        //  lblHeading.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
 
         gridPane.add(txfBrugernavn, 1, 4);
         gridPane.add(psfKodeord, 3, 4);
-
-
         gridPane.add(txfNavn, 1, 5);
         gridPane.add(txfAdresse, 3, 5);
-
-
         gridPane.add(txfTlf, 1, 6);
         gridPane.add(txfBy, 3, 6);
-
-
         gridPane.add(txfFirma, 1, 7);
         gridPane.add(txfLand, 3, 7);
-
-
         gridPane.add(bundHbox, 0, 8, 7, 1);
         bundHbox.getChildren().add(btnOpretBruger);
         bundHbox.setAlignment(Pos.BASELINE_CENTER);
 
-        gridPane.add(topHbox, 0, 0, 7, 1);
-//        topHbox.getChildren().add(btnUploadProfilbillede);
-//        topHbox.getChildren().add(profilBillede)
-        topHbox.setAlignment(Pos.BASELINE_CENTER);
+        gridPane.add(topVbox, 0, 0, 7, 1);
+
+        imgProfile.setFitWidth(250);
+        imgProfile.setFitHeight(250);
+        imgProfile.setPreserveRatio(true);
+        topVbox.getChildren().addAll(imgProfile, btnUploadProfilbillede);
+        topVbox.setAlignment(Pos.BASELINE_CENTER);
+        topVbox.setSpacing(15);
 
         btnOpretBruger.setOnAction(event -> opretBrugerAction());
         if (deltager != null) {
@@ -129,6 +123,8 @@ public class OpretBrugerVindue extends Stage {
 //        btnOpretBruger.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
 
         btnUploadProfilbillede.setFont(Font.font("verdana", FontWeight.NORMAL, FontPosture.REGULAR, 10));
+
+        btnUploadProfilbillede.setOnAction(e -> uploadBilledeAction());
 
 
         gridPane.add(lblBrugernavn, 0, 4);
@@ -154,7 +150,14 @@ public class OpretBrugerVindue extends Stage {
 
 
     public void uploadBilledeAction() {
-
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        File fileImg = fileChooser.showOpenDialog(this);
+        Image imageChosen = new Image(fileImg.toURI().toString());
+        imgProfile.setImage(imageChosen);
+        imgProfile.setFitWidth(250);
+        imgProfile.setFitHeight(250);
+        imgProfile.setPreserveRatio(true);
     }
 
     public void opretBrugerAction() {
@@ -166,6 +169,7 @@ public class OpretBrugerVindue extends Stage {
         String by = txfBy.getText();
         String firma = txfFirma.getText();
         String land = txfLand.getText();
+        Image imageChosen = imgProfile.getImage();
 
         if (brugernavn.isEmpty() || kodeord.isEmpty() || navn.isEmpty() || navn.isEmpty() || adresse.isEmpty() || tlf.isEmpty() || by.isEmpty() || land.isEmpty() || !erRigtigTelefonNummer(tlf)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -194,9 +198,11 @@ public class OpretBrugerVindue extends Stage {
         } else {
             if (deltager != null) {
                 Controller.opdaterDeltager(deltager, brugernavn, kodeord, navn, adresse, by, land, tlf);
+                deltager.setImageChosen(imageChosen);
                 this.hide();
             } else {
                 deltager = Controller.opretDeltager(brugernavn, kodeord, navn, adresse, by, land, tlf);
+                deltager.setImageChosen(imageChosen);
                 VindueManager.adminVindue.updateGUI();
                 this.hide();
             }
@@ -220,6 +226,7 @@ public class OpretBrugerVindue extends Stage {
         txfFirma.setText(deltager.getFirma());
         txfLand.setText(deltager.getLand());
         txfTlf.setText(deltager.getTlf());
+        imgProfile.setImage(deltager.getImageChosen());
     }
 
     // ==================== Helpers ===================
@@ -250,6 +257,18 @@ public class OpretBrugerVindue extends Stage {
 
     public Deltager getDeltager() {
         return deltager;
+    }
+
+    public void clearGUI() {
+        txfBrugernavn.clear();
+        psfKodeord.clear();
+        txfLand.clear();
+        txfAdresse.clear();
+        txfFirma.clear();
+        txfTlf.clear();
+        txfBy.clear();
+        txfNavn.clear();
+        imgProfile.setImage(image);
     }
 }
 

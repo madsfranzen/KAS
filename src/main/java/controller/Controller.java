@@ -63,6 +63,14 @@ public abstract class Controller {
         return hotel;
     }
 
+    public static void sletHotel(Hotel hotel) {
+        Storage.deleteHotel(hotel);
+    }
+
+    public static void sletKonference(Konference konference) {
+        Storage.deleteKonference(konference);
+    }
+
     public static HotelTilvalg opretHotelTilvalg(String hotelTilvalgType, double pris, Hotel hotel) {
         HotelTilvalg hotelTilvalg = new HotelTilvalg(hotelTilvalgType, pris);
         hotel.tilføjHotelTilvalg(hotelTilvalg);
