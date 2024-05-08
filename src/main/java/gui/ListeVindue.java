@@ -34,26 +34,23 @@ public class ListeVindue extends Stage {
         txa.setFocusTraversable(false);
         txa.setMaxWidth(325);
         txa.setMinHeight(666);
-
     }
 
     public void visDeltagerKonference(Konference konference) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(String.format("=========%s=========", konference.getNavn()));
-            ArrayList<Deltager> deltagere = konference.visDeltagere();
-            for (Deltager deltager : deltagere) {
-                sb.append(deltager + "\n");
-            }
-            txa.setText(sb.toString());
+        ArrayList<Deltager> deltagere = new ArrayList<>();
 
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("=========%s=========\n", konference.getNavn()));
 
-//        StringBuilder sb = new StringBuilder();
-//        sb.append(String.format("=========%s=========", konference.getNavn()));
-//        ArrayList<Deltager> deltagere = konference.visDeltagere();
-//        for (Deltager deltager : deltagere) {
-//            sb.append(deltager + "\n");
-//        }
-//        txa.setText(sb.toString());
+        for (Tilmelding tilmelding : konference.getTilmeldinger()) {
+            // tilføjer alle konferencens Tilmeldinger til en Arraylist af DELTAGERE, så navn og info kan hentes.
+            deltagere.add(tilmelding.getDeltager());
+        }
+
+        for (Deltager deltager : deltagere)
+            // midlertidig print - RALFERT FIXER
+            sb.append(deltager + "\n");
+        txa.setText(sb.toString());
     }
 
     public void visUdflugter(Konference konference) {

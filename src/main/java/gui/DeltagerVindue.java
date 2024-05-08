@@ -201,7 +201,6 @@ public class DeltagerVindue extends Stage {
             sb.append(String.format("Start Dato: " + konference.getStartDato() + "\n"));
             sb.append(String.format("Slut Dato: " + konference.getSlutDato() + "\n"));
             txaKonferenceInfo.setText(sb.toString());
-
         }
     }
 
