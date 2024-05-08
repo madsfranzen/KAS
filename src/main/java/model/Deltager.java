@@ -30,6 +30,7 @@ public class Deltager extends Bruger {
         return String.format("%s", navn);
     }
 
+
     public String infoToString() {
         StringBuilder sb = new StringBuilder();
         sb.append(String.format(navn + "\n"));
@@ -117,7 +118,6 @@ public class Deltager extends Bruger {
         this.land = land;
         this.tlf = tlf;
     }
-
     public void setImageChosen(Image imageChosen) {
         this.imageChosen = imageChosen;
     }

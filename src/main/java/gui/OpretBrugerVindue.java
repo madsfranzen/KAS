@@ -171,6 +171,8 @@ public class OpretBrugerVindue extends Stage {
         String land = txfLand.getText();
         Image imageChosen = imgProfile.getImage();
 
+        /* Tjekker om nogle af felterne er tomme eller om der bliver brugt tal nogle steder hvor der ikke må være tal eller omvendt */
+
         if (brugernavn.isEmpty() || kodeord.isEmpty() || navn.isEmpty() || navn.isEmpty() || adresse.isEmpty() || tlf.isEmpty() || by.isEmpty() || land.isEmpty() || !erRigtigTelefonNummer(tlf)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Fejl");
@@ -207,13 +209,6 @@ public class OpretBrugerVindue extends Stage {
                 this.hide();
             }
         }
-
-        // Kommenteret ud da vi mangler constructor til at oprette deltager med firma
-
-//
-//        if (!firma.isEmpty()) {
-//            Controller.opretDeltager(brugernavn, kodeord, navn, adresse, by, land, tlf, firma);
-//        }
     }
 
 
@@ -231,28 +226,31 @@ public class OpretBrugerVindue extends Stage {
 
     // ==================== Helpers ===================
 
+    /* Tjekker om telefonnummeret indholder tal og ikke bogstaver samt om de er 8 cifre */
     private boolean erRigtigTelefonNummer(String nummer) {
+        boolean erRigtig = true;
         if (nummer.length() != 8) {
-            return false;
+            erRigtig = false;
         }
         for (int i = 0; i < nummer.length(); i++) {
             if (!Character.isDigit(nummer.charAt(i))) {
-                return false;
+                erRigtig = false;
             }
         }
-        return true;
+        return erRigtig;
     }
 
 
-    // Forstår ik den her funktion, pls explain jona!
+    /* Tjekker om navnet kun er bogstaver, "-" og mellemrum */
     private boolean erRigtigNavn(String navn) {
+        boolean erRigtigt = true;
         for (int i = 0; i < navn.length(); i++) {
             char c = navn.charAt(i);
-            if (!Character.isLetter(c) && c != ' ') {
-                return false;
+            if (!Character.isLetter(c) && c != ' ' && c != '-') {
+                erRigtigt = false;
             }
         }
-        return true;
+        return erRigtigt;
     }
 
     public Deltager getDeltager() {

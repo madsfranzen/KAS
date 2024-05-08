@@ -77,6 +77,7 @@ public class Konference {
         }
     }
 
+    /* Henter Deltager og Ledsager på en udflugt samt printer dem */
     public void hent_DL_PåUdflugt() {
         for (Udflugt udflugt : udflugter) {
             System.out.print(udflugt.toString());

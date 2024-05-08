@@ -230,6 +230,7 @@ public class AdminVindue extends Stage {
         }
     }
 
+    /* Metoden finder ud af hvilket hotel der er valgt */
     public void selectedHotelChanged() {
         Hotel hotel = (Hotel) lvwHoteller.getSelectionModel().getSelectedItem();
         // Opdater listview af HotelTilvalg
@@ -243,7 +244,7 @@ public class AdminVindue extends Stage {
             txaHotelInfo.setText(sb.toString());
         }
     }
-
+    /* Metoden finder ud af hvilken konference der er valgt */
     public void selectedKonferenceChanged() {
         Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
         // Opdater listview af Udflugtter
