@@ -80,9 +80,8 @@ public class LoginVindue extends Stage {
         gridPane.add(hBox, 0, 7);
         hBox.setAlignment(Pos.CENTER);
         txaKoder.setMaxWidth(200);
-        txaKoder.setMaxHeight(200);
+        txaKoder.setMaxHeight(250);
         txaKoder.setEditable(false);
-        txaKoder.setMouseTransparent(true);
         txaKoder.setFocusTraversable(false);
 
         GridPane.setHalignment(lblBrugernavn, javafx.geometry.HPos.CENTER);
