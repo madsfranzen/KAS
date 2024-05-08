@@ -247,7 +247,6 @@ public class AdminVindue extends Stage {
         loginVindue.show();
     }
 
-
     public void selectedDeltagerChanged() {
         Deltager deltager = lvwBrugere.getSelectionModel().getSelectedItem();
         if (deltager != null) {

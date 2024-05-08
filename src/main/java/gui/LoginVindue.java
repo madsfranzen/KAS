@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -25,11 +26,18 @@ public class LoginVindue extends Stage {
 
     private Label lblBrugernavn = new Label("Brugernavn :");
     private Label lblKodeOrd = new Label("Kodeord :");
-
-
+    
     private Button btnLogin = new Button("Login");
     private Button btnOpretBruger = new Button("Opret Bruger");
 
+    private TextArea txaKoder = new TextArea(
+            "LOGINS TIL MIKAEL: \n\n" +
+                    "Admin Konto:\n" +
+                    "admin\n" +
+                    "admin\n\n" +
+                    "Deltager Konto:\n" +
+                    "PetPet\n" +
+                    "kode");
 
     public LoginVindue() {
         this.setTitle("KonferenceAdministrationsSystem");
@@ -48,7 +56,6 @@ public class LoginVindue extends Stage {
         gridPane.setVgap(25);
         gridPane.setPadding(new Insets(100));
         gridPane.setAlignment(Pos.CENTER);
-
 
         File logoFile = new File("src/main/resources/logo.png");
         Image logo = new Image(logoFile.toURI().toString());
@@ -69,6 +76,14 @@ public class LoginVindue extends Stage {
         gridPane.add(btnOpretBruger, 0, 6);
         gridPane.add(lblBrugernavn, 0, 1);
         gridPane.add(lblKodeOrd, 0, 3);
+        HBox hBox = new HBox(txaKoder);
+        gridPane.add(hBox, 0, 7);
+        hBox.setAlignment(Pos.CENTER);
+        txaKoder.setMaxWidth(200);
+        txaKoder.setMaxHeight(200);
+        txaKoder.setEditable(false);
+        txaKoder.setMouseTransparent(true);
+        txaKoder.setFocusTraversable(false);
 
         GridPane.setHalignment(lblBrugernavn, javafx.geometry.HPos.CENTER);
         GridPane.setHalignment(lblKodeOrd, javafx.geometry.HPos.CENTER);

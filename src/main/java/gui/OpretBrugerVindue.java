@@ -54,9 +54,9 @@ public class OpretBrugerVindue extends Stage {
     private final Button btnUploadProfilbillede = new Button("Upload Profilbillede");
 
 
-    File file = new File("src/main/resources/pb.png");
-    Image image = new Image(file.toURI().toString());
-    ImageView imgProfile = new ImageView(image);
+    private File file = new File("src/main/resources/pb.png");
+    private Image image = new Image(file.toURI().toString());
+    private ImageView imgProfile = new ImageView(image);
 
     public OpretBrugerVindue() {
         this.setTitle("Opret Bruger");
@@ -81,16 +81,10 @@ public class OpretBrugerVindue extends Stage {
     private void initContent(BorderPane pane) {
         GridPane gridPane = new GridPane();
         pane.setCenter(gridPane);
-
-
         gridPane.setHgap(15);
         gridPane.setVgap(15);
         gridPane.setPadding(new Insets(20));
-
         gridPane.setAlignment(Pos.CENTER);
-
-
-        //  lblHeading.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
 
         gridPane.add(txfBrugernavn, 1, 4);
         gridPane.add(psfKodeord, 3, 4);
@@ -117,12 +111,9 @@ public class OpretBrugerVindue extends Stage {
         if (deltager != null) {
             btnOpretBruger.setText("Opdater bruger");
         }
-//        btnOpretBruger.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
 
         btnUploadProfilbillede.setFont(Font.font("verdana", FontWeight.NORMAL, FontPosture.REGULAR, 10));
-
         btnUploadProfilbillede.setOnAction(e -> uploadBilledeAction());
-
 
         gridPane.add(lblBrugernavn, 0, 4);
         gridPane.add(lblKodeOrd, 2, 4);
@@ -142,7 +133,6 @@ public class OpretBrugerVindue extends Stage {
         GridPane.setHalignment(lblAdresse, javafx.geometry.HPos.RIGHT);
         GridPane.setHalignment(lblBy, javafx.geometry.HPos.RIGHT);
         GridPane.setHalignment(lblLand, javafx.geometry.HPos.RIGHT);
-
     }
 
 

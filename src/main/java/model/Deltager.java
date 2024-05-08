@@ -15,6 +15,7 @@ public class Deltager extends Bruger {
     private Image imageChosen;
     private final ArrayList<Tilmelding> tilmeldinger = new ArrayList<Tilmelding>();
 
+
     public Deltager(String brugernavn, String kodeord, String navn, String adresse, String by, String land, String tlf) {
         super(brugernavn, kodeord);
         this.navn = navn;
@@ -117,6 +118,7 @@ public class Deltager extends Bruger {
         this.land = land;
         this.tlf = tlf;
     }
+
     public void setImageChosen(Image imageChosen) {
         this.imageChosen = imageChosen;
     }

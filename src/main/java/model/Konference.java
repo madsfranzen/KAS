@@ -39,7 +39,7 @@ public class Konference {
         }
     }
 
-    public void tilføjHotel(Hotel hotel){
+    public void tilføjHotel(Hotel hotel) {
         this.hoteller.add(hotel);
     }
 
@@ -77,7 +77,9 @@ public class Konference {
         }
     }
 
-    /* Henter Deltager og Ledsager på en udflugt samt printer dem */
+    /**
+     * Henter Deltager og Ledsager på en udflugt -> printer dem
+     */
     public void hent_DL_PåUdflugt() {
         for (Udflugt udflugt : udflugter) {
             System.out.print(udflugt.toString());
