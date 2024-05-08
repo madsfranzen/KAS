@@ -323,11 +323,24 @@ public class AdminVindue extends Stage {
     public void opretTilmelding() {
         Konference konference = (Konference) lvwKonferencer.getSelectionModel().getSelectedItem();
         Deltager deltager = (Deltager) lvwBrugere.getSelectionModel().getSelectedItem();
-        if (konference != null && deltager != null) {
+        Boolean erTilmeldt = false;
+
+        for ( Tilmelding tilmelding : deltager.getTilmeldinger() ) {
+            if (tilmelding.getKonference().equals(konference)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Fejl");
+                alert.setContentText("Du kan ikke oprette 2 tilmeldinger til samme konference");
+                alert.showAndWait();
+                erTilmeldt = true;
+
+            }
+        }
+
+        if (konference != null && deltager != null && !erTilmeldt) {
             TilmeldingsVindue tilmeldingsVindue = new TilmeldingsVindue(konference, deltager);
             tilmeldingsVindue.showAndWait();
             lvwTilmeldinger.getItems().setAll(deltager.getTilmeldinger());
-        } else {
+        } else if ( !erTilmeldt){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setContentText("Vælg venlist en deltager, og en konference");
