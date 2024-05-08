@@ -65,6 +65,7 @@ public class Booking {
     private int getDage() {
         return Period.between(startDato, slutDato).getDays();
     }
+
     @Override
     public String toString() {
         return String.format("%s : %s fra %s -> %s (%.2f kr)", hotel,tilmelding.getDeltager(), startDato, slutDato, beregnPris());
