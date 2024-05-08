@@ -233,6 +233,7 @@ public class TilmeldingsVindue extends Stage {
         LocalDate bookingSlutDato = dpCheckUd.getValue();
         Hotel hotel = (Hotel) lvwHoteller.getSelectionModel().getSelectedItem();
 
+
         if (startDato == null) {
             inputIsValid = false;
             showAlert("Indtast en start dato");
