@@ -150,12 +150,13 @@ public class TilmeldingsVindue extends Stage {
         lvwUdflugter.setDisable(true);
 
 
-        Label lblSamletPris = new Label("Samlet Pris:");
-
-        pane.add(lblSamletPris, 2, 9);
-        pane.add(txfSamletPris, 3, 9);
-        GridPane.setHalignment(lblSamletPris, HPos.RIGHT);
-        txfSamletPris.setMaxWidth(100);
+        // Todo, få det her til at virke
+//        Label lblSamletPris = new Label("Samlet Pris:");
+//
+//        pane.add(lblSamletPris, 2, 9);
+//        pane.add(txfSamletPris, 3, 9);
+//        GridPane.setHalignment(lblSamletPris, HPos.RIGHT);
+//        txfSamletPris.setMaxWidth(100);
         Button btnOpretTilmelding = new Button("Opret Tilmelding");
         if (tilmelding != null) {
             btnOpretTilmelding.setText("Opdater Tilmelding");
@@ -267,9 +268,11 @@ public class TilmeldingsVindue extends Stage {
 
         }
 
+        boolean tilmeldingOpdateret = false;
         if (tilmelding != null) {
             Controller.sletTilmelding(konference, deltager, tilmelding);
             tilmelding = null;
+            tilmeldingOpdateret = true;
         }
         if (inputIsValid) {
             tilmelding = Controller.opretTilmelding(startDato, slutDato, foredragsholder, deltager, konference);
@@ -288,9 +291,48 @@ public class TilmeldingsVindue extends Stage {
                     booking.tilføjTilvalg((HotelTilvalg) tilvalg);
                 }
             }
+            if (!tilmeldingOpdateret) {
+                visBekræftigelse(tilmelding);
+            }
             this.hide();
         }
 
+    }
+
+
+    private void visBekræftigelse(Tilmelding tilmelding) {
+
+        // Vis bekræftigelse
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Tilmelding oprettet");
+        StringBuilder sb = new StringBuilder();
+        if (tilmelding.isForedragsholder()) {
+            sb.append(String.format("Du har tilmeldt dig %s som foredragsholder, fra %s til %s\n", konference.getNavn(), tilmelding.getStartDato(), tilmelding.getSlutDato()));
+        } else {
+            sb.append(String.format("Du har tilmeldt dig %s, fra %s til %s\n", konference.getNavn(), tilmelding.getStartDato(), tilmelding.getSlutDato()));
+        }
+        if (tilmelding.getLedsager() != null) {
+            sb.append(String.format("Ledsager: %s \n", tilmelding.getLedsager()));
+            if (!tilmelding.getUdflugter().isEmpty()) {
+                sb.append(String.format("%s er tilmeldt: ", tilmelding.getLedsager()));
+                for (Udflugt udflugt : tilmelding.getUdflugter()) {
+                    sb.append(String.format("%s \n", udflugt.getNavn()));
+                }
+            }
+        }
+        if (tilmelding.getBooking() != null) {
+            Booking booking = tilmelding.getBooking();
+            sb.append(String.format("Du har booket hotelophold på %s fra %s til %s \n", booking.getHotel(), booking.getStartDato(), booking.getSlutDato()));
+            if (!tilmelding.getBooking().getTilvalg().isEmpty()) {
+                sb.append("Med tilvalg:");
+                for (HotelTilvalg tilvalg : tilmelding.getBooking().getTilvalg()) {
+                    sb.append(String.format("%s, ", tilvalg));
+                }
+            }
+        }
+        alert.setContentText(sb.toString());
+        alert.showAndWait();
+        this.hide();
     }
 
     private void hotelValg() {
